@@ -126,18 +126,19 @@ class _LoginPageState extends State<LoginPage> {
                             fontWeight: FontWeight.normal),
                       ),
                       TextButton(
-                          style: ButtonStyle(
-                            overlayColor:
-                                MaterialStateProperty.all(Colors.transparent),
-                          ),
-                          onPressed: () {},
-                          child: Text(
-                            'Sign Up',
-                            style: quicksand(
-                                color: linen,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold),
-                          ))
+                        style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'Sign Up',
+                          style: quicksand(
+                              color: linen,
+                              fontSize: 18.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
                     ],
                   ),
                 )

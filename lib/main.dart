@@ -1,5 +1,5 @@
 import 'package:animecom/pre-sets.dart';
-import 'package:animecom/splashscreen/view.dart';
+import 'package:animecom/views/splash_view.dart';
 import 'package:flutter/material.dart';
 
 void main() {

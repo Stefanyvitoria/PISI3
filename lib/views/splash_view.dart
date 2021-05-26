@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:animecom/login_page/view.dart';
+import 'package:animecom/views/login_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:animecom/pre-sets.dart';
 
