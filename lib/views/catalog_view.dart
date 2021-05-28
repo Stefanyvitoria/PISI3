@@ -1,4 +1,5 @@
 import 'package:animecom/pre-sets.dart';
+import 'package:animecom/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
@@ -164,6 +165,12 @@ class _CatalogState extends State<Catalog> {
                             color: darkpurple,
                           ),
                           ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => SettingsPage()));
+                            },
                             leading: Icon(
                               Icons.settings,
                               color: darkpurple,
