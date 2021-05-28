@@ -1,5 +1,7 @@
 import 'package:animecom/pre-sets.dart';
 import 'package:flutter/material.dart';
+import 'package:animecom/views/post_login_screens.dart';
+import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 
 class Catalog extends StatefulWidget {
   @override
@@ -9,126 +11,7 @@ class Catalog extends StatefulWidget {
 class _CatalogState extends State<Catalog> {
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
-  static List<Widget> _widgetOptions = <Widget>[
-    Container(
-      decoration: BoxDecoration(color: Colors.white),
-      child: ListView(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 30, left: 50, right: 50),
-            child: Container(
-              child: Center(
-                child: Text(
-                  'Top Rated',
-                  style: quicksand(
-                      color: linen,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-              height: 160,
-              width: 50,
-              decoration: BoxDecoration(
-                  color: darkpurple,
-                  borderRadius: BorderRadius.all(Radius.circular(25))),
-            ),
-          ),
-          Padding(
-              padding: EdgeInsets.only(top: 25, left: 50, right: 50),
-              child: Container(
-                child: Center(
-                  child: Text(
-                    'Shonen',
-                    style: quicksand(
-                        color: linen,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                height: 160,
-                width: 50,
-                decoration: BoxDecoration(
-                    color: darkpurple,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-              )),
-          Padding(
-              padding: EdgeInsets.only(top: 25, left: 50, right: 50),
-              child: Container(
-                child: Center(
-                  child: Text(
-                    'Comedy',
-                    style: quicksand(
-                        color: linen,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                height: 160,
-                width: 50,
-                decoration: BoxDecoration(
-                    color: darkpurple,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-              )),
-          Padding(
-              padding: EdgeInsets.only(top: 25, left: 50, right: 50),
-              child: Container(
-                child: Center(
-                  child: Text(
-                    'Isekai',
-                    style: quicksand(
-                        color: linen,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                height: 160,
-                width: 50,
-                decoration: BoxDecoration(
-                    color: darkpurple,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-              )),
-          Padding(
-              padding: EdgeInsets.only(top: 25, left: 50, right: 50),
-              child: Container(
-                child: Center(
-                  child: Text(
-                    'Shoujo',
-                    style: quicksand(
-                        color: linen,
-                        fontSize: 18.0,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                height: 160,
-                width: 50,
-                decoration: BoxDecoration(
-                    color: darkpurple,
-                    borderRadius: BorderRadius.all(Radius.circular(25))),
-              ))
-        ],
-      ),
-    ),
-    Container(
-      child: Center(
-        child: Text(
-          'Profile',
-          style: quicksand(
-              color: linen, fontSize: 25.0, fontWeight: FontWeight.bold),
-        ),
-      ),
-      color: darkpurple,
-    ),
-    Container(
-      child: Center(
-        child: Text(
-          'Search',
-          style: quicksand(
-              color: linen, fontSize: 25.0, fontWeight: FontWeight.bold),
-        ),
-      ),
-      color: darkpurple,
-    ),
-  ];
+  static List<Widget> _widgetOptions = <Widget>[catalog, profile, search];
 
   void _onItemTapped(int index) {
     setState(() {
@@ -150,33 +33,48 @@ class _CatalogState extends State<Catalog> {
             )),
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false),
-        bottomNavigationBar: BottomNavigationBar(
-          iconSize: 35,
-          unselectedFontSize: 12,
-          selectedFontSize: 14,
-          selectedIconTheme: IconThemeData(size: 40),
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                ),
-                label: 'Home',
-                backgroundColor: Colors.red),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.person),
-                label: 'Profile',
-                backgroundColor: Colors.green),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'Search',
-            ),
+        bottomNavigationBar: CurvedNavigationBar(
+          animationDuration: Duration(milliseconds: 400),
+          animationCurve: Curves.fastOutSlowIn,
+          height: 50,
+          backgroundColor: darkpurple,
+          onTap: (index) {
+            _onItemTapped(index);
+          },
+          items: <Widget>[
+            Icon(Icons.home),
+            Icon(Icons.person),
+            Icon(Icons.search),
           ],
-          currentIndex: _selectedIndex,
-          selectedItemColor: slateblue,
-          onTap: _onItemTapped,
         ),
         body: Container(
           child: _widgetOptions.elementAt(_selectedIndex),
         ));
   }
 }
+
+// BottomNavigationBar(
+//           iconSize: 35,
+//           unselectedFontSize: 12,
+//           selectedFontSize: 14,
+//           selectedIconTheme: IconThemeData(size: 40),
+//           items: const <BottomNavigationBarItem>[
+//             BottomNavigationBarItem(
+//                 icon: Icon(
+//                   Icons.home,
+//                 ),
+//                 label: 'Home',
+//                 backgroundColor: Colors.red),
+//             BottomNavigationBarItem(
+//                 icon: Icon(Icons.person),
+//                 label: 'Profile',
+//                 backgroundColor: Colors.green),
+//             BottomNavigationBarItem(
+//               icon: Icon(Icons.search),
+//               label: 'Search',
+//             ),
+//           ],
+//           currentIndex: _selectedIndex,
+//           selectedItemColor: slateblue,
+//           onTap: _onItemTapped,
+//         ),
