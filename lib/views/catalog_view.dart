@@ -8,6 +8,20 @@ class Catalog extends StatefulWidget {
 }
 
 class _CatalogState extends State<Catalog> {
+  List genders = [
+    'Top Rated',
+    'Favorites',
+    'Shounen',
+    'Shoujo',
+    'Comedy',
+    'Sobrenatural',
+    'Yuri',
+    'Yaoi',
+    'Hentai',
+    'Ecchi',
+    'Adventure',
+    'Action'
+  ];
   PageController _pageController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
@@ -67,105 +81,31 @@ class _CatalogState extends State<Catalog> {
             },
             children: [
               Container(
-                decoration: BoxDecoration(color: Colors.white),
+                decoration: BoxDecoration(color: darkpurple),
                 child: ListView(
                   children: <Widget>[
-                    Padding(
-                      padding: EdgeInsets.only(top: 30, left: 30, right: 30),
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            'Top Rated',
-                            style: quicksand(
-                                color: linen,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold),
+                    for (String item in genders)
+                      Padding(
+                        padding: EdgeInsets.only(
+                            top: 10, left: 30, right: 30, bottom: 10),
+                        child: Container(
+                          child: Center(
+                            child: Text(
+                              item,
+                              style: quicksand(
+                                  color: darkpurple,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
+                          height: 160,
+                          width: 50,
+                          decoration: BoxDecoration(
+                              color: gainsboro,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(25))),
                         ),
-                        height: 160,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            color: darkpurple,
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25))),
                       ),
-                    ),
-                    Padding(
-                        padding: EdgeInsets.only(top: 25, left: 30, right: 30),
-                        child: Container(
-                          child: Center(
-                            child: Text(
-                              'Shonen',
-                              style: quicksand(
-                                  color: linen,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          height: 160,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              color: darkpurple,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                        )),
-                    Padding(
-                        padding: EdgeInsets.only(top: 25, left: 30, right: 30),
-                        child: Container(
-                          child: Center(
-                            child: Text(
-                              'Comedy',
-                              style: quicksand(
-                                  color: linen,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          height: 160,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              color: darkpurple,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                        )),
-                    Padding(
-                        padding: EdgeInsets.only(top: 25, left: 30, right: 30),
-                        child: Container(
-                          child: Center(
-                            child: Text(
-                              'Isekai',
-                              style: quicksand(
-                                  color: linen,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          height: 160,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              color: darkpurple,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                        )),
-                    Padding(
-                        padding: EdgeInsets.only(top: 25, left: 30, right: 30),
-                        child: Container(
-                          child: Center(
-                            child: Text(
-                              'Shoujo',
-                              style: quicksand(
-                                  color: linen,
-                                  fontSize: 18.0,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          height: 160,
-                          width: 50,
-                          decoration: BoxDecoration(
-                              color: darkpurple,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(25))),
-                        ))
                   ],
                 ),
               ),

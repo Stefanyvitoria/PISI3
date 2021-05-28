@@ -116,6 +116,20 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
+                      TextButton(
+                        style: ButtonStyle(
+                          overlayColor:
+                              MaterialStateProperty.all(Colors.transparent),
+                        ),
+                        onPressed: () {},
+                        child: Text(
+                          'Forgot your password?',
+                          style: quicksand(
+                              color: linen,
+                              fontSize: 12.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      )
                     ],
                   ),
                   decoration: BoxDecoration(
@@ -127,37 +141,42 @@ class _LoginPageState extends State<LoginPage> {
                 Container(
                   height: height * 0.1,
                   alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Don't have an account?",
-                        style: quicksand(
-                            color: linen,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.normal),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Text(
+                            "Don't have an account?",
+                            style: quicksand(
+                                color: linen,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal),
+                          ),
+                          TextButton(
+                            style: ButtonStyle(
+                              overlayColor:
+                                  MaterialStateProperty.all(Colors.transparent),
+                            ),
+                            onPressed: () {
+                              Navigator.pushReplacement(
+                                  context,
+                                  PageTransition(
+                                      child: SignupPage(),
+                                      type: PageTransitionType
+                                          .rightToLeftWithFade,
+                                      duration: Duration(milliseconds: 800)));
+                            },
+                            child: Text(
+                              'Sign Up',
+                              style: quicksand(
+                                  color: linen,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          )
+                        ],
                       ),
-                      TextButton(
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  child: SignupPage(),
-                                  type: PageTransitionType.rightToLeftWithFade,
-                                  duration: Duration(milliseconds: 800)));
-                        },
-                        child: Text(
-                          'Sign Up',
-                          style: quicksand(
-                              color: linen,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
                     ],
                   ),
                 )

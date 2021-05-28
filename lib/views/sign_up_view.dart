@@ -142,38 +142,42 @@ class _SignupPageState extends State<SignupPage> {
                 Container(
                   height: height * 0.1,
                   alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Already have an account?",
-                        style: quicksand(
-                            color: linen,
-                            fontSize: 18.0,
-                            fontWeight: FontWeight.normal),
-                      ),
-                      TextButton(
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                        onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  child: LoginPage(),
-                                  type: PageTransitionType.leftToRightWithFade,
-                                  duration: Duration(milliseconds: 800)));
-                        },
-                        child: Text(
-                          'Sign In',
+                  child: Padding(
+                    padding: const EdgeInsets.only(bottom: 30.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          "Already have an account?",
                           style: quicksand(
                               color: linen,
-                              fontSize: 18.0,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.normal),
                         ),
-                      )
-                    ],
+                        TextButton(
+                          style: ButtonStyle(
+                            overlayColor:
+                                MaterialStateProperty.all(Colors.transparent),
+                          ),
+                          onPressed: () {
+                            Navigator.pushReplacement(
+                                context,
+                                PageTransition(
+                                    child: LoginPage(),
+                                    type:
+                                        PageTransitionType.leftToRightWithFade,
+                                    duration: Duration(milliseconds: 800)));
+                          },
+                          child: Text(
+                            'Sign In',
+                            style: quicksand(
+                                color: linen,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],
