@@ -1,16 +1,15 @@
 import 'package:animecom/pre-sets.dart';
-import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'catalog_view.dart';
+import 'login_view.dart';
 
-class LoginPage extends StatefulWidget {
+class SignupPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _SignupPageState createState() => _SignupPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignupPageState extends State<SignupPage> {
   @override
   Widget build(BuildContext context) {
     double height = MediaQuery.of(context).size.height;
@@ -85,6 +84,30 @@ class _LoginPageState extends State<LoginPage> {
                       Padding(
                         padding:
                             const EdgeInsets.only(top: 20, left: 25, right: 25),
+                        child: TextFormField(
+                          obscureText: true,
+                          decoration: InputDecoration(
+                              fillColor: purplenavy,
+                              filled: true,
+                              border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                              ),
+                              prefixIcon: Icon(Icons.vpn_key),
+                              labelText: 'Confirm Password',
+                              labelStyle: quicksand(
+                                  color: linen,
+                                  fontSize: 16.0,
+                                  fontWeight: FontWeight.normal)),
+                          style: quicksand(
+                              color: linen,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.normal),
+                        ),
+                      ),
+                      Padding(
+                        padding:
+                            const EdgeInsets.only(top: 20, left: 25, right: 25),
                         child: TextButton(
                           style: ButtonStyle(
                             fixedSize: MaterialStateProperty.all<Size>(
@@ -98,17 +121,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                    child: Catalog(),
-                                    type:
-                                        PageTransitionType.rightToLeftWithFade,
-                                    duration: Duration(milliseconds: 800)));
-                          },
+                          onPressed: () {},
                           child: Text(
-                            'LOGIN',
+                            'Signup',
                             style: quicksand(
                                 color: darkpurple,
                                 fontSize: 18.0,
@@ -131,7 +146,7 @@ class _LoginPageState extends State<LoginPage> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Text(
-                        "Don't have an account?",
+                        "Already have an account?",
                         style: quicksand(
                             color: linen,
                             fontSize: 18.0,
@@ -146,12 +161,12 @@ class _LoginPageState extends State<LoginPage> {
                           Navigator.pushReplacement(
                               context,
                               PageTransition(
-                                  child: SignupPage(),
-                                  type: PageTransitionType.rightToLeftWithFade,
+                                  child: LoginPage(),
+                                  type: PageTransitionType.leftToRightWithFade,
                                   duration: Duration(milliseconds: 800)));
                         },
                         child: Text(
-                          'Sign Up',
+                          'Sign In',
                           style: quicksand(
                               color: linen,
                               fontSize: 18.0,
