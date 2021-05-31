@@ -26,7 +26,9 @@ class _CatalogState extends State<Catalog> {
   PageController _pageController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
+  
   @override
+
   void initState() {
     super.initState();
     _pageController = PageController();
