@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
 
     return Form(
       key: _key,
-      autovalidate: _validate,
+      autovalidateMode: AutovalidateMode.disabled,
       child: Container(
         height: height,
         child: Scaffold(
