@@ -2,7 +2,6 @@ import 'package:animecom/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-
 import 'catalog_view.dart';
 
 class LoginPage extends StatefulWidget {

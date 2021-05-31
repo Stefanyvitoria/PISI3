@@ -1,4 +1,5 @@
 import 'package:animecom/pre-sets.dart';
+import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -76,6 +77,7 @@ class _CatalogState extends State<Catalog> {
         ),
         body: SizedBox.expand(
           child: PageView(
+            physics: NeverScrollableScrollPhysics(),
             controller: _pageController,
             onPageChanged: (index) {
               setState(() => _selectedIndex = index);
@@ -147,6 +149,12 @@ class _CatalogState extends State<Catalog> {
                           child: Column(
                         children: <Widget>[
                           ListTile(
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Favorites()));
+                            },
                             leading: Icon(
                               Icons.star,
                               color: darkpurple,

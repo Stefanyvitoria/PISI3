@@ -72,12 +72,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     color: darkpurple,
                   ),
                   ListTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsPage()));
-                    },
+                    onTap: () {},
                     leading: Icon(
                       Icons.memory,
                       color: darkpurple,
@@ -140,12 +135,7 @@ class _SettingsPageState extends State<SettingsPage> {
                     color: darkpurple,
                   ),
                   ListTile(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => SettingsPage()));
-                    },
+                    onTap: () {},
                     leading: Icon(
                       Icons.notifications,
                       color: darkpurple,

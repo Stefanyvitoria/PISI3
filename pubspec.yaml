@@ -23,7 +23,10 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  # cloud_firestore: ^2.2.0
+  # firebase: ^9.0.1
+  # firebase_core: ^1.2.0
+  web_socket_channel: ^1.1.0
   bottom_bar_page_transition: ^2.0.0
   curved_navigation_bar: ^0.3.7
   google_fonts: ^2.0.0
