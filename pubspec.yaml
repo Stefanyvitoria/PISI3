@@ -23,6 +23,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  firebase_core: ^0.4.0+9
+  cloud_firestore: ^0.12.9+5
 
   bottom_bar_page_transition: ^2.0.0
   curved_navigation_bar: ^0.3.7
