@@ -46,7 +46,7 @@ class _FavoritesState extends State<Favorites> {
                 child: Column(
                   children: <Widget>[
                     AnimeContainer(
-                      name: 'Haikyuu!!',
+                      name: 'Haikyuu!! Second Season',
                       imgurl:
                           'https://cdn.myanimelist.net/images/anime/7/76014.jpg',
                     )
