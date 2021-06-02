@@ -11,7 +11,6 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   GlobalKey<FormState> _key = new GlobalKey();
-  bool _validate = false;
 
   String _validarEmail(String value) {
     String pattern =
@@ -43,9 +42,6 @@ class _SignupPageState extends State<SignupPage> {
       return true;
     } else {
       // erro de validação
-      setState(() {
-        _validate = true;
-      });
       return false;
     }
   }

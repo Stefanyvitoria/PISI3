@@ -2,6 +2,8 @@ import 'package:animecom/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 import 'catalog_view.dart';
 
 class LoginPage extends StatefulWidget {
@@ -11,7 +13,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> _key = new GlobalKey();
-  bool _validate = false;
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +48,6 @@ class _LoginPageState extends State<LoginPage> {
         return true;
       } else {
         // erro de validação
-        setState(() {
-          _validate = true;
-        });
         return false;
       }
     }
@@ -94,7 +92,9 @@ class _LoginPageState extends State<LoginPage> {
                                 labelStyle: quicksand(
                                     color: linen,
                                     fontSize: 16.0,
-                                    fontWeight: FontWeight.normal)),
+                                    fontWeight: FontWeight.normal
+                                )
+                            ),
                             style: quicksand(
                                 color: linen,
                                 fontSize: 16.0,
@@ -143,7 +143,6 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                             onPressed: () {
-
                               if (_sendForm()) {
                                 Navigator.push(
                                     context,
