@@ -76,7 +76,8 @@ class _LoginPageState extends State<LoginPage> {
                   height: height * 0.6,
                   child: Column(
                     children: <Widget>[
-                      Padding(
+                      Container(
+                        height: height * 0.6 * 0.2,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           validator: _validarEmail,
@@ -100,13 +101,9 @@ class _LoginPageState extends State<LoginPage> {
                               fontWeight: FontWeight.normal),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(
-                          left: 25,
-                          right: 25,
-                          top: 10,
-                          bottom: 10,
-                        ),
+                      Container(
+                        height: height * 0.6 * 0.2,
+                        padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           validator: _validarSenha,
                           obscureText: true,
@@ -129,7 +126,8 @@ class _LoginPageState extends State<LoginPage> {
                               fontWeight: FontWeight.normal),
                         ),
                       ),
-                      Padding(
+                      Container(
+                        height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextButton(
                           style: ButtonStyle(
@@ -164,8 +162,9 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      Flexible(
-                        flex: 1,
+                      Container(
+                        alignment: Alignment.topCenter,
+                        height: height * 0.6 * 0.2,
                         child: TextButton(
                           style: ButtonStyle(
                             overlayColor:
@@ -183,11 +182,6 @@ class _LoginPageState extends State<LoginPage> {
                       )
                     ],
                   ),
-                  decoration: BoxDecoration(
-                      color: darkpurple,
-                      borderRadius: BorderRadius.only(
-                          topLeft: Radius.circular(35),
-                          topRight: Radius.circular(35))),
                 ),
                 Container(
                   height: height * 0.1,
