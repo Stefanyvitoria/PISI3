@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "146209253550",
+    "project_id": "animecom-cdu",
+    "storage_bucket": "animecom-cdu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:146209253550:android:6329974c95027d8b79253f",
+        "android_client_info": {
+          "package_name": "com.example.animecom"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "146209253550-1mi7legfk2dmpbbc47cdenshl55l9qhs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDaZhidYxzsUtJDwdNCdVHWpBL5adhAaoI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "146209253550-1mi7legfk2dmpbbc47cdenshl55l9qhs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
