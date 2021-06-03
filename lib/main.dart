@@ -1,5 +1,6 @@
-import 'package:animecom/pre-sets.dart';
+import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/splash_view.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -9,11 +10,31 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'AnimeCom',
-      theme: ThemeData(primarySwatch: createMaterialColor(linen)),
-      home: SplashScreen(title: 'AnimeCom'),
+    return FutureBuilder(
+      future: Firebase.initializeApp(),
+      builder: (context, snapshot) {
+        while (snapshot.hasError ||
+            snapshot.connectionState == ConnectionState.waiting) {
+          return MaterialApp(
+            debugShowCheckedModeBanner: false,
+            home: Scaffold(
+              body: Container(
+                decoration: BoxDecoration(color: darkpurple),
+                child: Center(
+                  child: CircularProgressIndicator(),
+                ),
+              ),
+            ),
+          );
+        }
+
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'AnimeCom',
+          theme: ThemeData(primarySwatch: createMaterialColor(linen)),
+          home: SplashScreen(title: 'AnimeCom'),
+        );
+      },
     );
   }
 }

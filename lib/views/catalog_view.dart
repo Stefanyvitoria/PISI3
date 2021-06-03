@@ -1,4 +1,4 @@
-import 'package:animecom/pre-sets.dart';
+import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +27,8 @@ class _CatalogState extends State<Catalog> {
   PageController _pageController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
-  
-  @override
 
+  @override
   void initState() {
     super.initState();
     _pageController = PageController();

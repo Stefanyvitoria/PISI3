@@ -1,5 +1,5 @@
-import 'package:animecom/pre-sets.dart';
-import 'package:animecom/widgets/container_anime.dart';
+import 'package:animecom/views/pre-sets.dart';
+import 'package:animecom/views/widgets/container_anime.dart';
 import 'package:flutter/material.dart';
 
 class Favorites extends StatefulWidget {

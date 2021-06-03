@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:animecom/views/login_view.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:animecom/pre-sets.dart';
+import 'package:animecom/views/pre-sets.dart';
 
 class SplashScreen extends StatefulWidget {
   SplashScreen({Key key, this.title}) : super(key: key);
@@ -36,6 +36,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
   Widget build(BuildContext context) {
     return Container(
+      height: MediaQuery.of(context).size.height,
       decoration: BoxDecoration(
           gradient: LinearGradient(
               begin: Alignment.topLeft,
@@ -44,7 +45,6 @@ class _SplashScreenState extends State<SplashScreen> {
                 darkpurple,
                 darkpurple,
               ]),
-          //color: Color(0xFF5464b7),
           image: DecorationImage(image: AssetImage('assets/ANIMECOM.png'))),
     );
   }
