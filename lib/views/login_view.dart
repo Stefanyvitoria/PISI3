@@ -144,7 +144,7 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                           onPressed: () {
                             if (_sendForm()) {
-                              Navigator.push(
+                              Navigator.pushReplacement(
                                   context,
                                   PageTransition(
                                       child: Catalog(),

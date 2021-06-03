@@ -24,6 +24,7 @@ class _CatalogState extends State<Catalog> {
     'Adventure',
     'Action'
   ];
+
   PageController _pageController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
@@ -50,6 +51,7 @@ class _CatalogState extends State<Catalog> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
     return Scaffold(
         appBar: AppBar(
             title: Center(
@@ -116,7 +118,6 @@ class _CatalogState extends State<Catalog> {
               Container(
                 decoration: BoxDecoration(color: darkpurple),
                 child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     Container(
                       child: Column(
@@ -249,8 +250,8 @@ class _CatalogState extends State<Catalog> {
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0XFFDAE2E7)),
-                            fixedSize:
-                                MaterialStateProperty.all<Size>(Size(100, 50)),
+                            fixedSize: MaterialStateProperty.all<Size>(
+                                Size(width / 4, 50)),
                             shape: MaterialStateProperty.all<OutlinedBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(20.0),
