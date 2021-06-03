@@ -1,3 +1,5 @@
+import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -145,6 +147,9 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () {
+                            UserController ctrl = new UserController();
+                            User user = ctrl.getUser("digo@gmail.com");
+                            print(user);
                             if (_sendForm()) {
                               Navigator.push(
                                   context,
