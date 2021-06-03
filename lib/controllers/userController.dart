@@ -21,13 +21,8 @@ class UserController {
     return firestoreModel.update('Users', user, newUser);
   }
 
-  getUser(String email) {
+  Future getUser(String email) async {
     FirestoreModel firestore = new FirestoreModel();
-    firestore.get('Users', email, 'email').then((value) {
-      if (!value.docs.isEmpty) {
-        print(value.docs);
-        return value.docs.map((e) => User.fromJson(e.data()));
-      } else {}
-    });
+    return await firestore.get('Users', email, 'email');
   }
 }

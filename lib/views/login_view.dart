@@ -146,9 +146,9 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             UserController ctrl = new UserController();
-                            User user = ctrl.getUser("digo@gmail.com");
+                            String user = await ctrl.getUser("digo@gmail.com");
                             print(user);
                             if (_sendForm()) {
                               Navigator.push(
