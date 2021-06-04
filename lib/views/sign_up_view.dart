@@ -1,4 +1,4 @@
-import 'package:animecom/controllers/sing_up_controller.dart';
+import 'package:animecom/controllers/userController.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -13,12 +13,12 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
-  SingUpController controller;
+  UserController controller;
   String email, password1, password2;
 
   @override
   void initState() {
-    controller = SingUpController();
+    controller = UserController();
     super.initState();
   }
 
