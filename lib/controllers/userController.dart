@@ -24,7 +24,6 @@ class UserController {
   Future<User> getUser(String email) async {
     var data = await firestoreModel.get(
         collectionName: 'Users', field: 'email', resultfield: email);
-
     return data == null ? null : User.fromJson(data);
   }
 }

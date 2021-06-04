@@ -1,3 +1,4 @@
+import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
@@ -51,7 +52,9 @@ class _CatalogState extends State<Catalog> {
 
   @override
   Widget build(BuildContext context) {
+    User user = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
         appBar: AppBar(
             title: Center(
@@ -133,7 +136,7 @@ class _CatalogState extends State<Catalog> {
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Center(
                               child: Text(
-                                'Profile',
+                                user.name == null ? 'Profile' : user.name,
                                 style: quicksand(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,

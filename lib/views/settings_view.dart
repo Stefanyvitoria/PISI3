@@ -149,6 +149,36 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                 ],
               )),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 15, top: 20),
+              child: Text(
+                'Profile',
+                style: quicksand(
+                    color: linen, fontSize: 20.0, fontWeight: FontWeight.bold),
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 10, right: 10),
+              child: Card(
+                  child: Column(
+                children: <Widget>[
+                  ListTile(
+                    leading: Icon(
+                      Icons.manage_accounts_rounded,
+                      color: darkpurple,
+                      size: 25,
+                    ),
+                    title: Text(
+                      'Accont',
+                      style: quicksand(
+                          color: darkpurple,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
+              )),
             )
           ],
         ),
