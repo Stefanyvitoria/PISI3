@@ -1,5 +1,9 @@
+import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/models/user_model.dart';
+import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 class SettingsPage extends StatefulWidget {
   @override
@@ -7,8 +11,17 @@ class SettingsPage extends StatefulWidget {
 }
 
 class _SettingsPageState extends State<SettingsPage> {
+  UserController userController;
+
+  @override
+  void initState() {
+    userController = new UserController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    User user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(
@@ -170,7 +183,107 @@ class _SettingsPageState extends State<SettingsPage> {
                       size: 25,
                     ),
                     title: Text(
-                      'Accont',
+                      'Account',
+                      style: quicksand(
+                          color: darkpurple,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Divider(
+                    height: 10.0,
+                    color: darkpurple,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      userController.deleteUser(user.email, user.password);
+                      Navigator.pushAndRemoveUntil(
+                          context,
+                          PageTransition(
+                            child: Catalog(),
+                            type: PageTransitionType.rightToLeftWithFade,
+                            duration: Duration(milliseconds: 800),
+                          ),
+                          (route) => false);
+                    },
+                    leading: Icon(
+                      Icons.delete,
+                      color: darkpurple,
+                      size: 25,
+                    ),
+                    title: Text(
+                      'Delete Account',
+                      style: quicksand(
+                          color: darkpurple,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  Divider(
+                    height: 10.0,
+                    color: darkpurple,
+                  ),
+                  ListTile(
+                    onTap: () {
+                      showModalBottomSheet(
+                          context: context,
+                          builder: (context) {
+                            return Container(
+                              height: MediaQuery.of(context).size.height * 0.3,
+                              child: Column(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                      left: 20,
+                                      right: 20,
+                                      top: 20,
+                                      bottom: 10,
+                                    ),
+                                    child: TextFormField(
+                                      onChanged: (value) =>
+                                          user.password = value,
+                                      decoration: InputDecoration(
+                                          prefixIcon: Icon(Icons.password),
+                                          fillColor: purplenavy,
+                                          filled: true,
+                                          border: OutlineInputBorder(
+                                              borderRadius: BorderRadius.all(
+                                                  Radius.circular(20)),
+                                              borderSide: BorderSide(
+                                                  color: Colors.green,
+                                                  width: 20)),
+                                          labelText: 'Password',
+                                          labelStyle: quicksand(
+                                              color: linen,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.normal)),
+                                      style: quicksand(
+                                          color: linen,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.normal),
+                                    ),
+                                  ),
+                                  TextButton(
+                                      onPressed: () {
+                                        Navigator.of(context).pop();
+                                        userController.updateUser(user);
+                                      },
+                                      child: Text(
+                                        'Update',
+                                        style: TextStyle(color: Colors.black),
+                                      ))
+                                ],
+                              ),
+                            );
+                          });
+                    },
+                    leading: Icon(
+                      Icons.password_rounded,
+                      color: darkpurple,
+                      size: 25,
+                    ),
+                    title: Text(
+                      'Password',
                       style: quicksand(
                           color: darkpurple,
                           fontSize: 16.0,

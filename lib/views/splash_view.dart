@@ -26,7 +26,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   route() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       PageTransition(
         child: LoginPage(),

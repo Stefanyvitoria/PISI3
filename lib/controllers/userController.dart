@@ -11,19 +11,15 @@ class UserController {
   }
 
   void deleteUser(String email, String password) {
-    User user = User(email: email, password: password);
-    return firestoreModel.delete('Users', email);
+    firestoreModel.delete('Users', 'email', email);
   }
 
-  updateUser({String email, String password}) {
-    User user = User(email: email, password: password);
-    User newUser = User(email: email, password: password);
-    return firestoreModel.update('Users', user, newUser);
+  void updateUser(User user) {
+    firestoreModel.update('Users', 'email', user.email, user);
   }
 
   Future<User> getUser(String email) async {
-    var data = await firestoreModel.get(
-        collectionName: 'Users', field: 'email', resultfield: email);
+    var data = await firestoreModel.get('Users', 'email', email);
     return data == null ? null : User.fromJson(data);
   }
 }

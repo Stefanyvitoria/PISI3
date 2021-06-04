@@ -7,21 +7,37 @@ class FirestoreModel {
         .add(instanceObject.toJson());
   }
 
-  void delete(String collectionName, instanceId) async {
-    return await FirebaseFirestore.instance
+  update(String collectionName, field, fieldResult, instance) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(collectionName)
-        .doc(instanceId)
-        .delete();
+        .where(field, isEqualTo: fieldResult)
+        .get();
+    querySnapshot.docs.forEach(
+      (doc) {
+        FirebaseFirestore.instance
+            .collection(collectionName)
+            .doc(doc.id)
+            .set(instance.toJson());
+      },
+    );
   }
 
-  void update(String collectionName, instanceObject, newInstance) async {
-    return await FirebaseFirestore.instance
+  delete(String collectionName, String field, resultfield) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(collectionName)
-        .doc(instanceObject)
-        .update(newInstance);
+        .where(field, isEqualTo: resultfield)
+        .get();
+    querySnapshot.docs.forEach(
+      (doc) {
+        FirebaseFirestore.instance
+            .collection(collectionName)
+            .doc(doc.id)
+            .delete();
+      },
+    );
   }
 
-  get({String collectionName, String field, resultfield}) async {
+  get(String collectionName, String field, resultfield) async {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(collectionName)
         .where(field, isEqualTo: resultfield)

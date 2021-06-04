@@ -17,7 +17,7 @@ class _LoginPageState extends State<LoginPage> {
   UserController userController;
   @override
   void initState() {
-    userController = UserController();
+    userController = new UserController();
     super.initState();
   }
 

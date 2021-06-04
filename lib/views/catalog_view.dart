@@ -52,7 +52,8 @@ class _CatalogState extends State<Catalog> {
 
   @override
   Widget build(BuildContext context) {
-    User user = ModalRoute.of(context).settings.arguments;
+    var arg = ModalRoute.of(context).settings.arguments;
+    User user = arg != null ? arg : User();
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -180,9 +181,11 @@ class _CatalogState extends State<Catalog> {
                           ListTile(
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SettingsPage()));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingsPage(),
+                                    settings: RouteSettings(arguments: user)),
+                              );
                             },
                             leading: Icon(
                               Icons.settings,
