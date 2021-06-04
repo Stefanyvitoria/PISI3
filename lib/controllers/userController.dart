@@ -21,8 +21,10 @@ class UserController {
     return firestoreModel.update('Users', user, newUser);
   }
 
-  Future getUser(String email) async {
+  Future<bool> getUser(String email) async {
     FirestoreModel firestore = new FirestoreModel();
-    return await firestore.get('Users', email, 'email');
+    QuerySnapshot<Map<String, dynamic>> query =
+        await firestore.get('Users', email, 'email');
+    return query.docs.isEmpty;
   }
 }
