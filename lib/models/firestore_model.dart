@@ -21,11 +21,15 @@ class FirestoreModel {
         .update(newInstance);
   }
 
-  Future<QuerySnapshot<Map<String, dynamic>>> get(
-      String collectionName, instance, field) async {
-    return await FirebaseFirestore.instance
+  get({String collectionName, String field, resultfield}) async {
+    QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(collectionName)
-        .where(field, isEqualTo: instance)
+        .where(field, isEqualTo: resultfield)
         .get();
+    List result = [];
+    querySnapshot.docs.forEach((doc) {
+      result.add(doc.data());
+    });
+    return result.length > 0 ? result[0] : null;
   }
 }

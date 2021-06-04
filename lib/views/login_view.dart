@@ -1,5 +1,4 @@
 import 'package:animecom/controllers/userController.dart';
-import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +13,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
+  String _email, _password;
+  UserController userController;
+  @override
+  void initState() {
+    userController = UserController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -82,6 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: height * 0.6 * 0.2,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
+                          onChanged: (value) => _email = value,
                           validator: _validarEmail,
                           decoration: InputDecoration(
                               prefixIcon: Icon(Icons.mail),
@@ -107,6 +114,7 @@ class _LoginPageState extends State<LoginPage> {
                         height: height * 0.6 * 0.2,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
+                          onChanged: (value) => _password = value,
                           validator: _validarSenha,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -145,17 +153,19 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () async {
-                            UserController ctrl = new UserController();
-                            bool user = await ctrl.getUser("digo@gmail.com");
-                            print(user);
-                            if (_sendForm()) {
+                            //Verifica se o usuário está no banco.
+                            //Falta verificar a senha.
+                            var user = await userController.getUser(_email);
+                            if (_sendForm() && (user != null)) {
                               Navigator.pushReplacement(
-                                  context,
-                                  PageTransition(
-                                      child: Catalog(),
-                                      type: PageTransitionType
-                                          .rightToLeftWithFade,
-                                      duration: Duration(milliseconds: 800)));
+                                context,
+                                PageTransition(
+                                  child: Catalog(),
+                                  type: PageTransitionType.rightToLeftWithFade,
+                                  duration: Duration(milliseconds: 800),
+                                  settings: RouteSettings(arguments: user),
+                                ),
+                              );
                             }
                           },
                           child: Text(

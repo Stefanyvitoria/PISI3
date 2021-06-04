@@ -26,12 +26,14 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   route() {
-    Navigator.pushReplacement(
-        context,
-        PageTransition(
-            child: LoginPage(),
-            type: PageTransitionType.rightToLeftWithFade,
-            duration: Duration(milliseconds: 800)));
+    Navigator.push(
+      context,
+      PageTransition(
+        child: LoginPage(),
+        type: PageTransitionType.rightToLeftWithFade,
+        duration: Duration(milliseconds: 800),
+      ),
+    );
   }
 
   Widget build(BuildContext context) {
