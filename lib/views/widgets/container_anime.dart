@@ -1,4 +1,4 @@
-import 'package:animecom/pre-sets.dart';
+import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 
 class AnimeContainer extends StatelessWidget {

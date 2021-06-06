@@ -1,8 +1,14 @@
-import 'package:animecom/pre-sets.dart';
+import 'package:animecom/models/anime_model.dart';
+import 'package:animecom/models/firestore_model.dart';
+import 'package:animecom/models/user_model.dart';
+import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'dart:convert';
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
 class Catalog extends StatefulWidget {
   @override
@@ -24,12 +30,12 @@ class _CatalogState extends State<Catalog> {
     'Adventure',
     'Action'
   ];
+
   PageController _pageController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
-  
-  @override
 
+  @override
   void initState() {
     super.initState();
     _pageController = PageController();
@@ -51,6 +57,10 @@ class _CatalogState extends State<Catalog> {
 
   @override
   Widget build(BuildContext context) {
+    var arg = ModalRoute.of(context).settings.arguments;
+    User user = arg != null ? arg : User();
+    double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
         appBar: AppBar(
             title: Center(
@@ -98,7 +108,7 @@ class _CatalogState extends State<Catalog> {
                             child: Text(
                               item,
                               style: quicksand(
-                                  color: darkpurple,
+                                  color: gainsboro,
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -106,7 +116,7 @@ class _CatalogState extends State<Catalog> {
                           height: 160,
                           width: 50,
                           decoration: BoxDecoration(
-                              color: gainsboro,
+                              color: darkpurple2,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25))),
                         ),
@@ -117,7 +127,6 @@ class _CatalogState extends State<Catalog> {
               Container(
                 decoration: BoxDecoration(color: darkpurple),
                 child: ListView(
-                  physics: NeverScrollableScrollPhysics(),
                   children: <Widget>[
                     Container(
                       child: Column(
@@ -133,7 +142,7 @@ class _CatalogState extends State<Catalog> {
                             padding: const EdgeInsets.only(bottom: 20),
                             child: Center(
                               child: Text(
-                                'Profile',
+                                user.name == null ? 'Profile' : user.name,
                                 style: quicksand(
                                     fontSize: 25.0,
                                     fontWeight: FontWeight.bold,
@@ -177,9 +186,11 @@ class _CatalogState extends State<Catalog> {
                           ListTile(
                             onTap: () {
                               Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => SettingsPage()));
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => SettingsPage(),
+                                    settings: RouteSettings(arguments: user)),
+                              );
                             },
                             leading: Icon(
                               Icons.settings,
@@ -250,8 +261,8 @@ class _CatalogState extends State<Catalog> {
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0XFFDAE2E7)),
-                            fixedSize:
-                                MaterialStateProperty.all<Size>(Size(100, 50)),
+                            fixedSize: MaterialStateProperty.all<Size>(
+                                Size(width / 4, 50)),
                             shape: MaterialStateProperty.all<OutlinedBorder>(
                               RoundedRectangleBorder(
                                 borderRadius: new BorderRadius.circular(20.0),

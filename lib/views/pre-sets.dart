@@ -3,6 +3,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 //Paleta de cores
 const darkpurple = Color(0xFF242038);
+const darkpurple1 = Color(0xFF2F2A4A);
+const darkpurple2 = Color(0xff3a335e);
 const slateblue = Color(0XFF725AC1);
 const midpurpleblue = Color(0XFF8D86C9);
 const lavendergrey = Color(0xFFCAC4CE);
