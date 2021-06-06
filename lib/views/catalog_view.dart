@@ -1,9 +1,14 @@
+import 'package:animecom/models/anime_model.dart';
+import 'package:animecom/models/firestore_model.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'dart:convert';
+import 'dart:async' show Future;
+import 'package:flutter/services.dart' show rootBundle;
 
 class Catalog extends StatefulWidget {
   @override
@@ -103,7 +108,7 @@ class _CatalogState extends State<Catalog> {
                             child: Text(
                               item,
                               style: quicksand(
-                                  color: darkpurple,
+                                  color: gainsboro,
                                   fontSize: 18.0,
                                   fontWeight: FontWeight.bold),
                             ),
@@ -111,7 +116,7 @@ class _CatalogState extends State<Catalog> {
                           height: 160,
                           width: 50,
                           decoration: BoxDecoration(
-                              color: gainsboro,
+                              color: darkpurple2,
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25))),
                         ),
