@@ -1,3 +1,4 @@
+import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/splash_view.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -32,7 +33,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'AnimeCom',
           theme: ThemeData(primarySwatch: _createMaterialColor(linen)),
-          home: SplashScreen(title: 'AnimeCom'),
+          home: Catalog(),
         );
       },
     );

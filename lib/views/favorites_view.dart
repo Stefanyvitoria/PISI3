@@ -1,10 +1,36 @@
+import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/models/firestore_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/container_anime.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Favorites extends StatefulWidget {
   @override
   _FavoritesState createState() => _FavoritesState();
+}
+
+UserController _userController = UserController();
+
+_connection() {
+  return FirebaseFirestore.instance
+      .collection('Animes')
+      .where('uid', isEqualTo: 28891)
+      .snapshots();
+}
+
+List<Widget> makeListWidget(AsyncSnapshot snapshot) {
+  return snapshot.data.docs.map<Widget>((document) {
+    var name = document['name'];
+    var score = document['score'];
+    var img_url = document['img_url'];
+    print(img_url);
+    return AnimeContainer(
+      name: name,
+      score: score,
+      imgurl: img_url,
+    );
+  }).toList();
 }
 
 class _FavoritesState extends State<Favorites> {
@@ -16,7 +42,8 @@ class _FavoritesState extends State<Favorites> {
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,
           child: Icon(
-            Icons.close,
+            Icons.arrow_back_ios,
+            color: gainsboro,
           ),
           onTap: () {
             Navigator.pop(context);
@@ -31,28 +58,29 @@ class _FavoritesState extends State<Favorites> {
               style: quicksand(
                   fontSize: 18.0,
                   fontWeight: FontWeight.bold,
-                  color: darkpurple),
+                  color: gainsboro),
             ),
           ),
         ),
-        backgroundColor: Colors.white,
+        foregroundColor: Colors.white,
+        backgroundColor: darkblue,
       ),
       body: Container(
-        decoration: BoxDecoration(color: darkpurple),
-        child: ListView(
-          children: <Widget>[
-            Padding(
-                padding: const EdgeInsets.only(top: 20, left: 30, right: 30),
-                child: Column(
-                  children: <Widget>[
-                    AnimeContainer(
-                      name: 'Haikyuu!!',
-                      imgurl:
-                          'https://cdn.myanimelist.net/images/anime/7/76014.jpg',
-                    )
-                  ],
-                ))
-          ],
+        decoration: BoxDecoration(color: darkblue),
+        child: StreamBuilder(
+          builder: (context, snapshot) {
+            switch (snapshot.connectionState) {
+              case ConnectionState.waiting:
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              default:
+                return ListView(
+                  children: makeListWidget(snapshot),
+                );
+            }
+          },
+          stream: _connection(),
         ),
       ),
     );

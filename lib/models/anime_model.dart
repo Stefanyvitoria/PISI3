@@ -1,10 +1,10 @@
 class Anime {
   int _uid;
   String _name;
-  String _email;
   List<String> _genre;
   String _synopsis;
-  String _aired;
+  String _start;
+  String _finish;
   double _episodes;
   int _members;
   int _popularity;
@@ -13,14 +13,13 @@ class Anime {
   String _imgUrl;
   String _link;
 
-  Anime(uid, name, email, genre, synopsis, aired, episodes, members, popularity,
-      ranked, score, imgUrl, link) {
+  Anime(uid, name, email, genre, synopsis, start, finish, episodes, members,
+      popularity, ranked, score, imgUrl, link) {
     this._uid = uid;
     this._name = name;
-    this._email = email;
     this._genre = genre;
     this._synopsis = synopsis;
-    this._aired = aired;
+    this._start = start;
     this._episodes = episodes;
     this._members = members;
     this._popularity = popularity;
@@ -33,10 +32,10 @@ class Anime {
   Anime.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];
     _name = json['name'];
-    _email = json['email'];
     _genre = json['genre'];
     _synopsis = json['synopsis'];
-    _aired = json['aired'];
+    _start = json['start'];
+    _finish = json['finish'];
     _episodes = json['episodes'];
     _members = json['members'];
     _popularity = json['popularity'];
@@ -50,10 +49,10 @@ class Anime {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['uid'] = this._uid;
     data['name'] = this._name;
-    data['email'] = this._email;
     data['genre'] = this._genre;
     data['synopsis'] = this._synopsis;
-    data['aired'] = this._aired;
+    data['start'] = this._start;
+    data['finish'] = this._finish;
     data['episode'] = this._episodes;
     data['member'] = this._members;
     data['popularity'] = this._popularity;

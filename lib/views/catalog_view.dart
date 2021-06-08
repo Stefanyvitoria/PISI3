@@ -1,14 +1,10 @@
-import 'package:animecom/models/anime_model.dart';
-import 'package:animecom/models/firestore_model.dart';
+import 'package:animecom/controllers/animeController.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'dart:convert';
-import 'dart:async' show Future;
-import 'package:flutter/services.dart' show rootBundle;
 
 class Catalog extends StatefulWidget {
   @override
@@ -77,14 +73,21 @@ class _CatalogState extends State<Catalog> {
           animationDuration: Duration(milliseconds: 500),
           animationCurve: Curves.ease,
           height: 50,
-          backgroundColor: darkpurple,
+          backgroundColor: darkblue1,
+          color: darkblue,
           onTap: (index) {
             _onItemTapped(index);
           },
           items: <Widget>[
-            Icon(Icons.home),
-            Icon(Icons.person),
-            Icon(Icons.search),
+            Icon(
+              Icons.home,
+              color: gainsboro,
+            ),
+            Icon(Icons.person, color: gainsboro),
+            Icon(
+              Icons.search,
+              color: gainsboro,
+            ),
           ],
         ),
         body: SizedBox.expand(
@@ -96,7 +99,12 @@ class _CatalogState extends State<Catalog> {
             },
             children: [
               Container(
-                decoration: BoxDecoration(color: darkpurple),
+                decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        colors: [darkblue1, darkblue],
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter),
+                    color: darkblue),
                 child: ListView(
                   children: <Widget>[
                     for (String item in genders)
@@ -116,7 +124,11 @@ class _CatalogState extends State<Catalog> {
                           height: 160,
                           width: 50,
                           decoration: BoxDecoration(
-                              color: darkpurple2,
+                              border: Border.all(color: darkblue2, width: 1),
+                              gradient: LinearGradient(
+                                  colors: [darkblue2, darkblue],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
                               borderRadius:
                                   BorderRadius.all(Radius.circular(25))),
                         ),
@@ -269,7 +281,11 @@ class _CatalogState extends State<Catalog> {
                               ),
                             ),
                           ),
-                          onPressed: () {},
+                          onPressed: () {
+                            for (var i = 0; i < 16214; i++) {
+                              AnimeController().carregaAnime(i.toString());
+                            }
+                          },
                           child: Text(
                             'Search',
                             style: quicksand(

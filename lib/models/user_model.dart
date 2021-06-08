@@ -6,7 +6,7 @@ class User {
   String _age;
   String _phone;
   String _password;
-  List<String> _favorites;
+  List _favorites;
 
   User(
       {String uid,
@@ -16,7 +16,7 @@ class User {
       String age,
       String phone,
       String password,
-      List<String> favorites}) {
+      List favorites}) {
     this._uid = uid;
     this._name = name;
     this._email = email;
@@ -42,7 +42,7 @@ class User {
   String get password => _password;
   set password(String password) => _password = password;
   List<String> get favorites => _favorites;
-  set favorites(List<String> favorites) => _favorites = favorites;
+  set favorites(List favorites) => _favorites = favorites;
 
   User.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];
