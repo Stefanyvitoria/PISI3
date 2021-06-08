@@ -196,7 +196,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   ListTile(
                     onTap: () {
-                      userController.deleteUser(user.email, user.password);
+                      userController.deleteUser(
+                          user.getEmail, user.getPassword);
                       Navigator.pushAndRemoveUntil(
                           context,
                           PageTransition(
@@ -241,7 +242,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     ),
                                     child: TextFormField(
                                       onChanged: (value) =>
-                                          user.password = value,
+                                          user.setPassword = value,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.password),
                                           fillColor: purplenavy,

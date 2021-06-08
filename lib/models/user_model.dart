@@ -33,43 +33,43 @@ class User {
   String get getName => _name;
 
   // ignore: unnecessary_getters_setters
-  set name(String name) => _name = name;
+  set setName(String name) => _name = name;
 
   // ignore: unnecessary_getters_setters
-  String get email => _email;
+  String get getEmail => _email;
 
   // ignore: unnecessary_getters_setters
-  set email(String email) => _email = email;
+  set setEmail(String email) => _email = email;
 
   // ignore: unnecessary_getters_setters
-  String get urlPhoto => _urlPhoto;
+  String get getUrlPhoto => _urlPhoto;
 
   // ignore: unnecessary_getters_setters
-  set urlPhoto(String urlPhoto) => _urlPhoto = urlPhoto;
+  set setUrlPhoto(String urlPhoto) => _urlPhoto = urlPhoto;
 
   // ignore: unnecessary_getters_setters
-  int get age => _age;
+  int get getAge => _age;
 
   // ignore: unnecessary_getters_setters
-  set age(int age) => _age = age;
+  set setAge(int age) => _age = age;
 
   // ignore: unnecessary_getters_setters
-  String get phone => _phone;
+  String get getPhone => _phone;
 
   // ignore: unnecessary_getters_setters
-  set phone(String phone) => _phone = phone;
+  set setPhone(String phone) => _phone = phone;
 
   // ignore: unnecessary_getters_setters
-  String get password => _password;
+  String get getPassword => _password;
 
   // ignore: unnecessary_getters_setters
-  set password(String password) => _password = password;
+  set setPassword(String password) => _password = password;
 
   // ignore: unnecessary_getters_setters
-  List<Anime> get favorites => _favorites;
+  List<Anime> get getFavorites => _favorites;
 
   // ignore: unnecessary_getters_setters
-  set favorites(List<Anime> favorites) => _favorites = favorites;
+  set setFavorites(List<Anime> favorites) => _favorites = favorites;
 
   User.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];

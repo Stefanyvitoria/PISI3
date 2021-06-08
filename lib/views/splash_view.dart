@@ -1,6 +1,6 @@
 import 'dart:async';
+import 'package:animecom/views/catalog_view.dart';
 import 'package:flutter/material.dart';
-import 'package:animecom/views/login_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:animecom/views/pre-sets.dart';
 
@@ -29,7 +29,7 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       PageTransition(
-        child: LoginPage(),
+        child: Catalog(),
         type: PageTransitionType.rightToLeftWithFade,
         duration: Duration(milliseconds: 800),
       ),

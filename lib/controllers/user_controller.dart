@@ -15,7 +15,7 @@ class UserController {
   }
 
   void updateUser(User user) {
-    firestoreModel.update('Users', 'email', user.email, user);
+    firestoreModel.update('Users', 'email', user.getEmail, user);
   }
 
   Future<User> getUser(String email) async {
