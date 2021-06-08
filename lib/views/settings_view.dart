@@ -1,4 +1,4 @@
-import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
