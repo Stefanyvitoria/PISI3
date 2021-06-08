@@ -22,7 +22,7 @@ class AnimeController {
     Map<String, dynamic> popularity = jsonResponse['popularity'];
     Map<String, dynamic> score = jsonResponse['score'];
     Map<String, dynamic> ranked = jsonResponse['ranked'];
-    Map<String, dynamic> img_url = jsonResponse['img_url'];
+    Map<String, dynamic> imgUrl = jsonResponse['img_url'];
     Map<String, dynamic> link = jsonResponse['link'];
 
     Anime anime = new Anime.fromJson({
@@ -42,7 +42,7 @@ class AnimeController {
       'popularity': popularity[index],
       'score': score[index],
       'ranked': ranked[index],
-      'img_url': img_url[index].toString(),
+      'img_url': imgUrl[index].toString(),
       'link': link[index].toString()
     });
 

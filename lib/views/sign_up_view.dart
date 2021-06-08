@@ -1,4 +1,4 @@
-import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -183,7 +183,6 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           onPressed: () {
                             if (_sendForm()) {
-                              //Testando o firebase
                               controller.addUser(
                                   email: email, password: password1);
                               Navigator.pushReplacement(

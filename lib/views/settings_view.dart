@@ -1,4 +1,4 @@
-import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
@@ -196,7 +196,8 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   ListTile(
                     onTap: () {
-                      userController.deleteUser(user.email, user.password);
+                      userController.deleteUser(
+                          user.getEmail, user.getPassword);
                       Navigator.pushAndRemoveUntil(
                           context,
                           PageTransition(
@@ -241,7 +242,7 @@ class _SettingsPageState extends State<SettingsPage> {
                                     ),
                                     child: TextFormField(
                                       onChanged: (value) =>
-                                          user.password = value,
+                                          user.setPassword = value,
                                       decoration: InputDecoration(
                                           prefixIcon: Icon(Icons.password),
                                           fillColor: purplenavy,

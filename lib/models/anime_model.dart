@@ -1,65 +1,92 @@
+import 'package:animecom/models/evaluation_model.dart';
+
 class Anime {
-  int _uid;
+  int _animeUid;
   String _name;
   List<String> _genre;
-  String _synopsis;
-  String _start;
-  String _finish;
-  double _episodes;
-  int _members;
-  int _popularity;
-  double _ranked;
-  double _score;
+  String _synopsi;
+  DateTime _start;
+  DateTime _finish;
+  int _episodes;
   String _imgUrl;
   String _link;
+  Evaluation _evalution;
 
-  Anime(uid, name, email, genre, synopsis, start, finish, episodes, members,
-      popularity, ranked, score, imgUrl, link) {
-    this._uid = uid;
+  Anime(
+      {int animeUid,
+      String name,
+      List<String> genre,
+      String synopsi,
+      DateTime start,
+      DateTime finish,
+      int episodes,
+      String imgUrl,
+      String link,
+      Evaluation evaluation}) {
+    this._animeUid = animeUid;
     this._name = name;
     this._genre = genre;
-    this._synopsis = synopsis;
+    this._synopsi = synopsi;
     this._start = start;
+    this._finish = finish;
     this._episodes = episodes;
-    this._members = members;
-    this._popularity = popularity;
-    this._ranked = ranked;
-    this._score = score;
     this._imgUrl = imgUrl;
     this._link = link;
+    this._evalution = evaluation;
   }
 
+  // ignore: unnecessary_getters_setters
+  String get getName => _name;
+
+  // ignore: unnecessary_getters_setters
+  List<String> get getGenre => _genre;
+
+  // ignore: unnecessary_getters_setters
+  String get getSynopsi => _synopsi;
+
+  // ignore: unnecessary_getters_setters
+  DateTime get getStart => _start;
+
+  // ignore: unnecessary_getters_setters
+  DateTime get getFinish => _finish;
+
+  // ignore: unnecessary_getters_setters
+  int get getEpisodes => _episodes;
+
+  // ignore: unnecessary_getters_setters
+  String get getImgUrl => _imgUrl;
+
+  // ignore: unnecessary_getters_setters
+  String get getLink => _link;
+
+  // ignore: unnecessary_getters_setters
+  String get getEvaluation => _link;
+
   Anime.fromJson(Map<String, dynamic> json) {
-    _uid = json['uid'];
+    _animeUid = json['animeUid'];
     _name = json['name'];
     _genre = json['genre'];
-    _synopsis = json['synopsis'];
+    _synopsi = json['synopsi'];
     _start = json['start'];
     _finish = json['finish'];
     _episodes = json['episodes'];
-    _members = json['members'];
-    _popularity = json['popularity'];
-    _ranked = json['ranked'];
-    _score = json['score'];
-    _imgUrl = json['img_url'];
+    _imgUrl = json['imgUrl'];
     _link = json['link'];
+    _evalution = json['evaluation'];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this._uid;
+    data['animeUid'] = this._animeUid;
     data['name'] = this._name;
     data['genre'] = this._genre;
-    data['synopsis'] = this._synopsis;
+    data['synopsi'] = this._synopsi;
     data['start'] = this._start;
     data['finish'] = this._finish;
-    data['episode'] = this._episodes;
-    data['member'] = this._members;
-    data['popularity'] = this._popularity;
-    data['ranked'] = this._ranked;
-    data['score'] = this._score;
-    data['img_url'] = this._imgUrl;
+    data['episodes'] = this._episodes;
+    data['imgUrl'] = this._imgUrl;
     data['link'] = this._link;
+    data['evaluation'] = this._evalution;
     return data;
   }
 }

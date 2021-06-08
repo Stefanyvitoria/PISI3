@@ -1,10 +1,13 @@
-import 'package:animecom/controllers/animeController.dart';
 import 'package:animecom/models/user_model.dart';
+import 'package:animecom/views/login_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
+import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
+import 'package:page_transition/page_transition.dart';
+import 'package:animecom/controllers/anime_controller.dart';
 
 class Catalog extends StatefulWidget {
   @override
@@ -53,8 +56,7 @@ class _CatalogState extends State<Catalog> {
 
   @override
   Widget build(BuildContext context) {
-    var arg = ModalRoute.of(context).settings.arguments;
-    User user = arg != null ? arg : User();
+    User user = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
@@ -137,106 +139,224 @@ class _CatalogState extends State<Catalog> {
                 ),
               ),
               Container(
-                decoration: BoxDecoration(color: darkpurple),
-                child: ListView(
-                  children: <Widget>[
-                    Container(
-                      child: Column(
-                        children: [
-                          Padding(
-                              padding: EdgeInsets.only(top: 80, bottom: 20),
-                              child: CircleAvatar(
-                                backgroundImage:
-                                    AssetImage('assets/profile.jpg'),
-                                radius: 70,
+                  decoration: BoxDecoration(color: darkpurple),
+                  child: user != null
+                      ? ListView(
+                          children: <Widget>[
+                            Container(
+                              child: Column(
+                                children: [
+                                  Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 80, bottom: 20),
+                                      child: CircleAvatar(
+                                        backgroundImage:
+                                            AssetImage('assets/profile.jpg'),
+                                        radius: 70,
+                                      )),
+                                  Padding(
+                                    padding: const EdgeInsets.only(bottom: 20),
+                                    child: Center(
+                                      child: Text(
+                                        user.getName == null
+                                            ? 'Profile'
+                                            : user.getName,
+                                        style: quicksand(
+                                            fontSize: 25.0,
+                                            fontWeight: FontWeight.bold,
+                                            color: linen),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              decoration: BoxDecoration(color: darkpurple),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 10, right: 10),
+                              child: Card(
+                                  child: Column(
+                                children: <Widget>[
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Favorites(),
+                                        ),
+                                      );
+                                    },
+                                    leading: Icon(
+                                      Icons.star,
+                                      color: darkpurple,
+                                      size: 25,
+                                    ),
+                                    title: Text(
+                                      'Favorites',
+                                      style: quicksand(
+                                          color: darkpurple,
+                                          fontSize: 16.0,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                                  Divider(
+                                    height: 10.0,
+                                    color: darkpurple,
+                                  ),
+                                  ListTile(
+                                    onTap: () {
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => SettingsPage(),
+                                          settings:
+                                              RouteSettings(arguments: user),
+                                        ),
+                                      );
+                                    },
+                                    leading: Icon(
+                                      Icons.settings,
+                                      color: darkpurple,
+                                      size: 25,
+                                    ),
+                                    title: Text('Settings',
+                                        style: quicksand(
+                                            color: darkpurple,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                  Divider(
+                                    height: 10.0,
+                                    color: darkpurple,
+                                  ),
+                                  ListTile(
+                                    onTap: () {},
+                                    leading: Icon(
+                                      Icons.logout,
+                                      color: darkpurple,
+                                      size: 25,
+                                    ),
+                                    title: Text('Logout',
+                                        style: quicksand(
+                                            color: darkpurple,
+                                            fontSize: 16.0,
+                                            fontWeight: FontWeight.bold)),
+                                  ),
+                                ],
                               )),
-                          Padding(
-                            padding: const EdgeInsets.only(bottom: 20),
-                            child: Center(
-                              child: Text(
-                                user.name == null ? 'Profile' : user.name,
-                                style: quicksand(
-                                    fontSize: 25.0,
-                                    fontWeight: FontWeight.bold,
-                                    color: linen),
+                            )
+                          ],
+                        )
+                      : ListView(
+                          children: [
+                            Container(
+                              padding: const EdgeInsets.only(
+                                  right: 20, left: 20, top: 10),
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(20.0),
+                                ),
+                                child: Wrap(
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.only(
+                                          right: 20,
+                                          left: 20,
+                                          top: 15,
+                                          bottom: 15),
+                                      child: Text(
+                                        'You are accessing exclusive features for registered users, create an account to continue.',
+                                        style: quicksand(
+                                            fontSize: 18.0,
+                                            fontWeight: FontWeight.normal),
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ),
-                          ),
-                        ],
-                      ),
-                      decoration: BoxDecoration(color: darkpurple),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 10, right: 10),
-                      child: Card(
-                          child: Column(
-                        children: <Widget>[
-                          ListTile(
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => Favorites()));
-                            },
-                            leading: Icon(
-                              Icons.star,
-                              color: darkpurple,
-                              size: 25,
+                            Align(
+                              child: Container(
+                                padding: const EdgeInsets.only(
+                                    left: 25, right: 25, top: 10),
+                                child: TextButton(
+                                  style: ButtonStyle(
+                                    fixedSize: MaterialStateProperty.all<Size>(
+                                      Size(
+                                          MediaQuery.of(context).size.width / 2,
+                                          50),
+                                    ),
+                                    backgroundColor:
+                                        MaterialStateProperty.all<Color>(
+                                      Color(0XFFDAE2E7),
+                                    ),
+                                    shape: MaterialStateProperty.all<
+                                        OutlinedBorder>(
+                                      RoundedRectangleBorder(
+                                        borderRadius:
+                                            new BorderRadius.circular(20.0),
+                                      ),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                      context,
+                                      PageTransition(
+                                        child: SignupPage(),
+                                        type: PageTransitionType
+                                            .rightToLeftWithFade,
+                                        duration: Duration(milliseconds: 800),
+                                      ),
+                                    );
+                                  },
+                                  child: Text(
+                                    'Signup',
+                                    style: quicksand(
+                                        color: darkpurple,
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                ),
+                              ),
                             ),
-                            title: Text(
-                              'Favorites',
-                              style: quicksand(
-                                  color: darkpurple,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.bold),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  "Already have an account?",
+                                  style: quicksand(
+                                      color: linen,
+                                      fontSize: 16.0,
+                                      fontWeight: FontWeight.normal),
+                                ),
+                                TextButton(
+                                  style: ButtonStyle(
+                                    overlayColor: MaterialStateProperty.all(
+                                        Colors.transparent),
+                                  ),
+                                  onPressed: () {
+                                    Navigator.push(
+                                        context,
+                                        PageTransition(
+                                            child: LoginPage(),
+                                            type: PageTransitionType
+                                                .leftToRightWithFade,
+                                            duration:
+                                                Duration(milliseconds: 800)));
+                                  },
+                                  child: Text(
+                                    'Sign In',
+                                    style: quicksand(
+                                        color: linen,
+                                        fontSize: 16.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                )
+                              ],
                             ),
-                          ),
-                          Divider(
-                            height: 10.0,
-                            color: darkpurple,
-                          ),
-                          ListTile(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => SettingsPage(),
-                                    settings: RouteSettings(arguments: user)),
-                              );
-                            },
-                            leading: Icon(
-                              Icons.settings,
-                              color: darkpurple,
-                              size: 25,
-                            ),
-                            title: Text('Settings',
-                                style: quicksand(
-                                    color: darkpurple,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                          Divider(
-                            height: 10.0,
-                            color: darkpurple,
-                          ),
-                          ListTile(
-                            leading: Icon(
-                              Icons.logout,
-                              color: darkpurple,
-                              size: 25,
-                            ),
-                            title: Text('Logout',
-                                style: quicksand(
-                                    color: darkpurple,
-                                    fontSize: 16.0,
-                                    fontWeight: FontWeight.bold)),
-                          ),
-                        ],
-                      )),
-                    )
-                  ],
-                ),
-              ),
+                          ],
+                        )),
               Container(
                 decoration: BoxDecoration(color: darkpurple),
                 child: Column(

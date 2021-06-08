@@ -1,4 +1,4 @@
-import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';

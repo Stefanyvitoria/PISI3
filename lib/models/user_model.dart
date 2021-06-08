@@ -1,22 +1,24 @@
+import 'package:animecom/models/anime_model.dart';
+
 class User {
-  String _uid;
+  int _uid;
   String _name;
   String _email;
   String _urlPhoto;
-  String _age;
+  int _age;
   String _phone;
   String _password;
-  List _favorites;
+  List<Anime> _favorites;
 
   User(
-      {String uid,
+      {int uid,
       String name,
       String email,
       String urlPhoto,
-      String age,
+      int age,
       String phone,
       String password,
-      List favorites}) {
+      List<Anime> favorites}) {
     this._uid = uid;
     this._name = name;
     this._email = email;
@@ -27,22 +29,47 @@ class User {
     this._favorites = favorites;
   }
 
-  String get uid => _uid;
-  set uid(String uid) => _uid = uid;
-  String get name => _name;
-  set name(String name) => _name = name;
-  String get email => _email;
-  set email(String email) => _email = email;
-  String get urlPhoto => _urlPhoto;
-  set urlPhoto(String urlPhoto) => _urlPhoto = urlPhoto;
-  String get age => _age;
-  set age(String age) => _age = age;
-  String get phone => _phone;
-  set phone(String phone) => _phone = phone;
-  String get password => _password;
-  set password(String password) => _password = password;
-  List<String> get favorites => _favorites;
-  set favorites(List favorites) => _favorites = favorites;
+  // ignore: unnecessary_getters_setters
+  String get getName => _name;
+
+  // ignore: unnecessary_getters_setters
+  set setName(String name) => _name = name;
+
+  // ignore: unnecessary_getters_setters
+  String get getEmail => _email;
+
+  // ignore: unnecessary_getters_setters
+  set setEmail(String email) => _email = email;
+
+  // ignore: unnecessary_getters_setters
+  String get getUrlPhoto => _urlPhoto;
+
+  // ignore: unnecessary_getters_setters
+  set setUrlPhoto(String urlPhoto) => _urlPhoto = urlPhoto;
+
+  // ignore: unnecessary_getters_setters
+  int get getAge => _age;
+
+  // ignore: unnecessary_getters_setters
+  set setAge(int age) => _age = age;
+
+  // ignore: unnecessary_getters_setters
+  String get getPhone => _phone;
+
+  // ignore: unnecessary_getters_setters
+  set setPhone(String phone) => _phone = phone;
+
+  // ignore: unnecessary_getters_setters
+  String get getPassword => _password;
+
+  // ignore: unnecessary_getters_setters
+  set setPassword(String password) => _password = password;
+
+  // ignore: unnecessary_getters_setters
+  List<Anime> get getFavorites => _favorites;
+
+  // ignore: unnecessary_getters_setters
+  set setFavorites(List<Anime> favorites) => _favorites = favorites;
 
   User.fromJson(Map<String, dynamic> json) {
     _uid = json['uid'];
