@@ -62,13 +62,14 @@ class _CatalogState extends State<Catalog> {
     return Scaffold(
         appBar: AppBar(
             title: Center(
-                child: Text(
-              _titleOptions.elementAt(_selectedIndex),
-              style: quicksand(
-                  color: darkpurple,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold),
-            )),
+              child: Text(
+                _titleOptions.elementAt(_selectedIndex),
+                style: quicksand(
+                    color: darkpurple,
+                    fontSize: 20.0,
+                    fontWeight: FontWeight.bold),
+              ),
+            ),
             backgroundColor: Colors.white,
             automaticallyImplyLeading: false),
         bottomNavigationBar: CurvedNavigationBar(
@@ -307,6 +308,7 @@ class _CatalogState extends State<Catalog> {
                                         type: PageTransitionType
                                             .rightToLeftWithFade,
                                         duration: Duration(milliseconds: 800),
+                                        settings: RouteSettings(name: 'signup'),
                                       ),
                                     );
                                   },
@@ -337,13 +339,15 @@ class _CatalogState extends State<Catalog> {
                                   ),
                                   onPressed: () {
                                     Navigator.push(
-                                        context,
-                                        PageTransition(
-                                            child: LoginPage(),
-                                            type: PageTransitionType
-                                                .leftToRightWithFade,
-                                            duration:
-                                                Duration(milliseconds: 800)));
+                                      context,
+                                      PageTransition(
+                                          child: LoginPage(),
+                                          type: PageTransitionType
+                                              .leftToRightWithFade,
+                                          duration: Duration(milliseconds: 800),
+                                          settings:
+                                              RouteSettings(name: 'signin')),
+                                    );
                                   },
                                   child: Text(
                                     'Sign In',

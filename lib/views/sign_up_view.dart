@@ -185,13 +185,18 @@ class _SignupPageState extends State<SignupPage> {
                             if (_sendForm()) {
                               controller.addUser(
                                   email: email, password: password1);
-                              Navigator.pushReplacement(
+                              Navigator.pushAndRemoveUntil(
                                   context,
                                   PageTransition(
-                                      child: LoginPage(),
-                                      type: PageTransitionType
-                                          .rightToLeftWithFade,
-                                      duration: Duration(milliseconds: 800)));
+                                    child: LoginPage(),
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    duration: Duration(milliseconds: 800),
+                                  ), (route) {
+                                if (route.settings.name == 'catalog')
+                                  return true;
+                                return false;
+                              });
                             }
                           },
                           child: Text(
@@ -226,12 +231,20 @@ class _SignupPageState extends State<SignupPage> {
                               MaterialStateProperty.all(Colors.transparent),
                         ),
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  child: LoginPage(),
-                                  type: PageTransitionType.leftToRightWithFade,
-                                  duration: Duration(milliseconds: 800)));
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                              child: LoginPage(),
+                              type: PageTransitionType.leftToRightWithFade,
+                              duration: Duration(milliseconds: 800),
+                            ),
+                            (route) {
+                              if (route.settings.name == 'catalog' ||
+                                  route.settings.name == 'signup' ||
+                                  route.settings.name == 'signin') return true;
+                              return false;
+                            },
+                          );
                         },
                         child: Text(
                           'Sign In',
