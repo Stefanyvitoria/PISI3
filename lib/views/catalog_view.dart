@@ -253,28 +253,29 @@ class _CatalogState extends State<Catalog> {
                                                   ),
                                                 )),
                                             TextButton(
-                                                onPressed: () {
-                                                  userController.prefClear();
-                                                  Navigator.pushAndRemoveUntil(
-                                                      context,
-                                                      PageTransition(
-                                                        child: Catalog(),
-                                                        type: PageTransitionType
-                                                            .rightToLeftWithFade,
-                                                        duration: Duration(
-                                                            milliseconds: 800),
-                                                        settings: RouteSettings(
-                                                            name: 'catalog'),
-                                                      ),
-                                                      (route) => false);
-                                                },
-                                                child: Text(
-                                                  'Yes',
-                                                  style: quicksand(
-                                                    fontWeight: FontWeight.bold,
-                                                    color: darkpurple,
-                                                  ),
-                                                ))
+                                              onPressed: () {
+                                                userController.prefClear();
+                                                Navigator.pushAndRemoveUntil(
+                                                    context,
+                                                    PageTransition(
+                                                      child: Catalog(),
+                                                      type: PageTransitionType
+                                                          .rightToLeftWithFade,
+                                                      duration: Duration(
+                                                          milliseconds: 800),
+                                                      settings: RouteSettings(
+                                                          name: 'catalog'),
+                                                    ),
+                                                    (route) => false);
+                                              },
+                                              child: Text(
+                                                'Yes',
+                                                style: quicksand(
+                                                  fontWeight: FontWeight.bold,
+                                                  color: darkpurple,
+                                                ),
+                                              ),
+                                            )
                                           ],
                                         );
                                       },
@@ -409,7 +410,7 @@ class _CatalogState extends State<Catalog> {
                         )),
               Container(
                 decoration: BoxDecoration(color: darkpurple),
-                child: Column(
+                child: ListView(
                   children: <Widget>[
                     Center(
                       child: Padding(
@@ -439,7 +440,8 @@ class _CatalogState extends State<Catalog> {
                     ),
                     Padding(
                       padding: const EdgeInsets.only(top: 10.0),
-                      child: TextButton(
+                      child: Align(
+                        child: TextButton(
                           style: ButtonStyle(
                             backgroundColor: MaterialStateProperty.all<Color>(
                                 Color(0XFFDAE2E7)),
@@ -452,9 +454,9 @@ class _CatalogState extends State<Catalog> {
                             ),
                           ),
                           onPressed: () {
-                            for (var i = 0; i < 16214; i++) {
-                              AnimeController().carregaAnime(i.toString());
-                            }
+                            // for (var i = 0; i < 16214; i++) {
+                            //   AnimeController().carregaAnime(i.toString());
+                            // }
                           },
                           child: Text(
                             'Search',
@@ -462,7 +464,9 @@ class _CatalogState extends State<Catalog> {
                                 fontSize: 20.0,
                                 color: darkpurple,
                                 fontWeight: FontWeight.bold),
-                          )),
+                          ),
+                        ),
+                      ),
                     )
                   ],
                 ),

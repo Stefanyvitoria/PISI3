@@ -2,6 +2,7 @@ import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
+import 'package:animecom/views/widgets/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -12,6 +13,7 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   UserController userController;
+  String _password;
 
   @override
   void initState() {
@@ -64,57 +66,62 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.only(left: 10, right: 10),
               child: Card(
-                  child: Column(
-                children: <Widget>[
-                  ListTile(
-                    leading: Icon(
-                      Icons.language,
-                      color: darkpurple,
-                      size: 25,
-                    ),
-                    title: Text(
-                      'Language',
-                      style: quicksand(
-                          color: darkpurple,
-                          fontSize: 16.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Divider(
-                    height: 10.0,
-                    color: darkpurple,
-                  ),
-                  ListTile(
-                    onTap: () {},
-                    leading: Icon(
-                      Icons.memory,
-                      color: darkpurple,
-                      size: 25,
-                    ),
-                    title: Text('Memory usage',
+                child: Column(
+                  children: <Widget>[
+                    ListTile(
+                      onTap: () {},
+                      leading: Icon(
+                        Icons.language,
+                        color: darkpurple,
+                        size: 25,
+                      ),
+                      title: Text(
+                        'Language',
                         style: quicksand(
                             color: darkpurple,
                             fontSize: 16.0,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                  Divider(
-                    height: 10.0,
-                    color: darkpurple,
-                  ),
-                  ListTile(
-                    leading: Icon(
-                      Icons.more_horiz,
-                      color: darkpurple,
-                      size: 25,
+                            fontWeight: FontWeight.bold),
+                      ),
                     ),
-                    title: Text('More',
+                    Divider(
+                      height: 10.0,
+                      color: darkpurple,
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      leading: Icon(
+                        Icons.memory,
+                        color: darkpurple,
+                        size: 25,
+                      ),
+                      title: Text('Memory usage',
+                          style: quicksand(
+                              color: darkpurple,
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold)),
+                    ),
+                    Divider(
+                      height: 10.0,
+                      color: darkpurple,
+                    ),
+                    ListTile(
+                      onTap: () {},
+                      leading: Icon(
+                        Icons.info,
+                        color: darkpurple,
+                        size: 25,
+                      ),
+                      title: Text(
+                        'About',
                         style: quicksand(
                             color: darkpurple,
                             fontSize: 16.0,
-                            fontWeight: FontWeight.bold)),
-                  ),
-                ],
-              )),
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 20),
@@ -130,6 +137,7 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: Column(
                 children: <Widget>[
                   ListTile(
+                    onTap: () {},
                     leading: Icon(
                       Icons.brightness_6,
                       color: darkpurple,
@@ -166,24 +174,25 @@ class _SettingsPageState extends State<SettingsPage> {
             Padding(
               padding: const EdgeInsets.only(left: 15, top: 20),
               child: Text(
-                'Profile',
+                'Account',
                 style: quicksand(
                     color: linen, fontSize: 20.0, fontWeight: FontWeight.bold),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 10, right: 10),
+              padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10),
               child: Card(
                   child: Column(
                 children: <Widget>[
                   ListTile(
+                    onTap: () {},
                     leading: Icon(
                       Icons.manage_accounts_rounded,
                       color: darkpurple,
                       size: 25,
                     ),
                     title: Text(
-                      'Account',
+                      'Profile',
                       style: quicksand(
                           color: darkpurple,
                           fontSize: 16.0,
@@ -196,16 +205,45 @@ class _SettingsPageState extends State<SettingsPage> {
                   ),
                   ListTile(
                     onTap: () {
-                      userController.deleteUser(
-                          user.getEmail, user.getPassword);
-                      Navigator.pushAndRemoveUntil(
-                          context,
-                          PageTransition(
-                            child: Catalog(),
-                            type: PageTransitionType.rightToLeftWithFade,
-                            duration: Duration(milliseconds: 800),
-                          ),
-                          (route) => false);
+                      WidgetsConstantes.alert(
+                        context: context,
+                        content: Text('Delete Account?'),
+                        actions: [
+                          TextButton(
+                              onPressed: () => Navigator.of(context).pop(),
+                              child: Text(
+                                'No',
+                                style: quicksand(
+                                  fontWeight: FontWeight.bold,
+                                  color: darkpurple,
+                                ),
+                              )),
+                          TextButton(
+                            onPressed: () {
+                              userController.prefClear();
+                              userController.deleteUser(
+                                  user.getEmail, user.getPassword);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageTransition(
+                                    child: Catalog(),
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    duration: Duration(milliseconds: 800),
+                                    settings: RouteSettings(name: 'catalog'),
+                                  ),
+                                  (route) => false);
+                            },
+                            child: Text(
+                              'Yes',
+                              style: quicksand(
+                                fontWeight: FontWeight.bold,
+                                color: darkpurple,
+                              ),
+                            ),
+                          )
+                        ],
+                      );
                     },
                     leading: Icon(
                       Icons.delete,
@@ -227,10 +265,15 @@ class _SettingsPageState extends State<SettingsPage> {
                   ListTile(
                     onTap: () {
                       showModalBottomSheet(
-                          context: context,
-                          builder: (context) {
-                            return Container(
-                              height: MediaQuery.of(context).size.height * 0.3,
+                        elevation: 5,
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          return SingleChildScrollView(
+                            child: Container(
+                              padding: EdgeInsets.only(
+                                  bottom:
+                                      MediaQuery.of(context).viewInsets.bottom),
                               child: Column(
                                 children: [
                                   Padding(
@@ -241,11 +284,12 @@ class _SettingsPageState extends State<SettingsPage> {
                                       bottom: 10,
                                     ),
                                     child: TextFormField(
-                                      onChanged: (value) =>
-                                          user.setPassword = value,
+                                      obscureText: true,
+                                      onChanged: (value) => _password = value,
                                       decoration: InputDecoration(
-                                          prefixIcon: Icon(Icons.password),
-                                          fillColor: purplenavy,
+                                          prefixIcon:
+                                              Icon(Icons.vpn_key_rounded),
+                                          fillColor: darkblue3,
                                           filled: true,
                                           border: OutlineInputBorder(
                                               borderRadius: BorderRadius.all(
@@ -265,21 +309,25 @@ class _SettingsPageState extends State<SettingsPage> {
                                     ),
                                   ),
                                   TextButton(
-                                      onPressed: () {
-                                        Navigator.of(context).pop();
-                                        userController.updateUser(user);
-                                      },
-                                      child: Text(
-                                        'Update',
-                                        style: TextStyle(color: Colors.black),
-                                      ))
+                                    onPressed: () {
+                                      user.setPassword = _password;
+                                      userController.updateUser(user);
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Text(
+                                      'Update',
+                                      style: TextStyle(color: darkpurple),
+                                    ),
+                                  )
                                 ],
                               ),
-                            );
-                          });
+                            ),
+                          );
+                        },
+                      );
                     },
                     leading: Icon(
-                      Icons.password_rounded,
+                      Icons.vpn_key_rounded,
                       color: darkpurple,
                       size: 25,
                     ),

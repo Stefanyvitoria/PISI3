@@ -2,7 +2,8 @@ import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 
 class WidgetsConstantes {
-  static alert({title, Widget content, actions, context}) {
+  static alert(
+      {@required BuildContext context, title, Widget content, actions}) {
     return showDialog(
       context: context,
       builder: (context) {
