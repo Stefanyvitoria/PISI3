@@ -1,5 +1,6 @@
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/firestore_model.dart';
+import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/container_anime.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,8 +11,7 @@ class Favorites extends StatefulWidget {
   _FavoritesState createState() => _FavoritesState();
 }
 
-UserController _userController = UserController();
-
+// ***** Não esquecer de remover
 _connection() {
   return FirebaseFirestore.instance
       .collection('Animes')
@@ -19,6 +19,7 @@ _connection() {
       .snapshots();
 }
 
+// ***** ferindo o princípio de aberto fechado
 List<Widget> makeListWidget(AsyncSnapshot snapshot) {
   return snapshot.data.docs.map<Widget>((document) {
     var name = document['name'];
@@ -34,8 +35,18 @@ List<Widget> makeListWidget(AsyncSnapshot snapshot) {
 }
 
 class _FavoritesState extends State<Favorites> {
+  UserController _userController;
+  User user;
+
+  @override
+  void initState() {
+    _userController = UserController();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
+    user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         leading: InkWell(

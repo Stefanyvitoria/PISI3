@@ -25,6 +25,11 @@ class UserController {
     return data == null ? null : User.fromJson(data);
   }
 
+  prefClear() async {
+    SharedPreferences prefs = await _prefs;
+    prefs.remove('email');
+  }
+
   prefSetUser(String email) async {
     SharedPreferences prefs = await _prefs;
     await prefs.setString('email', email);

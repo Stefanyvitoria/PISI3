@@ -1,9 +1,11 @@
+import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/login_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:animecom/views/sign_up_view.dart';
+import 'package:animecom/views/widgets/alert.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:page_transition/page_transition.dart';
@@ -31,11 +33,13 @@ class _CatalogState extends State<Catalog> {
   ];
 
   PageController _pageController;
+  UserController userController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
 
   @override
   void initState() {
+    userController = UserController();
     super.initState();
     _pageController = PageController();
   }
@@ -159,9 +163,7 @@ class _CatalogState extends State<Catalog> {
                                     padding: const EdgeInsets.only(bottom: 20),
                                     child: Center(
                                       child: Text(
-                                        user.getName == null
-                                            ? 'Profile'
-                                            : user.getName,
+                                        user.getName ?? 'Profile',
                                         style: quicksand(
                                             fontSize: 25.0,
                                             fontWeight: FontWeight.bold,
@@ -177,75 +179,119 @@ class _CatalogState extends State<Catalog> {
                               padding:
                                   const EdgeInsets.only(left: 10, right: 10),
                               child: Card(
-                                  child: Column(
-                                children: <Widget>[
-                                  ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Favorites(),
-                                        ),
-                                      );
-                                    },
-                                    leading: Icon(
-                                      Icons.star,
-                                      color: darkpurple,
-                                      size: 25,
-                                    ),
-                                    title: Text(
-                                      'Favorites',
-                                      style: quicksand(
-                                          color: darkpurple,
-                                          fontSize: 16.0,
-                                          fontWeight: FontWeight.bold),
-                                    ),
-                                  ),
-                                  Divider(
-                                    height: 10.0,
-                                    color: darkpurple,
-                                  ),
-                                  ListTile(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => SettingsPage(),
-                                          settings:
-                                              RouteSettings(arguments: user),
-                                        ),
-                                      );
-                                    },
-                                    leading: Icon(
-                                      Icons.settings,
-                                      color: darkpurple,
-                                      size: 25,
-                                    ),
-                                    title: Text('Settings',
+                                child: Column(
+                                  children: <Widget>[
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) => Favorites(),
+                                            settings:
+                                                RouteSettings(arguments: user),
+                                          ),
+                                        );
+                                      },
+                                      leading: Icon(
+                                        Icons.star,
+                                        color: darkpurple,
+                                        size: 25,
+                                      ),
+                                      title: Text(
+                                        'Favorites',
                                         style: quicksand(
                                             color: darkpurple,
                                             fontSize: 16.0,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                  Divider(
-                                    height: 10.0,
-                                    color: darkpurple,
-                                  ),
-                                  ListTile(
-                                    onTap: () {},
-                                    leading: Icon(
-                                      Icons.logout,
-                                      color: darkpurple,
-                                      size: 25,
+                                            fontWeight: FontWeight.bold),
+                                      ),
                                     ),
-                                    title: Text('Logout',
-                                        style: quicksand(
-                                            color: darkpurple,
-                                            fontSize: 16.0,
-                                            fontWeight: FontWeight.bold)),
-                                  ),
-                                ],
-                              )),
+                                    Divider(
+                                      height: 10.0,
+                                      color: darkpurple,
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                SettingsPage(),
+                                            settings:
+                                                RouteSettings(arguments: user),
+                                          ),
+                                        );
+                                      },
+                                      leading: Icon(
+                                        Icons.settings,
+                                        color: darkpurple,
+                                        size: 25,
+                                      ),
+                                      title: Text('Settings',
+                                          style: quicksand(
+                                              color: darkpurple,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                    Divider(
+                                      height: 10.0,
+                                      color: darkpurple,
+                                    ),
+                                    ListTile(
+                                      onTap: () {
+                                        WidgetsConstantes.alert(
+                                          context: context,
+                                          content: Text('Confirm logout?'),
+                                          actions: [
+                                            TextButton(
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
+                                                child: Text(
+                                                  'No',
+                                                  style: quicksand(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: darkpurple,
+                                                  ),
+                                                )),
+                                            TextButton(
+                                                onPressed: () {
+                                                  userController.prefClear();
+                                                  Navigator.pushAndRemoveUntil(
+                                                      context,
+                                                      PageTransition(
+                                                        child: Catalog(),
+                                                        type: PageTransitionType
+                                                            .rightToLeftWithFade,
+                                                        duration: Duration(
+                                                            milliseconds: 800),
+                                                        settings: RouteSettings(
+                                                            name: 'catalog'),
+                                                      ),
+                                                      (route) => false);
+                                                },
+                                                child: Text(
+                                                  'Yes',
+                                                  style: quicksand(
+                                                    fontWeight: FontWeight.bold,
+                                                    color: darkpurple,
+                                                  ),
+                                                ))
+                                          ],
+                                        );
+                                      },
+                                      leading: Icon(
+                                        Icons.logout,
+                                        color: darkpurple,
+                                        size: 25,
+                                      ),
+                                      title: Text('Logout',
+                                          style: quicksand(
+                                              color: darkpurple,
+                                              fontSize: 16.0,
+                                              fontWeight: FontWeight.bold)),
+                                    ),
+                                  ],
+                                ),
+                              ),
                             )
                           ],
                         )
