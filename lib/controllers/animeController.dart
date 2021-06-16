@@ -4,11 +4,12 @@ import 'package:animecom/models/firestore_model.dart';
 import 'package:flutter/services.dart';
 
 class AnimeController {
+  
   Future<String> _carregaAnimeJson() async {
     return await rootBundle.loadString('assets/dataset/base_animes.json');
   }
 
-  Future carregaAluno(index) async {
+  Future carregaAnime(index) async {
     String jsonString = await _carregaAnimeJson();
     final jsonResponse = json.decode(jsonString);
     Map<String, dynamic> uid = jsonResponse['uid'];
