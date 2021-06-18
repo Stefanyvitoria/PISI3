@@ -2,7 +2,7 @@ import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
-import 'package:animecom/views/widgets/alert.dart';
+import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 

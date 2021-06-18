@@ -1,7 +1,10 @@
+import 'dart:convert';
+
 import 'package:animecom/controllers/user_controller.dart';
-import 'package:animecom/models/firestore_model.dart';
+import 'package:animecom/models/api_model.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
+import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:animecom/views/widgets/container_anime.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -37,6 +40,7 @@ List<Widget> makeListWidget(AsyncSnapshot snapshot) {
 class _FavoritesState extends State<Favorites> {
   UserController _userController;
   User user;
+  String _title, _synopsis, _genre, _episodes, _server;
 
   @override
   void initState() {
@@ -49,6 +53,199 @@ class _FavoritesState extends State<Favorites> {
     user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {
+              WidgetsConstantes.bottomSheet(
+                context: context,
+                content: Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                        top: 20,
+                        bottom: 10,
+                      ),
+                      child: Text(
+                        'Add anime to favorites',
+                        style: quicksand(
+                            fontSize: 18.0,
+                            fontWeight: FontWeight.bold,
+                            color: darkpurple),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: TextFormField(
+                        onChanged: (_value) => _title = _value,
+                        decoration: InputDecoration(
+                            fillColor: darkblue3,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide:
+                                    BorderSide(color: Colors.green, width: 20)),
+                            labelText: 'Title',
+                            labelStyle: quicksand(
+                                color: linen,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal)),
+                        style: quicksand(
+                            color: linen,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: TextFormField(
+                        onChanged: (_value) => _synopsis = _value,
+                        decoration: InputDecoration(
+                            fillColor: darkblue3,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide:
+                                    BorderSide(color: Colors.green, width: 20)),
+                            labelText: 'Synopsis',
+                            labelStyle: quicksand(
+                                color: linen,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal)),
+                        style: quicksand(
+                            color: linen,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: TextFormField(
+                        onChanged: (_value) => _genre = _value,
+                        decoration: InputDecoration(
+                            fillColor: darkblue3,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide:
+                                    BorderSide(color: Colors.green, width: 20)),
+                            labelText: 'Genre',
+                            labelStyle: quicksand(
+                                color: linen,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal)),
+                        style: quicksand(
+                            color: linen,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: TextFormField(
+                        onChanged: (_value) => _episodes = _value,
+                        decoration: InputDecoration(
+                            fillColor: darkblue3,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide:
+                                    BorderSide(color: Colors.green, width: 20)),
+                            labelText: 'Episodes',
+                            labelStyle: quicksand(
+                                color: linen,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal)),
+                        style: quicksand(
+                            color: linen,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: 20),
+                      child: Divider(
+                        height: 10.0,
+                        color: darkpurple,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Padding(
+                      padding: const EdgeInsets.only(
+                        left: 20,
+                        right: 20,
+                      ),
+                      child: TextFormField(
+                        onChanged: (_value) => _server = _value,
+                        decoration: InputDecoration(
+                            fillColor: darkblue3,
+                            filled: true,
+                            border: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(20)),
+                                borderSide:
+                                    BorderSide(color: Colors.green, width: 20)),
+                            labelText: 'Server',
+                            labelStyle: quicksand(
+                                color: linen,
+                                fontSize: 16.0,
+                                fontWeight: FontWeight.normal)),
+                        style: quicksand(
+                            color: linen,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.normal),
+                      ),
+                    ),
+                    TextButton(
+                      onPressed: () async {
+                        //falta validar fields
+                        Map envio = new Map<String, dynamic>();
+                        envio["title"] = _title;
+                        envio["synopsis"] = _synopsis;
+                        envio["genre"] = _genre;
+                        envio["episodes"] = _episodes;
+                        var result = await apiRest.call(
+                          server: _server,
+                          path: '/insert',
+                          params: {'params': jsonEncode(envio)},
+                        );
+                        print(result);
+                        Navigator.of(context).pop();
+                      },
+                      child: Text(
+                        'Add Anime',
+                        style: TextStyle(color: darkpurple),
+                      ),
+                    )
+                  ],
+                ),
+              );
+            },
+            icon: Icon(Icons.add_sharp, color: gainsboro),
+          )
+        ],
         leading: InkWell(
           splashColor: Colors.transparent,
           highlightColor: Colors.transparent,

@@ -29,4 +29,21 @@ class WidgetsConstantes {
       },
     );
   }
+
+  static bottomSheet({@required BuildContext context, Widget content}) {
+    return showModalBottomSheet(
+      elevation: 5,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.only(
+                bottom: MediaQuery.of(context).viewInsets.bottom),
+            child: content,
+          ),
+        );
+      },
+    );
+  }
 }

@@ -8,7 +8,7 @@ import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:animecom/views/sign_up_view.dart';
-import 'package:animecom/views/widgets/alert.dart';
+import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:page_transition/page_transition.dart';
@@ -502,6 +502,7 @@ class _CatalogState extends State<Catalog> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
+                                          if (_server.length <= 0) return;
                                           Map<String, dynamic> envio =
                                               new Map<String, dynamic>();
                                           envio['teste'] =
