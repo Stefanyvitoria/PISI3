@@ -50,7 +50,9 @@ class _FavoritesState extends State<Favorites> {
 
   @override
   Widget build(BuildContext context) {
-    user = ModalRoute.of(context).settings.arguments;
+    List _args = ModalRoute.of(context).settings.arguments;
+    user = _args[0];
+    _server = _args[1];
     return Scaffold(
       appBar: AppBar(
         actions: [
@@ -184,40 +186,6 @@ class _FavoritesState extends State<Favorites> {
                       ),
                     ),
                     SizedBox(height: 5),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 20),
-                      child: Divider(
-                        height: 10.0,
-                        color: darkpurple,
-                      ),
-                    ),
-                    SizedBox(height: 5),
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                      ),
-                      child: TextFormField(
-                        onChanged: (_value) => _server = _value,
-                        decoration: InputDecoration(
-                            fillColor: darkblue3,
-                            filled: true,
-                            border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                                borderSide:
-                                    BorderSide(color: Colors.green, width: 20)),
-                            labelText: 'Server',
-                            labelStyle: quicksand(
-                                color: linen,
-                                fontSize: 16.0,
-                                fontWeight: FontWeight.normal)),
-                        style: quicksand(
-                            color: linen,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.normal),
-                      ),
-                    ),
                     TextButton(
                       onPressed: () async {
                         //falta validar fields

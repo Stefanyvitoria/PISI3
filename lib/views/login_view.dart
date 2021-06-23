@@ -138,6 +138,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Container(
+                        constraints: BoxConstraints(maxHeight: 50),
                         height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextButton(

@@ -34,11 +34,11 @@ class _CatalogState extends State<Catalog> {
     'Adventure',
     'Action'
   ];
-  String _server;
   PageController _pageController;
   UserController userController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
+  String _server, _text;
 
   @override
   void initState() {
@@ -185,12 +185,74 @@ class _CatalogState extends State<Catalog> {
                                 children: <Widget>[
                                   ListTile(
                                     onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Favorites(),
-                                          settings:
-                                              RouteSettings(arguments: user),
+                                      WidgetsConstantes.bottomSheet(
+                                        context: context,
+                                        content: Padding(
+                                          padding: const EdgeInsets.only(
+                                            left: 20,
+                                            right: 20,
+                                            top: 20,
+                                            bottom: 10,
+                                          ),
+                                          child: Column(
+                                            children: [
+                                              TextFormField(
+                                                onChanged: (_value) =>
+                                                    _server = _value,
+                                                decoration: InputDecoration(
+                                                    fillColor: darkblue3,
+                                                    filled: true,
+                                                    border: OutlineInputBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    20)),
+                                                        borderSide: BorderSide(
+                                                            color: Colors.green,
+                                                            width: 20)),
+                                                    labelText: 'Server',
+                                                    labelStyle: quicksand(
+                                                        color: linen,
+                                                        fontSize: 16.0,
+                                                        fontWeight:
+                                                            FontWeight.normal)),
+                                                style: quicksand(
+                                                    color: linen,
+                                                    fontSize: 16.0,
+                                                    fontWeight:
+                                                        FontWeight.normal),
+                                              ),
+                                              TextButton(
+                                                onPressed: () {
+                                                  setState(
+                                                    () {
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                      Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                          builder: (context) =>
+                                                              Favorites(),
+                                                          settings:
+                                                              RouteSettings(
+                                                                  arguments: [
+                                                                user,
+                                                                _server
+                                                              ]),
+                                                        ),
+                                                      );
+                                                    },
+                                                  );
+                                                },
+                                                child: Text(
+                                                  'Add server',
+                                                  style: TextStyle(
+                                                    color: darkpurple,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
                                         ),
                                       );
                                     },
@@ -417,6 +479,10 @@ class _CatalogState extends State<Catalog> {
                       padding:
                           const EdgeInsets.only(top: 50, left: 25, right: 25),
                       child: TextFormField(
+                        onChanged: (_value) {
+                          _text = _value;
+                          print(_text);
+                        },
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.search),
                             fillColor: purplenavy,
@@ -454,6 +520,7 @@ class _CatalogState extends State<Catalog> {
                           ),
                         ),
                         onPressed: () {
+                          if (_text == null || _text.length < 1) return;
                           showModalBottomSheet(
                             elevation: 5,
                             isScrollControlled: true,
@@ -502,21 +569,23 @@ class _CatalogState extends State<Catalog> {
                                       ),
                                       TextButton(
                                         onPressed: () async {
-                                          if (_server.length <= 0) return;
+                                          if (_server == null ||
+                                              _server.length <= 0) return;
                                           Map<String, dynamic> envio =
                                               new Map<String, dynamic>();
-                                          envio['teste'] =
-                                              '***Recebeu do APP***';
+                                          envio['text'] = _text;
 
                                           var result = await apiRest.call(
-                                            path: "/",
+                                            path: "/clusterization",
                                             server: _server,
                                             params: {
                                               "params": jsonEncode(envio)
                                             },
                                           );
                                           print('');
+                                          print('******************');
                                           print(result);
+
                                           print('');
                                           Navigator.of(context).pop();
                                         },

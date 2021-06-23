@@ -87,7 +87,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: height * 0.6 * 0.2,
+                        height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           onChanged: (value) => email = value,
@@ -113,7 +113,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       Container(
-                        height: height * 0.6 * 0.2,
+                        height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           onChanged: (value) => password1 = value,
@@ -139,7 +139,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       Container(
-                        height: height * 0.6 * 0.2,
+                        height: height * 0.6 * 0.18,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           onChanged: (value) => password2 = value,
@@ -165,7 +165,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       Container(
-                        height: height * 0.6 * 0.15,
+                        constraints: BoxConstraints(maxHeight: 50),
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextButton(
                           style: ButtonStyle(
