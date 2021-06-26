@@ -12,7 +12,6 @@ import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:page_transition/page_transition.dart';
-import 'package:animecom/controllers/anime_controller.dart';
 
 class Catalog extends StatefulWidget {
   @override
@@ -77,7 +76,7 @@ class _CatalogState extends State<Catalog> {
                   fontWeight: FontWeight.bold),
             ),
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: gainsboro,
           automaticallyImplyLeading: false),
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: Duration(milliseconds: 500),
@@ -147,7 +146,7 @@ class _CatalogState extends State<Catalog> {
               ),
             ),
             Container(
-                decoration: BoxDecoration(color: darkpurple),
+                decoration: BoxDecoration(color: darkblue),
                 child: user != null
                     ? ListView(
                         children: <Widget>[
@@ -176,7 +175,17 @@ class _CatalogState extends State<Catalog> {
                                 ),
                               ],
                             ),
-                            decoration: BoxDecoration(color: darkpurple),
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                  colors: [
+                                    darkblue1,
+                                    darkblue1,
+                                    darkblue,
+                                    darkblue
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter),
+                            ),
                           ),
                           Padding(
                             padding: const EdgeInsets.only(left: 10, right: 10),
@@ -471,7 +480,12 @@ class _CatalogState extends State<Catalog> {
                         ],
                       )),
             Container(
-              decoration: BoxDecoration(color: darkpurple),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                    colors: [darkblue1, darkblue],
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter),
+              ),
               child: ListView(
                 children: <Widget>[
                   Center(
@@ -485,7 +499,7 @@ class _CatalogState extends State<Catalog> {
                         },
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.search),
-                            fillColor: purplenavy,
+                            fillColor: darkblue3,
                             filled: true,
                             border: OutlineInputBorder(
                                 borderRadius:

@@ -8,7 +8,7 @@ class User {
   int _age;
   String _phone;
   String _password;
-  List<Anime> _favorites;
+  List<dynamic> _favorites;
 
   User(
       {int uid,
@@ -18,7 +18,7 @@ class User {
       int age,
       String phone,
       String password,
-      List<Anime> favorites}) {
+      List<dynamic> favorites}) {
     this._uid = uid;
     this._name = name;
     this._email = email;
