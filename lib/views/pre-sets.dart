@@ -21,6 +21,7 @@ const darkblue4 = Color(0xff11121b);
 //Fontes
 quicksand({color, fontSize, fontWeight}) {
   return GoogleFonts.quicksand(
+      decoration: TextDecoration.none,
       textStyle:
           TextStyle(fontSize: fontSize, color: color, fontWeight: fontWeight));
 }
