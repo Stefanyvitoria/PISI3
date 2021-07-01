@@ -5,7 +5,7 @@ import 'package:animecom/models/api_model.dart';
 import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
-import 'package:animecom/views/widgets/container_anime.dart';
+import 'package:animecom/views/widgets/anime_container.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -18,7 +18,7 @@ class Favorites extends StatefulWidget {
 _connection() {
   return FirebaseFirestore.instance
       .collection('Animes')
-      .where('uid', isEqualTo: 28891)
+      .where('episode', isEqualTo: 26.0)
       .snapshots();
 }
 
@@ -26,11 +26,12 @@ _connection() {
 List<Widget> makeListWidget(AsyncSnapshot snapshot) {
   return snapshot.data.docs.map<Widget>((document) {
     var name = document['name'];
+    var synopsis = document['synopsis'];
     var score = document['score'];
     var img_url = document['img_url'];
-    print(img_url);
     return AnimeContainer(
       name: name,
+      synopsis: synopsis,
       score: score,
       imgurl: img_url,
     );
@@ -199,7 +200,6 @@ class _FavoritesState extends State<Favorites> {
                           path: '/insert',
                           params: {'params': jsonEncode(envio)},
                         );
-                        print(result);
                         Navigator.of(context).pop();
                       },
                       child: Text(
@@ -226,16 +226,11 @@ class _FavoritesState extends State<Favorites> {
           },
         ),
         automaticallyImplyLeading: false,
-        title: Padding(
-          padding: EdgeInsets.only(right: 55.0),
-          child: Center(
-            child: Text(
-              'Favorites',
-              style: quicksand(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
-                  color: gainsboro),
-            ),
+        title: Center(
+          child: Text(
+            'Favorites',
+            style: quicksand(
+                fontSize: 18.0, fontWeight: FontWeight.bold, color: gainsboro),
           ),
         ),
         foregroundColor: Colors.white,

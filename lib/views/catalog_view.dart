@@ -8,6 +8,7 @@ import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:animecom/views/sign_up_view.dart';
+import 'package:animecom/views/widgets/category_container.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
@@ -66,18 +67,6 @@ class _CatalogState extends State<Catalog> {
     double width = MediaQuery.of(context).size.width;
 
     return Scaffold(
-      appBar: AppBar(
-          title: Center(
-            child: Text(
-              _titleOptions.elementAt(_selectedIndex),
-              style: quicksand(
-                  color: darkpurple,
-                  fontSize: 20.0,
-                  fontWeight: FontWeight.bold),
-            ),
-          ),
-          backgroundColor: gainsboro,
-          automaticallyImplyLeading: false),
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: Duration(milliseconds: 500),
         animationCurve: Curves.ease,
@@ -118,30 +107,11 @@ class _CatalogState extends State<Catalog> {
                 children: <Widget>[
                   for (String item in genders)
                     Padding(
-                      padding: EdgeInsets.only(
-                          top: 10, left: 30, right: 30, bottom: 10),
-                      child: Container(
-                        child: Center(
-                          child: Text(
-                            item,
-                            style: quicksand(
-                                color: gainsboro,
-                                fontSize: 18.0,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ),
-                        height: 160,
-                        width: 50,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: darkblue2, width: 1),
-                            gradient: LinearGradient(
-                                colors: [darkblue2, darkblue],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter),
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(25))),
-                      ),
-                    ),
+                        padding: EdgeInsets.only(
+                            top: 10, left: 5, right: 5, bottom: 10),
+                        child: CategoryContainer(
+                          text: item,
+                        )),
                 ],
               ),
             ),
