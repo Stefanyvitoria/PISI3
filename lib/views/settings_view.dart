@@ -1,3 +1,4 @@
+import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/catalog_view.dart';
@@ -15,10 +16,12 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   UserController userController;
+  AppController appController;
   String _password;
 
   @override
   void initState() {
+    appController = AppController();
     userController = new UserController();
     super.initState();
   }
@@ -241,9 +244,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                   )),
                               TextButton(
                                 onPressed: () {
-                                  //userController.prefClear();
-                                  //userController.deleteUser(
-                                  //    user.getEmail, user.getPassword);
+                                  appController.prefClear();
+                                  userController.deleteUser(user.getUid);
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       PageTransition(

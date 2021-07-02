@@ -17,15 +17,22 @@ class UserController {
     send['table'] = 'profiles';
     send['fields'] = 'email, pass';
     send['values'] = '"$email", "$password"';
-    await _dataBaseModel.add("/insert", send);
+    await _dataBaseModel.call("/insert", send);
   }
 
-  update(Profile user) async {
+  updateUser(Profile user) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'profiles';
     send['values'] =
         'uid = ${user.getUid}, user_name = "${user.getName}", pass = "${user.getPassword}", gender = "${user.getGender}", birthday = "${user.getbirthday}", phone = "${user.getPhone}"';
     send['condition'] = 'uid = ${user.getUid}';
-    await _dataBaseModel.update("/update", send);
+    await _dataBaseModel.call("/update", send);
+  }
+
+  deleteUser(int uid) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'profiles';
+    send['condition'] = 'uid = $uid';
+    await _dataBaseModel.call('/delete', send);
   }
 }

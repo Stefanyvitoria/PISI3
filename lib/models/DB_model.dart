@@ -15,15 +15,7 @@ class DataBaseModel {
     return data['result'];
   }
 
-  add(String path, Map send) async {
-    await apiRest.call(
-      path: path,
-      server: appController.getServer,
-      params: {"params": jsonEncode(send)},
-    );
-  }
-
-  update(String path, Map send) async {
+  call(String path, Map send) async {
     await apiRest.call(
       path: path,
       server: appController.getServer,
