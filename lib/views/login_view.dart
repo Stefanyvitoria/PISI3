@@ -1,10 +1,11 @@
+import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
-import 'package:animecom/models/user_model.dart';
+import 'package:animecom/models/profile_model.dart';
+import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
-import 'catalog_view.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -155,11 +156,11 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () async {
-                            //Verifica se o usuário está no banco.
-                            //Falta verificar a senha.
-                            User user = await userController.getUser(_email);
-                            if (_sendForm() && (user != null)) {
-                              userController.prefSetUser(_email);
+                            Profile user = await userController.getUser(_email);
+                            if (_sendForm() &&
+                                (user != null) &&
+                                (user.getPassword == _password)) {
+                              appController.prefSetUser(user.getEmail);
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   PageTransition(
@@ -167,7 +168,8 @@ class _LoginPageState extends State<LoginPage> {
                                     type:
                                         PageTransitionType.rightToLeftWithFade,
                                     duration: Duration(milliseconds: 800),
-                                    settings: RouteSettings(arguments: user),
+                                    settings: RouteSettings(
+                                        name: 'catalog', arguments: user),
                                   ),
                                   (route) => false);
                             }
