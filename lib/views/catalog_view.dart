@@ -12,7 +12,6 @@ import 'package:animecom/views/widgets/category_container.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Catalog extends StatefulWidget {
@@ -22,8 +21,8 @@ class Catalog extends StatefulWidget {
 
 class _CatalogState extends State<Catalog> {
   List genders = [
-    'Top Rated',
-    'Favorites',
+    'Top rated',
+    'Your animes',
     'Shounen',
     'Shoujo',
     'Comedy',
@@ -37,8 +36,6 @@ class _CatalogState extends State<Catalog> {
   ];
   PageController _pageController;
   UserController userController;
-  int _selectedIndex = 0;
-  static List _titleOptions = ['Home', 'Profile', 'Search'];
   String _server, _text;
 
   @override
@@ -55,9 +52,7 @@ class _CatalogState extends State<Catalog> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(() {});
     _pageController.animateToPage(index,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
@@ -93,10 +88,9 @@ class _CatalogState extends State<Catalog> {
         child: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _selectedIndex = index);
-          },
+          onPageChanged: (index) {},
           children: [
+            //CATALOG
             Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -116,6 +110,8 @@ class _CatalogState extends State<Catalog> {
                 ],
               ),
             ),
+
+            //PROFILE PAGE
             Container(
                 decoration: BoxDecoration(color: darkblue),
                 child: user != null
@@ -450,6 +446,8 @@ class _CatalogState extends State<Catalog> {
                           ),
                         ],
                       )),
+
+            //SEARCH PAGE
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
