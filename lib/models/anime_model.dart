@@ -1,54 +1,50 @@
-import 'package:animecom/models/evaluation_model.dart';
-
 class Anime {
   int _animeUid;
-  String _name;
-  List<String> _genre;
-  String _synopsi;
-  DateTime _start;
-  DateTime _finish;
+  String _title;
+  String _synopsis;
+  String _genre;
+  String _airedStart;
+  String _airedFinish;
   int _episodes;
   String _imgUrl;
   String _link;
-  Evaluation _evalution;
 
-  Anime(
-      {int animeUid,
-      String name,
-      List<String> genre,
-      String synopsi,
-      DateTime start,
-      DateTime finish,
-      int episodes,
-      String imgUrl,
-      String link,
-      Evaluation evaluation}) {
+  Anime({
+    int animeUid,
+    String title,
+    String synopsi,
+    String genre,
+    String start,
+    String finish,
+    int episodes,
+    String imgUrl,
+    String link,
+  }) {
     this._animeUid = animeUid;
-    this._name = name;
+    this._title = title;
     this._genre = genre;
-    this._synopsi = synopsi;
-    this._start = start;
-    this._finish = finish;
+    this._synopsis = synopsi;
+    this._airedStart = start;
+    this._airedFinish = finish;
     this._episodes = episodes;
     this._imgUrl = imgUrl;
     this._link = link;
-    this._evalution = evaluation;
   }
 
   // ignore: unnecessary_getters_setters
-  String get getName => _name;
+  String get getName => _title;
 
   // ignore: unnecessary_getters_setters
-  List<String> get getGenre => _genre;
+  String get getGenre => _genre;
 
   // ignore: unnecessary_getters_setters
-  String get getSynopsi => _synopsi;
+  String get getSynopsi => _synopsis;
 
   // ignore: unnecessary_getters_setters
-  DateTime get getStart => _start;
+  String get getStart => _airedStart;
 
   // ignore: unnecessary_getters_setters
-  DateTime get getFinish => _finish;
+  String get getFinish => _airedFinish;
 
   // ignore: unnecessary_getters_setters
   int get getEpisodes => _episodes;
@@ -59,34 +55,29 @@ class Anime {
   // ignore: unnecessary_getters_setters
   String get getLink => _link;
 
-  // ignore: unnecessary_getters_setters
-  String get getEvaluation => _link;
-
-  Anime.fromJson(Map<String, dynamic> json) {
-    _animeUid = json['animeUid'];
-    _name = json['name'];
-    _genre = json['genre'];
-    _synopsi = json['synopsi'];
-    _start = json['start'];
-    _finish = json['finish'];
-    _episodes = json['episodes'];
-    _imgUrl = json['imgUrl'];
-    _link = json['link'];
-    _evalution = json['evaluation'];
+  Anime.fromJson(List data) {
+    this._animeUid = data[0];
+    this._title = data[1];
+    this._synopsis = data[2];
+    this._genre = data[3];
+    this._airedStart = data[4];
+    this._airedFinish = data[5];
+    this._episodes = data[6];
+    this._imgUrl = data[7];
+    this._link = data[8];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['animeUid'] = this._animeUid;
-    data['name'] = this._name;
+    data['name'] = this._title;
     data['genre'] = this._genre;
-    data['synopsi'] = this._synopsi;
-    data['start'] = this._start;
-    data['finish'] = this._finish;
+    data['synopsi'] = this._synopsis;
+    data['start'] = this._airedStart;
+    data['finish'] = this._airedFinish;
     data['episodes'] = this._episodes;
     data['imgUrl'] = this._imgUrl;
     data['link'] = this._link;
-    data['evaluation'] = this._evalution;
     return data;
   }
 }

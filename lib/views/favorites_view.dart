@@ -1,12 +1,9 @@
-import 'dart:convert';
-
+import 'package:animecom/controllers/anime_controller.dart';
 import 'package:animecom/controllers/favorites_controller.dart';
-import 'package:animecom/controllers/user_controller.dart';
-import 'package:animecom/models/api_model.dart';
+import 'package:animecom/models/anime_model.dart';
 import 'package:animecom/models/favorite_model.dart';
 import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/pre-sets.dart';
-import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:animecom/views/widgets/anime_container.dart';
 import 'package:flutter/material.dart';
 
@@ -16,10 +13,9 @@ class Favorites extends StatefulWidget {
 }
 
 class _FavoritesState extends State<Favorites> {
-  FavoriteController favoriteController = FavoriteController();
+  AnimeController _animeController = AnimeController();
   Profile user;
   List favorites;
-  String _title, _synopsis, _genre, _episodes, _server;
 
   @override
   Widget build(BuildContext context) {
@@ -30,18 +26,26 @@ class _FavoritesState extends State<Favorites> {
       body: Container(
         decoration: BoxDecoration(color: darkpurple),
         child: ListView.builder(
-            itemCount: favorites.length,
-            itemBuilder: (context, c) {
-              Favorite favorite = favorites[c];
-              return Container(
-                child: Text(
-                  'anime uid: ${favorite.getAnimeUid}\nuser uid: ${favorite.getUserUid}\n\n',
-                  style: TextStyle(
-                    color: Colors.white,
-                  ),
-                ),
-              );
-            }),
+          itemCount: favorites.length,
+          itemBuilder: (context, c) {
+            Favorite favorite = favorites[c];
+            return FutureBuilder(
+              future: _animeController.getAnime(favorite.getAnimeUid),
+              builder: (context, future) {
+                while (!future.hasData) {
+                  return Container();
+                }
+                Anime anime = future.data;
+                return AnimeContainer(
+                  name: anime.getName,
+                  synopsis: anime.getSynopsi,
+                  score: 10,
+                  imgurl: anime.getImgUrl,
+                );
+              },
+            );
+          },
+        ),
       ),
     );
   }
