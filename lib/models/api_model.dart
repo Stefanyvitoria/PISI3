@@ -26,7 +26,8 @@ class APIRest {
       String path,
       Map<String, dynamic> params,
       Map<String, String> headers = defaultHeaders,
-      Future process(json)}) async {
+      Future process(json)
+      }) async {
     var uri = Uri.https(server, path, params);
     var response = http.get(uri, headers: headers);
 

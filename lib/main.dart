@@ -4,6 +4,8 @@ import 'package:animecom/views/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'views/catalog_view.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -18,7 +20,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'AnimeCom',
           theme: ThemeData(primarySwatch: _createMaterialColor(linen)),
-          home: SplashScreen(title: 'AnimeCom'),
+          home: Catalog(),
         );
       },
     );
