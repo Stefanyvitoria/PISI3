@@ -1,16 +1,22 @@
 import 'package:animecom/models/DB_model.dart';
 import 'package:animecom/models/profile_model.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class UserController {
   DataBaseModel _dataBaseModel = DataBaseModel();
-  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
 
-  Future<Profile> getUser(String _uid, String server) async {
+  Future<Profile> getUser(String email) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'profiles';
-    send['condition'] = 'uid = ' + _uid;
-    List data = await _dataBaseModel.select(send, server, "/read");
+    send['condition'] = 'email = "$email"';
+    List data = await _dataBaseModel.select(send, "/read");
     return data.length == 0 ? null : Profile.fromJson(data[0]);
+  }
+
+  addUser(String email, String password) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'profiles';
+    send['fields'] = 'email, pass';
+    send['values'] = '"$email", "$password"';
+    await _dataBaseModel.add("/insert", send);
   }
 }

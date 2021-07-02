@@ -14,25 +14,25 @@ class AppController {
 
   prefClear() async {
     SharedPreferences prefs = await _prefs;
-    prefs.remove('uid');
+    prefs.remove('email');
   }
 
-  prefSetUser(int uid) async {
+  prefSetUser(String email) async {
     SharedPreferences prefs = await _prefs;
-    await prefs.setInt('uid', uid);
+    await prefs.setString('email', email);
   }
 
   prefGetUser() async {
     SharedPreferences prefs = await _prefs;
-    int uid = prefs.getInt('uid');
-    //print('User uid: $useruid');
-    return uid;
+    String email = prefs.getString('email');
+    print('User: $email');
+    return email;
   }
 
   loadUser() async {
-    int _uid = await prefGetUser();
-    if (_uid == null) return null;
-    Profile user = await userController.getUser(_uid.toString(), _server);
+    String email = await prefGetUser();
+    if (email == null) return null;
+    Profile user = await userController.getUser(email);
     return user;
   }
 }

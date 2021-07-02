@@ -62,6 +62,10 @@ class _SplashScreenState extends State<SplashScreen> {
             ),
             TextButton(
               onPressed: () async {
+                //appController.prefClear();
+                //appController.prefSetUser('ste@gmail.com');
+                //print(await appController.prefGetUser());
+
                 Profile user = await appController.loadUser();
                 //verificar servidor *****
                 Navigator.push(

@@ -87,6 +87,7 @@ class AnimeContainer extends StatelessWidget {
                 ),
               ),
               IconButton(
+                onPressed: () {},
                 icon: Icon(
                   Icons.star,
                   color: favyellow,

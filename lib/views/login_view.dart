@@ -1,4 +1,7 @@
+import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
+import 'package:animecom/models/profile_model.dart';
+import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -153,22 +156,23 @@ class _LoginPageState extends State<LoginPage> {
                             ),
                           ),
                           onPressed: () async {
-                            //  // Verifica se o usuário está no banco.
-                            // //  Falta verificar a senha.
-                            //   User user = await userController.getUser(_email);
-                            //   if (_sendForm() && (user != null)) {
-                            //     userController.prefSetUser(_email);
-                            //     Navigator.pushAndRemoveUntil(
-                            //         context,
-                            //         PageTransition(
-                            //           child: Catalog(),
-                            //           type:
-                            //               PageTransitionType.rightToLeftWithFade,
-                            //           duration: Duration(milliseconds: 800),
-                            //           settings: RouteSettings(arguments: user),
-                            //         ),
-                            //         (route) => false);
-                            //   }
+                            Profile user = await userController.getUser(_email);
+                            if (_sendForm() &&
+                                (user != null) &&
+                                (user.getPassword == _password)) {
+                              appController.prefSetUser(user.getEmail);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageTransition(
+                                    child: Catalog(),
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    duration: Duration(milliseconds: 800),
+                                    settings: RouteSettings(
+                                        name: 'catalog', arguments: user),
+                                  ),
+                                  (route) => false);
+                            }
                           },
                           child: Text(
                             'Login',
