@@ -183,7 +183,7 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           onPressed: () async {
                             if (_sendForm()) {
-                              await userController.addUser(email, password1);
+                              await userController.setUser(email, password1);
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   PageTransition(
