@@ -1,21 +1,20 @@
 import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/profile_model.dart';
-import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:animecom/views/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
-import 'forgotpass_view.dart';
+import 'catalog_view.dart';
 
-class LoginPage extends StatefulWidget {
+class ForgotPass extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _ForgotPassState createState() => _ForgotPassState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _ForgotPassState extends State<ForgotPass> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
   String _email, _password;
@@ -100,19 +99,6 @@ class _LoginPageState extends State<LoginPage> {
                             validator: _validarEmail,
                           )),
                       Container(
-                        height: height * 0.6 * 0.2,
-                        padding: const EdgeInsets.only(left: 25, right: 25),
-                        child: AnimeTextField(
-                          validator: _validarSenha,
-                          icon: Icon(Icons.vpn_key),
-                          text: 'Password',
-                          labelsize: 16.0,
-                          inputtextsize: 16.0,
-                          obscureText: true,
-                          onChanged: (value) => _password = value,
-                        ),
-                      ),
-                      Container(
                         constraints: BoxConstraints(maxHeight: 50),
                         height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
@@ -149,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                             }
                           },
                           child: Text(
-                            'Login',
+                            'Send email',
                             style: quicksand(
                                 color: darkpurple,
                                 fontSize: 18.0,
@@ -157,80 +143,41 @@ class _LoginPageState extends State<LoginPage> {
                           ),
                         ),
                       ),
-                      Container(
-                        alignment: Alignment.topCenter,
-                        height: height * 0.6 * 0.2,
-                        child: TextButton(
-                          style: ButtonStyle(
-                            overlayColor:
-                                MaterialStateProperty.all(Colors.transparent),
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                PageTransition(
-                                  child: ForgotPass(),
-                                  type: PageTransitionType.rightToLeftWithFade,
-                                  duration: Duration(milliseconds: 800),
-                                ));
-                          },
-                          child: Text(
-                            'Forgot your password?',
-                            style: quicksand(
-                                color: linen,
-                                fontSize: 12.0,
-                                fontWeight: FontWeight.bold),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 10.0),
+                        child: Container(
+                          constraints: BoxConstraints(maxHeight: 50),
+                          height: height * 0.6 * 0.15,
+                          padding: const EdgeInsets.only(left: 25, right: 25),
+                          child: TextButton(
+                            style: ButtonStyle(
+                              fixedSize: MaterialStateProperty.all<Size>(
+                                  Size(MediaQuery.of(context).size.width, 50)),
+                              backgroundColor: MaterialStateProperty.all<Color>(
+                                Colors.red[400],
+                              ),
+                              shape: MaterialStateProperty.all<OutlinedBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: new BorderRadius.circular(20.0),
+                                ),
+                              ),
+                            ),
+                            onPressed: () {
+                              Navigator.pop(context);
+                            },
+                            child: Text(
+                              'Cancel',
+                              style: quicksand(
+                                  color: darkpurple,
+                                  fontSize: 18.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),
-                Container(
-                  height: height * 0.1,
-                  alignment: Alignment.bottomCenter,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: <Widget>[
-                      Text(
-                        "Don't have an account?",
-                        style: quicksand(
-                            color: linen,
-                            fontSize: 16.0,
-                            fontWeight: FontWeight.normal),
-                      ),
-                      TextButton(
-                        style: ButtonStyle(
-                          overlayColor:
-                              MaterialStateProperty.all(Colors.transparent),
-                        ),
-                        onPressed: () {
-                          Navigator.pushAndRemoveUntil(
-                            context,
-                            PageTransition(
-                              child: SignupPage(),
-                              type: PageTransitionType.rightToLeftWithFade,
-                              duration: Duration(milliseconds: 800),
-                            ),
-                            (route) {
-                              if (route.settings.name == 'catalog' ||
-                                  route.settings.name == 'signin' ||
-                                  route.settings.name == 'signup') return true;
-                              return false;
-                            },
-                          );
-                        },
-                        child: Text(
-                          'Sign Up',
-                          style: quicksand(
-                              color: linen,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      )
-                    ],
-                  ),
-                )
               ],
             ),
           ),

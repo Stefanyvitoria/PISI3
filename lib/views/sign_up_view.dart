@@ -1,5 +1,6 @@
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/views/pre-sets.dart';
+import 'package:animecom/views/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -69,7 +70,7 @@ class _SignupPageState extends State<SignupPage> {
         height: height,
         child: Scaffold(
           body: Container(
-            color: darkpurple,
+            color: darkblue,
             child: ListView(
               children: <Widget>[
                 Container(
@@ -86,79 +87,43 @@ class _SignupPageState extends State<SignupPage> {
                       Container(
                         height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
-                        child: TextFormField(
+                        child: AnimeTextField(
+                          type: TextInputType.emailAddress,
                           onChanged: (value) => email = value,
+                          text: 'Email',
+                          icon: Icon(Icons.email),
+                          obscureText: false,
+                          labelsize: 16.0,
+                          inputtextsize: 16.0,
                           validator: _validarEmail,
-                          decoration: InputDecoration(
-                              prefixIcon: Icon(Icons.mail),
-                              fillColor: purplenavy,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(20)),
-                                  borderSide: BorderSide(
-                                      color: Colors.green, width: 20)),
-                              labelText: 'Email',
-                              labelStyle: quicksand(
-                                  color: linen,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.normal)),
-                          style: quicksand(
-                              color: linen,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.normal),
                         ),
                       ),
                       Container(
                         height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
-                        child: TextFormField(
+                        child: AnimeTextField(
+                          type: TextInputType.emailAddress,
                           onChanged: (value) => password1 = value,
-                          validator: _validarSenha,
+                          text: 'Password',
+                          icon: Icon(Icons.vpn_key),
                           obscureText: true,
-                          decoration: InputDecoration(
-                              fillColor: purplenavy,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                              ),
-                              prefixIcon: Icon(Icons.vpn_key),
-                              labelText: 'Password',
-                              labelStyle: quicksand(
-                                  color: linen,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.normal)),
-                          style: quicksand(
-                              color: linen,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.normal),
+                          labelsize: 16.0,
+                          inputtextsize: 16.0,
+                          validator: _validarSenha,
                         ),
                       ),
                       Container(
                         height: height * 0.6 * 0.18,
                         padding: const EdgeInsets.only(left: 25, right: 25),
-                        child: TextFormField(
+                        child: AnimeTextField(
+                          type: TextInputType.emailAddress,
                           onChanged: (value) => password2 = value,
-                          validator: _validarSenha,
+                          text: 'Confirm password',
+                          icon: Icon(Icons.vpn_key),
                           obscureText: true,
-                          decoration: InputDecoration(
-                              fillColor: purplenavy,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                              ),
-                              prefixIcon: Icon(Icons.vpn_key),
-                              labelText: 'Confirm Password',
-                              labelStyle: quicksand(
-                                  color: linen,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.normal)),
-                          style: quicksand(
-                              color: linen,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.normal),
+                          labelsize: 16.0,
+                          inputtextsize: 16.0,
+                          validator: _validarSenha,
                         ),
                       ),
                       Container(
