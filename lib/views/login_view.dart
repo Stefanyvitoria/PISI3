@@ -4,6 +4,7 @@ import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
+import 'package:animecom/views/widgets/textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -115,27 +116,14 @@ class _LoginPageState extends State<LoginPage> {
                       Container(
                         height: height * 0.6 * 0.2,
                         padding: const EdgeInsets.only(left: 25, right: 25),
-                        child: TextFormField(
-                          onChanged: (value) => _password = value,
+                        child: AnimeTextField(
                           validator: _validarSenha,
+                          icon: Icon(Icons.vpn_key),
+                          text: 'Password',
+                          labelsize: 16.0,
+                          inputtextsize: 16.0,
                           obscureText: true,
-                          decoration: InputDecoration(
-                              fillColor: purplenavy,
-                              filled: true,
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(20)),
-                              ),
-                              prefixIcon: Icon(Icons.vpn_key),
-                              labelText: 'Password',
-                              labelStyle: quicksand(
-                                  color: linen,
-                                  fontSize: 16.0,
-                                  fontWeight: FontWeight.normal)),
-                          style: quicksand(
-                              color: linen,
-                              fontSize: 16.0,
-                              fontWeight: FontWeight.normal),
+                          onChanged: (value) => _password = value,
                         ),
                       ),
                       Container(
