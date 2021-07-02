@@ -183,8 +183,8 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           onPressed: () {
                             if (_sendForm()) {
-                              controller.addUser(
-                                  email: email, password: password1);
+                              //controller.addUser(
+                              //    email: email, password: password1);
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   PageTransition(

@@ -2,11 +2,10 @@ import 'dart:convert';
 
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/api_model.dart';
-import 'package:animecom/models/user_model.dart';
+import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:animecom/views/widgets/anime_container.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class Favorites extends StatefulWidget {
@@ -15,12 +14,12 @@ class Favorites extends StatefulWidget {
 }
 
 // ***** Não esquecer de remover
-_connection() {
-  return FirebaseFirestore.instance
-      .collection('Animes')
-      .where('episode', isEqualTo: 26.0)
-      .snapshots();
-}
+// _connection() {
+//   return FirebaseFirestore.instance
+//       .collection('Animes')
+//       .where('episode', isEqualTo: 26.0)
+//       .snapshots();
+// }
 
 // ***** ferindo o princípio de aberto fechado
 List<Widget> makeListWidget(AsyncSnapshot snapshot) {
@@ -40,7 +39,7 @@ List<Widget> makeListWidget(AsyncSnapshot snapshot) {
 
 class _FavoritesState extends State<Favorites> {
   UserController _userController;
-  User user;
+  Profile user;
   String _title, _synopsis, _genre, _episodes, _server;
 
   @override
@@ -251,7 +250,7 @@ class _FavoritesState extends State<Favorites> {
                 );
             }
           },
-          stream: _connection(),
+          //stream: _connection(),
         ),
       ),
     );
