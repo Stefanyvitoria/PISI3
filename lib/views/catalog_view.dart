@@ -40,12 +40,9 @@ class _CatalogState extends State<Catalog> {
   ];
   PageController _pageController;
   UserController userController;
-<<<<<<< HEAD
-=======
   FavoriteController favoriteController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
->>>>>>> ca95d08e2a6ae046c42da86b2f8b0dc72af22e48
   String _server, _text;
   Profile user;
 
