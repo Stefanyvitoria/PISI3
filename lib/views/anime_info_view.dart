@@ -11,7 +11,7 @@ class _Anime_infoState extends State<Anime_info> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-          color: darkblue4,
+          color: darkblue,
           border: Border.all(color: darkblue2),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10))),
@@ -20,6 +20,7 @@ class _Anime_infoState extends State<Anime_info> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
+          SizedBox(width: MediaQuery.of(context).size.width,),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -43,111 +44,120 @@ class _Anime_infoState extends State<Anime_info> {
                       ),
                     ),
                   )),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(left: 10, top: 45.0),
-                    child: Row(
-                      children: [
-                        Container(
-                          width: 180,
+              Padding(
+                padding: const EdgeInsets.only(top: 65, left: 0, bottom: 10.0),
+                child: Container(
+                  color: darkblue,
+                  width: MediaQuery.of(context).size.width - 157,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Align(
+                              alignment: Alignment.topRight,
+                              child: GestureDetector(
+                                onTap: () => Navigator.pop(context),
+                                child: Icon(
+                                  Icons.close,
+                                  size: 20,
+                                  color: gainsboro,
+                                ),
+                              ),
+                            ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, top: 5.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 180,
+                              child: Text(
+                                'Name',
+                                style: quicksand(
+                                    color: gainsboro,
+                                    fontWeight: FontWeight.normal,
+                                    fontSize: 21.0),
+                                maxLines: 2,
+                              ),
+                            ),
+                            
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          top: 5.0,
+                          bottom: 10,
+                        ),
+                        child: Container(
+                          width: 230,
                           child: Text(
-                            'name',
+                            "Episodes: episodes",
                             style: quicksand(
                                 color: gainsboro,
-                                fontWeight: FontWeight.normal,
-                                fontSize: 21.0),
-                            maxLines: 2,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold),
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 30, top: 5.0),
-                          child: GestureDetector(
-                            onTap: () => Navigator.pop(context),
-                            child: Icon(
-                              Icons.close,
-                              size: 20,
-                              color: gainsboro,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10,
-                      top: 5.0,
-                      bottom: 10,
-                    ),
-                    child: Container(
-                      width: 230,
-                      child: Text(
-                        "Episodes: episodes",
-                        style: quicksand(
-                            color: gainsboro,
-                            fontSize: 14.0,
-                            fontWeight: FontWeight.bold),
                       ),
-                    ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          "Aired: aired",
+                          style: quicksand(
+                              color: gainsboro,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          "Ranked: ranked",
+                          style: quicksand(
+                              color: gainsboro,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          "Genders: genders",
+                          style: quicksand(
+                              color: gainsboro,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          bottom: 10,
+                        ),
+                        child: Text(
+                          "Score: score",
+                          style: quicksand(
+                              color: favyellow,
+                              fontSize: 14.0,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10,
-                      bottom: 10,
-                    ),
-                    child: Text(
-                      "Aired: aired",
-                      style: quicksand(
-                          color: gainsboro,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10,
-                      bottom: 10,
-                    ),
-                    child: Text(
-                      "Ranked: ranked",
-                      style: quicksand(
-                          color: gainsboro,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10,
-                      bottom: 10,
-                    ),
-                    child: Text(
-                      "Genders: genders",
-                      style: quicksand(
-                          color: gainsboro,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                      left: 10,
-                      bottom: 10,
-                    ),
-                    child: Text(
-                      "Score: score",
-                      style: quicksand(
-                          color: favyellow,
-                          fontSize: 14.0,
-                          fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           ),
+
           Padding(
             padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
             child: Container(
