@@ -1,23 +1,25 @@
-import 'anime_model.dart';
-
 class Favorite {
-  String _uid;
-  List<Anime> _listAnimes;
+  int _userUid;
+  int _animeUid;
 
-  Favorite(uid, listAnimes) {
-    this._uid = uid;
-    this._listAnimes = listAnimes;
+  get getUserUid => _userUid;
+
+  get getAnimeUid => _animeUid;
+
+  Favorite(userUid, animeUid) {
+    this._userUid = userUid;
+    this._animeUid = animeUid;
   }
 
-  Favorite.fromJson(Map<String, dynamic> json) {
-    _uid = json['uid'];
-    _listAnimes = json['listAnimes'];
+  Favorite.fromJson(List data) {
+    this._userUid = data[0];
+    this._animeUid = data[1];
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this._uid;
-    data['listAnimes'] = this._listAnimes;
+    data['user_uid'] = this._userUid;
+    data['anime_uid'] = this._animeUid;
     return data;
   }
 }

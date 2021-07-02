@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:animecom/controllers/app_controller.dart';
+import 'package:animecom/controllers/favorites_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/api_model.dart';
 import 'package:animecom/models/profile_model.dart';
@@ -37,6 +38,7 @@ class _CatalogState extends State<Catalog> {
   ];
   PageController _pageController;
   UserController userController;
+  FavoriteController favoriteController;
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
   String _server, _text;
@@ -44,6 +46,7 @@ class _CatalogState extends State<Catalog> {
 
   @override
   void initState() {
+    favoriteController = FavoriteController();
     userController = UserController();
     super.initState();
     _pageController = PageController();
@@ -164,74 +167,15 @@ class _CatalogState extends State<Catalog> {
                               child: Column(
                                 children: <Widget>[
                                   ListTile(
-                                    onTap: () {
-                                      WidgetsConstantes.bottomSheet(
-                                        context: context,
-                                        content: Padding(
-                                          padding: const EdgeInsets.only(
-                                            left: 20,
-                                            right: 20,
-                                            top: 20,
-                                            bottom: 10,
-                                          ),
-                                          child: Column(
-                                            children: [
-                                              TextFormField(
-                                                onChanged: (_value) =>
-                                                    _server = _value,
-                                                decoration: InputDecoration(
-                                                    fillColor: darkblue3,
-                                                    filled: true,
-                                                    border: OutlineInputBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    20)),
-                                                        borderSide: BorderSide(
-                                                            color: Colors.green,
-                                                            width: 20)),
-                                                    labelText: 'Server',
-                                                    labelStyle: quicksand(
-                                                        color: linen,
-                                                        fontSize: 16.0,
-                                                        fontWeight:
-                                                            FontWeight.normal)),
-                                                style: quicksand(
-                                                    color: linen,
-                                                    fontSize: 16.0,
-                                                    fontWeight:
-                                                        FontWeight.normal),
-                                              ),
-                                              TextButton(
-                                                onPressed: () {
-                                                  setState(
-                                                    () {
-                                                      Navigator.of(context)
-                                                          .pop();
-                                                      Navigator.push(
-                                                        context,
-                                                        MaterialPageRoute(
-                                                          builder: (context) =>
-                                                              Favorites(),
-                                                          settings:
-                                                              RouteSettings(
-                                                                  arguments: [
-                                                                user,
-                                                                _server
-                                                              ]),
-                                                        ),
-                                                      );
-                                                    },
-                                                  );
-                                                },
-                                                child: Text(
-                                                  'Add server',
-                                                  style: TextStyle(
-                                                    color: darkpurple,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
+                                    onTap: () async {
+                                      var favorites = await favoriteController
+                                          .getFavorites(user.getUid);
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Favorites(),
+                                          settings: RouteSettings(
+                                            arguments: [user, favorites],
                                           ),
                                         ),
                                       );
