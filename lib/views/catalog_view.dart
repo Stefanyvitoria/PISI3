@@ -4,6 +4,7 @@ import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/api_model.dart';
 import 'package:animecom/models/profile_model.dart';
+import 'package:animecom/views/edit_view.dart';
 import 'package:animecom/views/login_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
@@ -22,8 +23,8 @@ class Catalog extends StatefulWidget {
 
 class _CatalogState extends State<Catalog> {
   List genders = [
-    'Top Rated',
-    'Favorites',
+    'Top rated',
+    'Your animes',
     'Shounen',
     'Shoujo',
     'Comedy',
@@ -37,8 +38,6 @@ class _CatalogState extends State<Catalog> {
   ];
   PageController _pageController;
   UserController userController;
-  int _selectedIndex = 0;
-  static List _titleOptions = ['Home', 'Profile', 'Search'];
   String _server, _text;
   Profile user;
 
@@ -56,9 +55,7 @@ class _CatalogState extends State<Catalog> {
   }
 
   void _onItemTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
+    setState(() {});
     _pageController.animateToPage(index,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
@@ -93,10 +90,9 @@ class _CatalogState extends State<Catalog> {
         child: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
-          onPageChanged: (index) {
-            setState(() => _selectedIndex = index);
-          },
+          onPageChanged: (index) {},
           children: [
+            //CATALOG
             Container(
               decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -116,6 +112,8 @@ class _CatalogState extends State<Catalog> {
                 ],
               ),
             ),
+
+            //PROFILE PAGE
             Container(
                 decoration: BoxDecoration(color: darkblue),
                 child: user != null
@@ -451,6 +449,8 @@ class _CatalogState extends State<Catalog> {
                           ),
                         ],
                       )),
+
+            //SEARCH PAGE
             Container(
               decoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -506,6 +506,11 @@ class _CatalogState extends State<Catalog> {
                           ),
                         ),
                         onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => EditProfile(),
+                              ));
                           if (_text == null || _text.length < 1) return;
                           showModalBottomSheet(
                             elevation: 5,

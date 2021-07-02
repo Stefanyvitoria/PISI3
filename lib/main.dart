@@ -1,3 +1,4 @@
+import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/splash_view.dart';
 // import 'package:firebase_core/firebase_core.dart';

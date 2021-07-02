@@ -53,7 +53,7 @@ class _Anime_infoState extends State<Anime_info> {
                         Container(
                           width: 180,
                           child: Text(
-                            'Kimetsu no Yaiba',
+                            'name',
                             style: quicksand(
                                 color: gainsboro,
                                 fontWeight: FontWeight.normal,
