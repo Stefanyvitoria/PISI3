@@ -1,5 +1,5 @@
 import 'package:animecom/controllers/app_controller.dart';
-import 'package:animecom/controllers/user_controller.dart';
+import 'package:animecom/controllers/profile_controller.dart';
 import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';

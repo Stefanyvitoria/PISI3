@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:animecom/controllers/app_controller.dart';
+import 'package:animecom/models/api_model.dart';
+
 class Anime {
   int _animeUid;
   String _title;
@@ -67,17 +72,23 @@ class Anime {
     this._link = data[8];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['animeUid'] = this._animeUid;
-    data['name'] = this._title;
-    data['genre'] = this._genre;
-    data['synopsi'] = this._synopsis;
-    data['start'] = this._airedStart;
-    data['finish'] = this._airedFinish;
-    data['episodes'] = this._episodes;
-    data['imgUrl'] = this._imgUrl;
-    data['link'] = this._link;
-    return data;
+  Future<List> select(int uid, String path) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'animes';
+    send['condition'] = 'uid = $uid';
+    var data = await apiRest.call(
+      path: path,
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+    return data['result'];
+  }
+
+  call(String path, Map send) async {
+    await apiRest.call(
+      path: path,
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
   }
 }

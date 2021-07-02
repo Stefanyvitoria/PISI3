@@ -2,7 +2,7 @@ import 'dart:convert';
 
 import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/favorites_controller.dart';
-import 'package:animecom/controllers/user_controller.dart';
+import 'package:animecom/controllers/profile_controller.dart';
 import 'package:animecom/models/api_model.dart';
 import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/login_view.dart';

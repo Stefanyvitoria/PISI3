@@ -1,4 +1,4 @@
-import 'package:animecom/controllers/user_controller.dart';
+import 'package:animecom/controllers/profile_controller.dart';
 import 'package:animecom/models/profile_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

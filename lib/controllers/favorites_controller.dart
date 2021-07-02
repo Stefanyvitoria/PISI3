@@ -1,14 +1,10 @@
-import 'package:animecom/models/DB_model.dart';
 import 'package:animecom/models/favorite_model.dart';
 
 class FavoriteController {
-  DataBaseModel _dataBaseModel = DataBaseModel();
+  Favorite _Favorite = Favorite();
 
   Future getFavorites(int uid) async {
-    Map send = new Map<String, dynamic>();
-    send['table'] = 'favorites';
-    send['condition'] = 'user_uid = "$uid"';
-    List data = await _dataBaseModel.select(send, "/read");
+    List data = await _Favorite.select(uid, "/read");
     if (data.length == 0) return null;
     return data.map((e) => Favorite.fromJson(e)).toList();
   }

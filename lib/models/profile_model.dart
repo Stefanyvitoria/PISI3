@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:animecom/controllers/app_controller.dart';
+import 'package:animecom/models/api_model.dart';
+
 class Profile {
   int _uid;
   String _name;
@@ -71,15 +76,53 @@ class Profile {
     _birthday = data[5];
     _phone = data[6];
   }
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['uid'] = this._uid;
-    data['name'] = this._name;
-    data['email'] = this._email;
-    data['gender'] = this._gender;
-    data['birthday'] = this._birthday;
-    data['phone'] = this._phone;
-    data['password'] = this._password;
-    return data;
+
+  select(String email) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'profiles';
+    send['condition'] = 'email = "$email"';
+    var data = await apiRest.call(
+      path: "/read",
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+
+    return data['result'];
+  }
+
+  add(String values) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'profiles';
+    send['fields'] = 'email, pass';
+    send['values'] = values;
+    await apiRest.call(
+      path: "/insert",
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+  }
+
+  update(String path, Profile user) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'profiles';
+    send['values'] =
+        'uid = ${user.getUid}, user_name = "${user.getName}", pass = "${user.getPassword}", gender = "${user.getGender}", birthday = "${user.getbirthday}", phone = "${user.getPhone}"';
+    send['condition'] = 'uid = ${user.getUid}';
+    await apiRest.call(
+      path: "/update",
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+  }
+
+  delete(int uid, String path) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'profiles';
+    send['condition'] = 'uid = $uid';
+    await apiRest.call(
+      path: "/delete",
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
   }
 }

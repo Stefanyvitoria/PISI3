@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+import 'package:animecom/controllers/app_controller.dart';
+import 'package:animecom/models/api_model.dart';
+
 class Favorite {
   int _userUid;
   int _animeUid;
@@ -6,7 +11,7 @@ class Favorite {
 
   get getAnimeUid => _animeUid;
 
-  Favorite(userUid, animeUid) {
+  Favorite({userUid, animeUid}) {
     this._userUid = userUid;
     this._animeUid = animeUid;
   }
@@ -16,10 +21,24 @@ class Favorite {
     this._animeUid = data[1];
   }
 
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['user_uid'] = this._userUid;
-    data['anime_uid'] = this._animeUid;
-    return data;
+  Future<List> select(int uid, String path) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'favorites';
+    send['condition'] = 'user_uid = $uid';
+    var data = await apiRest.call(
+      path: path,
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+
+    return data['result'];
+  }
+
+  call(String path, Map send) async {
+    await apiRest.call(
+      path: path,
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
   }
 }
