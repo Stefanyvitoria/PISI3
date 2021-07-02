@@ -1,4 +1,4 @@
-import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
@@ -84,7 +84,7 @@ class _SignupPageState extends State<SignupPage> {
                   child: Column(
                     children: <Widget>[
                       Container(
-                        height: height * 0.6 * 0.2,
+                        height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           onChanged: (value) => email = value,
@@ -110,7 +110,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       Container(
-                        height: height * 0.6 * 0.2,
+                        height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           onChanged: (value) => password1 = value,
@@ -136,7 +136,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       Container(
-                        height: height * 0.6 * 0.2,
+                        height: height * 0.6 * 0.18,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextFormField(
                           onChanged: (value) => password2 = value,
@@ -162,7 +162,7 @@ class _SignupPageState extends State<SignupPage> {
                         ),
                       ),
                       Container(
-                        height: height * 0.6 * 0.15,
+                        constraints: BoxConstraints(maxHeight: 50),
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextButton(
                           style: ButtonStyle(
@@ -180,16 +180,20 @@ class _SignupPageState extends State<SignupPage> {
                           ),
                           onPressed: () {
                             if (_sendForm()) {
-                              //Testando o firebase
                               controller.addUser(
                                   email: email, password: password1);
-                              Navigator.pushReplacement(
+                              Navigator.pushAndRemoveUntil(
                                   context,
                                   PageTransition(
-                                      child: LoginPage(),
-                                      type: PageTransitionType
-                                          .rightToLeftWithFade,
-                                      duration: Duration(milliseconds: 800)));
+                                    child: LoginPage(),
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    duration: Duration(milliseconds: 800),
+                                  ), (route) {
+                                if (route.settings.name == 'catalog')
+                                  return true;
+                                return false;
+                              });
                             }
                           },
                           child: Text(
@@ -224,12 +228,20 @@ class _SignupPageState extends State<SignupPage> {
                               MaterialStateProperty.all(Colors.transparent),
                         ),
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  child: LoginPage(),
-                                  type: PageTransitionType.leftToRightWithFade,
-                                  duration: Duration(milliseconds: 800)));
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                              child: LoginPage(),
+                              type: PageTransitionType.leftToRightWithFade,
+                              duration: Duration(milliseconds: 800),
+                            ),
+                            (route) {
+                              if (route.settings.name == 'catalog' ||
+                                  route.settings.name == 'signup' ||
+                                  route.settings.name == 'signin') return true;
+                              return false;
+                            },
+                          );
                         },
                         child: Text(
                           'Sign In',

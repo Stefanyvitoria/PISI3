@@ -1,4 +1,5 @@
-import 'package:animecom/controllers/userController.dart';
+import 'package:animecom/controllers/user_controller.dart';
+import 'package:animecom/models/user_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/sign_up_view.dart';
 import 'package:flutter/material.dart';
@@ -135,6 +136,7 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       ),
                       Container(
+                        constraints: BoxConstraints(maxHeight: 50),
                         height: height * 0.6 * 0.15,
                         padding: const EdgeInsets.only(left: 25, right: 25),
                         child: TextButton(
@@ -153,17 +155,19 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () async {
                             //Verifica se o usuário está no banco.
                             //Falta verificar a senha.
-                            var user = await userController.getUser(_email);
+                            User user = await userController.getUser(_email);
                             if (_sendForm() && (user != null)) {
-                              Navigator.pushReplacement(
-                                context,
-                                PageTransition(
-                                  child: Catalog(),
-                                  type: PageTransitionType.rightToLeftWithFade,
-                                  duration: Duration(milliseconds: 800),
-                                  settings: RouteSettings(arguments: user),
-                                ),
-                              );
+                              userController.prefSetUser(_email);
+                              Navigator.pushAndRemoveUntil(
+                                  context,
+                                  PageTransition(
+                                    child: Catalog(),
+                                    type:
+                                        PageTransitionType.rightToLeftWithFade,
+                                    duration: Duration(milliseconds: 800),
+                                    settings: RouteSettings(arguments: user),
+                                  ),
+                                  (route) => false);
                             }
                           },
                           child: Text(
@@ -215,12 +219,20 @@ class _LoginPageState extends State<LoginPage> {
                               MaterialStateProperty.all(Colors.transparent),
                         ),
                         onPressed: () {
-                          Navigator.pushReplacement(
-                              context,
-                              PageTransition(
-                                  child: SignupPage(),
-                                  type: PageTransitionType.rightToLeftWithFade,
-                                  duration: Duration(milliseconds: 800)));
+                          Navigator.pushAndRemoveUntil(
+                            context,
+                            PageTransition(
+                              child: SignupPage(),
+                              type: PageTransitionType.rightToLeftWithFade,
+                              duration: Duration(milliseconds: 800),
+                            ),
+                            (route) {
+                              if (route.settings.name == 'catalog' ||
+                                  route.settings.name == 'signin' ||
+                                  route.settings.name == 'signup') return true;
+                              return false;
+                            },
+                          );
                         },
                         child: Text(
                           'Sign Up',

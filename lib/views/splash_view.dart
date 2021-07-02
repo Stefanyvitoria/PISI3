@@ -1,6 +1,8 @@
 import 'dart:async';
+import 'package:animecom/controllers/user_controller.dart';
+import 'package:animecom/models/user_model.dart';
+import 'package:animecom/views/catalog_view.dart';
 import 'package:flutter/material.dart';
-import 'package:animecom/views/login_view.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:animecom/views/pre-sets.dart';
 
@@ -14,8 +16,10 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  UserController userController;
   @override
   void initState() {
+    userController = UserController();
     super.initState();
     startTime();
   }
@@ -25,13 +29,17 @@ class _SplashScreenState extends State<SplashScreen> {
     return new Timer(duration, route);
   }
 
-  route() {
+  route() async {
     Navigator.pushReplacement(
       context,
       PageTransition(
-        child: LoginPage(),
+        child: Catalog(),
         type: PageTransitionType.rightToLeftWithFade,
         duration: Duration(milliseconds: 800),
+        settings: RouteSettings(
+          name: 'catalog',
+          arguments: await userController.loadUser(),
+        ),
       ),
     );
   }
