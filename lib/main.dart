@@ -5,6 +5,8 @@ import 'package:animecom/views/splash_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
+import 'views/catalog_view.dart';
+
 void main() {
   runApp(MyApp());
 }

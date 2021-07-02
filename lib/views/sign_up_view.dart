@@ -53,9 +53,6 @@ class _SignupPageState extends State<SignupPage> {
       return true;
     } else {
       // erro de validação
-      setState(() {
-        _validate = true;
-      });
       return false;
     }
   }

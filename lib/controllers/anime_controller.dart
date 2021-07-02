@@ -3,6 +3,7 @@ import 'package:animecom/models/anime_model.dart';
 import 'package:flutter/services.dart';
 
 class AnimeController {
+  
   Future<String> _carregaAnimeJson() async {
     return await rootBundle.loadString('assets/dataset/animes-limpo.json');
   }

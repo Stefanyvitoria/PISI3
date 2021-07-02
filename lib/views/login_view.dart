@@ -59,9 +59,6 @@ class _LoginPageState extends State<LoginPage> {
         return true;
       } else {
         // erro de validação
-        setState(() {
-          _validate = true;
-        });
         return false;
       }
     }
