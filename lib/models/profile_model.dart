@@ -39,10 +39,10 @@ class Profile {
   set setEmail(String email) => _email = email;
 
   // ignore: unnecessary_getters_setters
-  String get getUrlPhoto => _gender;
+  String get getGender => _gender;
 
   // ignore: unnecessary_getters_setters
-  set setUrlPhoto(String urlPhoto) => _gender = urlPhoto;
+  set setGender(String urlPhoto) => _gender = urlPhoto;
 
   // ignore: unnecessary_getters_setters
   String get getbirthday => _birthday;

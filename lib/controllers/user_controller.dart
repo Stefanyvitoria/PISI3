@@ -12,11 +12,20 @@ class UserController {
     return data.length == 0 ? null : Profile.fromJson(data[0]);
   }
 
-  addUser(String email, String password) async {
+  setUser(String email, String password) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'profiles';
     send['fields'] = 'email, pass';
     send['values'] = '"$email", "$password"';
     await _dataBaseModel.add("/insert", send);
+  }
+
+  update(Profile user) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'profiles';
+    send['values'] =
+        'uid = ${user.getUid}, user_name = "${user.getName}", pass = "${user.getPassword}", gender = "${user.getGender}", birthday = "${user.getbirthday}", phone = "${user.getPhone}"';
+    send['condition'] = 'uid = ${user.getUid}';
+    await _dataBaseModel.update("/update", send);
   }
 }
