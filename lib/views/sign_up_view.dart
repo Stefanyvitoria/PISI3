@@ -13,12 +13,12 @@ class SignupPage extends StatefulWidget {
 class _SignupPageState extends State<SignupPage> {
   GlobalKey<FormState> _key = new GlobalKey();
   bool _validate = false;
-  UserController controller;
+  UserController userController;
   String email, password1, password2;
 
   @override
   void initState() {
-    controller = UserController();
+    userController = UserController();
     super.initState();
   }
 
@@ -178,10 +178,9 @@ class _SignupPageState extends State<SignupPage> {
                               ),
                             ),
                           ),
-                          onPressed: () {
+                          onPressed: () async {
                             if (_sendForm()) {
-                              controller.addUser(
-                                  email: email, password: password1);
+                              await userController.setUser(email, password1);
                               Navigator.pushAndRemoveUntil(
                                   context,
                                   PageTransition(

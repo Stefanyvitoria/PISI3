@@ -1,5 +1,5 @@
 import 'package:animecom/controllers/user_controller.dart';
-import 'package:animecom/models/user_model.dart';
+import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/catalog_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
@@ -24,7 +24,7 @@ class _SettingsPageState extends State<SettingsPage> {
 
   @override
   Widget build(BuildContext context) {
-    User user = ModalRoute.of(context).settings.arguments;
+    Profile user = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
       appBar: AppBar(
@@ -237,9 +237,9 @@ class _SettingsPageState extends State<SettingsPage> {
                                   )),
                               TextButton(
                                 onPressed: () {
-                                  userController.prefClear();
-                                  userController.deleteUser(
-                                      user.getEmail, user.getPassword);
+                                  //userController.prefClear();
+                                  //userController.deleteUser(
+                                  //    user.getEmail, user.getPassword);
                                   Navigator.pushAndRemoveUntil(
                                       context,
                                       PageTransition(
@@ -332,8 +332,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          user.setPassword = _password;
-                                          userController.updateUser(user);
+                                          //user.setPassword = _password;
+                                          //userController.updateUser(user);
                                           Navigator.of(context).pop();
                                         },
                                         child: Text(

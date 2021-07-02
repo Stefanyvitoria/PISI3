@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:animecom/models/anime_model.dart';
-import 'package:animecom/models/firestore_model.dart';
 import 'package:flutter/services.dart';
 
 class AnimeController {
@@ -46,8 +45,5 @@ class AnimeController {
       'img_url': imgUrl[index].toString(),
       'link': link[index].toString()
     });
-
-    FirestoreModel().add('Animes', anime);
-    print(index);
   }
 }

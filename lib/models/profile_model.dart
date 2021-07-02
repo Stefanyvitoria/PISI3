@@ -1,33 +1,30 @@
-import 'package:animecom/models/anime_model.dart';
-
-class User {
+class Profile {
   int _uid;
   String _name;
   String _email;
-  String _urlPhoto;
-  int _age;
-  String _phone;
   String _password;
-  List<dynamic> _favorites;
+  String _gender;
+  String _birthday;
+  String _phone;
 
-  User(
+  Profile(
       {int uid,
       String name,
       String email,
-      String urlPhoto,
-      int age,
       String phone,
       String password,
-      List<dynamic> favorites}) {
+      String birthday,
+      String gender}) {
     this._uid = uid;
     this._name = name;
     this._email = email;
-    this._urlPhoto = urlPhoto;
-    this._age = age;
+    this._gender = gender;
+    this._birthday = birthday;
     this._phone = phone;
     this._password = password;
-    this._favorites = favorites;
   }
+  // ignore: unnecessary_getters_setters
+  int get getUid => _uid;
 
   // ignore: unnecessary_getters_setters
   String get getName => _name;
@@ -42,16 +39,16 @@ class User {
   set setEmail(String email) => _email = email;
 
   // ignore: unnecessary_getters_setters
-  String get getUrlPhoto => _urlPhoto;
+  String get getGender => _gender;
 
   // ignore: unnecessary_getters_setters
-  set setUrlPhoto(String urlPhoto) => _urlPhoto = urlPhoto;
+  set setGender(String urlPhoto) => _gender = urlPhoto;
 
   // ignore: unnecessary_getters_setters
-  int get getAge => _age;
+  String get getbirthday => _birthday;
 
   // ignore: unnecessary_getters_setters
-  set setAge(int age) => _age = age;
+  set setBirthday(String birthday) => _birthday = birthday;
 
   // ignore: unnecessary_getters_setters
   String get getPhone => _phone;
@@ -65,33 +62,24 @@ class User {
   // ignore: unnecessary_getters_setters
   set setPassword(String password) => _password = password;
 
-  // ignore: unnecessary_getters_setters
-  List<Anime> get getFavorites => _favorites;
-
-  // ignore: unnecessary_getters_setters
-  set setFavorites(List<Anime> favorites) => _favorites = favorites;
-
-  User.fromJson(Map<String, dynamic> json) {
-    _uid = json['uid'];
-    _name = json['name'];
-    _email = json['email'];
-    _urlPhoto = json['urlPhoto'];
-    _age = json['age'];
-    _phone = json['phone'];
-    _password = json['password'];
-    _favorites = json['favorites'];
+  Profile.fromJson(List data) {
+    _uid = data[0];
+    _name = data[1];
+    _email = data[2];
+    _password = data[3];
+    _gender = data[4];
+    _birthday = data[5];
+    _phone = data[6];
   }
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['uid'] = this._uid;
     data['name'] = this._name;
     data['email'] = this._email;
-    data['urlPhoto'] = this._urlPhoto;
-    data['age'] = this._age;
+    data['gender'] = this._gender;
+    data['birthday'] = this._birthday;
     data['phone'] = this._phone;
     data['password'] = this._password;
-    data['favorites'] = this._favorites;
     return data;
   }
 }

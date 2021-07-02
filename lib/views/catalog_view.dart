@@ -1,8 +1,9 @@
 import 'dart:convert';
 
+import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/api_model.dart';
-import 'package:animecom/models/user_model.dart';
+import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/login_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
@@ -12,7 +13,6 @@ import 'package:animecom/views/widgets/category_container.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
-import 'package:flutter/services.dart';
 import 'package:page_transition/page_transition.dart';
 
 class Catalog extends StatefulWidget {
@@ -40,6 +40,7 @@ class _CatalogState extends State<Catalog> {
   int _selectedIndex = 0;
   static List _titleOptions = ['Home', 'Profile', 'Search'];
   String _server, _text;
+  Profile user;
 
   @override
   void initState() {
@@ -64,9 +65,8 @@ class _CatalogState extends State<Catalog> {
 
   @override
   Widget build(BuildContext context) {
-    User user = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
-
+    user = ModalRoute.of(context).settings.arguments;
     return Scaffold(
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: Duration(milliseconds: 500),
@@ -286,18 +286,19 @@ class _CatalogState extends State<Catalog> {
                                         content: Text('Confirm logout?'),
                                         actions: [
                                           TextButton(
-                                              onPressed: () =>
-                                                  Navigator.of(context).pop(),
-                                              child: Text(
-                                                'No',
-                                                style: quicksand(
-                                                  fontWeight: FontWeight.bold,
-                                                  color: darkpurple,
-                                                ),
-                                              )),
+                                            onPressed: () =>
+                                                Navigator.of(context).pop(),
+                                            child: Text(
+                                              'No',
+                                              style: quicksand(
+                                                fontWeight: FontWeight.bold,
+                                                color: darkpurple,
+                                              ),
+                                            ),
+                                          ),
                                           TextButton(
                                             onPressed: () {
-                                              userController.prefClear();
+                                              appController.prefClear();
                                               Navigator.pushAndRemoveUntil(
                                                   context,
                                                   PageTransition(
