@@ -4,6 +4,7 @@ import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/user_controller.dart';
 import 'package:animecom/models/api_model.dart';
 import 'package:animecom/models/profile_model.dart';
+import 'package:animecom/views/about_view.dart';
 import 'package:animecom/views/edit_view.dart';
 import 'package:animecom/views/login_view.dart';
 import 'package:animecom/views/pre-sets.dart';
@@ -509,7 +510,7 @@ class _CatalogState extends State<Catalog> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => EditProfile(),
+                                builder: (context) => About(),
                               ));
                           if (_text == null || _text.length < 1) return;
                           showModalBottomSheet(
