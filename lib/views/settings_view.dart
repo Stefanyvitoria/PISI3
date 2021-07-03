@@ -1,7 +1,9 @@
 import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/profile_controller.dart';
 import 'package:animecom/models/profile_model.dart';
+import 'package:animecom/views/about_view.dart';
 import 'package:animecom/views/catalog_view.dart';
+import 'package:animecom/views/edit_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
@@ -119,7 +121,13 @@ class _SettingsPageState extends State<SettingsPage> {
                       color: darkblue4,
                     ),
                     ListTile(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => About(),
+                            ));
+                      },
                       leading: Icon(
                         Icons.info,
                         color: darkblue4,
@@ -205,7 +213,10 @@ class _SettingsPageState extends State<SettingsPage> {
                   child: Column(
                     children: <Widget>[
                       ListTile(
-                        onTap: () {},
+                        onTap: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => EditProfile())),
                         leading: Icon(
                           Icons.manage_accounts_rounded,
                           color: darkblue4,
