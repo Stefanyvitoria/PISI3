@@ -1,7 +1,13 @@
+import 'package:animecom/models/anime_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 
 class Anime_info extends StatefulWidget {
+  Anime_info({Key key, this.info, this.genre, this.anime}) : super(key: key);
+
+  final Anime anime;
+  final int info;
+  final String genre;
   @override
   _Anime_infoState createState() => _Anime_infoState();
 }
@@ -20,12 +26,14 @@ class _Anime_infoState extends State<Anime_info> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(width: MediaQuery.of(context).size.width,),
+          SizedBox(
+            width: MediaQuery.of(context).size.width,
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Hero(
-                  tag: 'Top Rated',
+                  tag: '${widget.info}' + widget.genre,
                   child: Padding(
                     padding:
                         const EdgeInsets.only(top: 50, left: 5, bottom: 10.0),
@@ -39,13 +47,12 @@ class _Anime_infoState extends State<Anime_info> {
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    'https://cdn.myanimelist.net/images/anime/1286/99889.jpg'))),
+                                image: NetworkImage(widget.anime.getImgUrl))),
                       ),
                     ),
                   )),
               Padding(
-                padding: const EdgeInsets.only(top: 65, left: 0, bottom: 10.0),
+                padding: const EdgeInsets.only(top: 55, left: 0, bottom: 10.0),
                 child: Container(
                   color: darkblue,
                   width: MediaQuery.of(context).size.width - 157,
@@ -53,24 +60,24 @@ class _Anime_infoState extends State<Anime_info> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Align(
-                              alignment: Alignment.topRight,
-                              child: GestureDetector(
-                                onTap: () => Navigator.pop(context),
-                                child: Icon(
-                                  Icons.close,
-                                  size: 20,
-                                  color: gainsboro,
-                                ),
-                              ),
-                            ),
+                        alignment: Alignment.topRight,
+                        child: GestureDetector(
+                          onTap: () => Navigator.pop(context),
+                          child: Icon(
+                            Icons.close,
+                            size: 20,
+                            color: gainsboro,
+                          ),
+                        ),
+                      ),
                       Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 5.0),
+                        padding: const EdgeInsets.only(left: 10, top: 0),
                         child: Row(
                           children: [
                             Container(
                               width: 180,
                               child: Text(
-                                'Name',
+                                widget.anime.getName,
                                 style: quicksand(
                                     color: gainsboro,
                                     fontWeight: FontWeight.normal,
@@ -78,7 +85,6 @@ class _Anime_infoState extends State<Anime_info> {
                                 maxLines: 2,
                               ),
                             ),
-                            
                           ],
                         ),
                       ),
@@ -91,7 +97,7 @@ class _Anime_infoState extends State<Anime_info> {
                         child: Container(
                           width: 230,
                           child: Text(
-                            "Episodes: episodes",
+                            'Episodes: ' + widget.anime.getEpisodes.toString(),
                             style: quicksand(
                                 color: gainsboro,
                                 fontSize: 14.0,
@@ -105,7 +111,7 @@ class _Anime_infoState extends State<Anime_info> {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Aired: aired",
+                          'Aired: ' + widget.anime.getStart,
                           style: quicksand(
                               color: gainsboro,
                               fontSize: 14.0,
@@ -131,7 +137,11 @@ class _Anime_infoState extends State<Anime_info> {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Genders: genders",
+                          'Genders: ' +
+                              widget.anime.getGenre
+                                  .replaceAll('[', '( ')
+                                  .replaceAll(']', ' )')
+                                  .replaceAll("'", ''),
                           style: quicksand(
                               color: gainsboro,
                               fontSize: 14.0,
@@ -157,7 +167,6 @@ class _Anime_infoState extends State<Anime_info> {
               ),
             ],
           ),
-
           Padding(
             padding: const EdgeInsets.only(top: 10.0, left: 5.0, right: 5.0),
             child: Container(
@@ -167,13 +176,13 @@ class _Anime_infoState extends State<Anime_info> {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               width: 500,
-              height: 100,
+              height: 450,
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Text(
-                    '[Synopsis]\n\n',
+                    '[Synopsis]\n\n ${widget.anime.getSynopsi}',
                     style: quicksand(
                         color: gainsboro,
                         fontSize: 12.0,

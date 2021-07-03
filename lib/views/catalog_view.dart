@@ -1,3 +1,4 @@
+import 'package:animecom/controllers/anime_controller.dart';
 import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/favorites_controller.dart';
 import 'package:animecom/controllers/profile_controller.dart';
@@ -13,31 +14,22 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:page_transition/page_transition.dart';
 
+import 'anime_info_view.dart';
+
 class Catalog extends StatefulWidget {
   @override
   _CatalogState createState() => _CatalogState();
 }
 
 class _CatalogState extends State<Catalog> {
-  List genders = [
-    'Top rated',
-    'Your animes',
-    'Shounen',
-    'Shoujo',
-    'Comedy',
-    'Sobrenatural',
-    'Yuri',
-    'Yaoi',
-    'Hentai',
-    'Ecchi',
-    'Adventure',
-    'Action'
-  ];
+  AnimeController animeController = AnimeController();
   PageController _pageController;
   UserController userController;
   FavoriteController favoriteController;
   String _text;
   Profile user;
+  List titles = ['Catalog', 'Profile', 'Search'];
+  String title = 'Catalog';
 
   @override
   void initState() {
@@ -55,15 +47,81 @@ class _CatalogState extends State<Catalog> {
 
   void _onItemTapped(int index) {
     setState(() {});
+    title = titles[index];
     _pageController.animateToPage(index,
         duration: Duration(milliseconds: 500), curve: Curves.ease);
   }
 
+  animeList(genre) async {
+    print('Iniciando comunicação com o servidor...');
+    List animeList = await animeController.getAnimebyGenre(genre);
+    print('Comunicação com o servidor finalizada...');
+    return animeList;
+  }
+
   @override
   Widget build(BuildContext context) {
+    List genders = [
+      'Comedy',
+      'Sports',
+      'Drama',
+      'School',
+      'Shounen',
+      'Music',
+      'Romance',
+      'Sci-Fi',
+      'Adventure',
+      'Mystery',
+      'Fantasy',
+      'Action',
+      'Military',
+      'Magic',
+      'Supernatural',
+      'Vampire',
+      'Slice of Life',
+      'Demons',
+      'Historical',
+      'Super Power',
+      'Mecha',
+      'Parody',
+      'Samurai',
+      'Seinen',
+      'Police',
+      'Psychological',
+      'Josei',
+      'Space',
+      'Kids',
+      'Shoujo Ai',
+      'Ecchi',
+      'Shoujo',
+      'Horror',
+      'Shounen Ai',
+      'Cars',
+      'Martial Arts',
+      'Game',
+      'Thriller',
+      'Dementia',
+      'Harem',
+      'Hentai',
+      'Yaoi',
+    ];
     double width = MediaQuery.of(context).size.width;
     user = ModalRoute.of(context).settings.arguments;
+
     return Scaffold(
+      appBar: AppBar(
+          automaticallyImplyLeading: false,
+          foregroundColor: gainsboro,
+          backgroundColor: darkblue,
+          title: Center(
+            child: Text(
+              title,
+              style: quicksand(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  color: gainsboro),
+            ),
+          )),
       bottomNavigationBar: CurvedNavigationBar(
         animationDuration: Duration(milliseconds: 500),
         animationCurve: Curves.ease,
@@ -99,18 +157,28 @@ class _CatalogState extends State<Catalog> {
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter),
                   color: darkblue),
-              child: ListView(
-                children: <Widget>[
-                  for (String item in genders)
-                    Padding(
+              child: ListView.builder(
+                  itemCount: genders.length,
+                  itemBuilder: (context, i) {
+                    print('Construindo lista de generos...');
+                    return Padding(
                         padding: EdgeInsets.only(
                             top: 10, left: 5, right: 5, bottom: 10),
                         child: CategoryContainer(
-                          text: item,
-                        )),
-                ],
-              ),
+                          text: genders[i],
+                          child: FutureAnimes(
+                            genre: genders[i],
+                            future: animeList(genders[i]),
+                          ),
+                        ));
+                  }),
             ),
+
+            // FutureBuilder(
+            //     future: animeList('Action'),
+            //     builder: (context, snapshot) {
+            //       print(snapshot.data.length);
+            //       return
 
             //PROFILE PAGE
             Container(

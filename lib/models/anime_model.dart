@@ -85,6 +85,18 @@ class Anime {
     return data['result'];
   }
 
+  Future<List> selectbyGenre(String genre, String path) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'animes';
+    send['condition'] = "genre LIKE '%$genre%'";
+    var data = await apiRest.call(
+      path: path,
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+    return data['result'];
+  }
+
   add(String values) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'animes';

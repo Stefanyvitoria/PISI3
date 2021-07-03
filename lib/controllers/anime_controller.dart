@@ -10,6 +10,12 @@ class AnimeController {
     return data.length == 0 ? null : Anime.fromJson(data[0]);
   }
 
+  Future getAnimebyGenre(String genre) async {
+    List data = await _animeModel.selectbyGenre(genre, "/readAll");
+    print('Busca por genero...');
+    return data.length == 0 ? null : data;
+  }
+
   Future<Evaluation> getAnimeEvaluation(int uid) async {
     List data = await _evaluation.select(uid);
     return data.length == 0 ? null : Evaluation.fromJson(data[0]);
