@@ -32,6 +32,7 @@ class _CatalogState extends State<Catalog> {
   Profile user;
   List titles = ['Catalog', 'Profile', 'Search'];
   String title = 'Catalog';
+  List animesG;
 
   @override
   void initState() {
@@ -55,6 +56,7 @@ class _CatalogState extends State<Catalog> {
   }
 
   animeList(genre) async {
+    await Future.delayed(Duration(seconds: 1));
     List animeList = await animeController.getAnimebyGenre(genre);
     return animeList;
   }

@@ -1,6 +1,6 @@
 import 'package:animecom/controllers/anime_controller.dart';
 import 'package:animecom/models/anime_model.dart';
-import 'package:animecom/models/evaluation_model.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 import 'package:animecom/views/anime_info_view.dart';
 import 'package:flutter/widgets.dart';
@@ -86,8 +86,14 @@ class FutureAnimes extends StatelessWidget {
   final itemCount;
   const FutureAnimes({this.key, this.genre, this.future, this.itemCount});
 
+  a(uid) async {
+    return await AnimeController().getAnimeEvaluation(uid);
+  }
+
   @override
   Widget build(BuildContext context) {
+    var _color = favyellow;
+
     return Container(
       height: 200,
       child: FutureBuilder(
@@ -110,9 +116,14 @@ class FutureAnimes extends StatelessWidget {
                                 builder: (BuildContext context) => Anime_info(
                                     info: snapshot.data[i][0],
                                     genre: genre,
+                                    ranked: snapshot.data[i][12],
+                                    score: snapshot.data[i][13],
                                     anime: Anime.fromJson(snapshot.data[i]))));
                           },
                           child: Container(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 5.0),
+                            ),
                             height: 200,
                             width: 120,
                             decoration: BoxDecoration(

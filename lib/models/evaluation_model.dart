@@ -38,7 +38,7 @@ class Evaluation {
     this._score = data[4];
   }
 
-  select(int uid) async {
+  Future<List> select(int uid) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'evaluation';
     send['condition'] = 'anime_uid = $uid';

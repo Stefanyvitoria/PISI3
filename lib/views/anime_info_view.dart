@@ -1,11 +1,18 @@
+import 'package:animecom/controllers/anime_controller.dart';
 import 'package:animecom/models/anime_model.dart';
+import 'package:animecom/models/evaluation_model.dart';
+
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 
 class Anime_info extends StatefulWidget {
-  Anime_info({Key key, this.info, this.genre, this.anime}) : super(key: key);
+  Anime_info(
+      {Key key, this.info, this.genre, this.anime, this.ranked, this.score})
+      : super(key: key);
 
   final Anime anime;
+  final int ranked;
+  final int score;
   final int info;
   final String genre;
   @override
@@ -15,6 +22,8 @@ class Anime_info extends StatefulWidget {
 class _Anime_infoState extends State<Anime_info> {
   @override
   Widget build(BuildContext context) {
+    AnimeController _animeController = AnimeController();
+
     return Container(
       decoration: BoxDecoration(
           color: darkblue,
@@ -124,7 +133,7 @@ class _Anime_infoState extends State<Anime_info> {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Ranked: ranked",
+                          "Rank: ${widget.ranked}",
                           style: quicksand(
                               color: gainsboro,
                               fontSize: 14.0,
@@ -154,7 +163,7 @@ class _Anime_infoState extends State<Anime_info> {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Score: score",
+                          "Score: ${widget.score}",
                           style: quicksand(
                               color: favyellow,
                               fontSize: 14.0,

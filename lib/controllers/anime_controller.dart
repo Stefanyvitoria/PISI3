@@ -15,7 +15,7 @@ class AnimeController {
     return data.length == 0 ? null : data;
   }
 
-  Future<Evaluation> getAnimeEvaluation(int uid) async {
+  Future getAnimeEvaluation(int uid) async {
     List data = await _evaluation.select(uid);
     return data.length == 0 ? null : Evaluation.fromJson(data[0]);
   }
