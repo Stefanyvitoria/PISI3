@@ -35,6 +35,7 @@ class Anime {
     this._imgUrl = imgUrl;
     this._link = link;
   }
+  int get getAnimeUid => _animeUid;
 
   // ignore: unnecessary_getters_setters
   String get getName => _title;

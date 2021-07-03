@@ -1,3 +1,6 @@
+import 'package:animecom/controllers/app_controller.dart';
+import 'package:animecom/controllers/profile_controller.dart';
+import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/textfield.dart';
 import 'package:flutter/material.dart';
@@ -8,11 +11,13 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
+  String _name, _password, _email, _phone, _birth, _gender;
+  UserController _userController = UserController();
+
   @override
   Widget build(BuildContext context) {
+    Profile user = ModalRoute.of(context).settings.arguments;
     double width = MediaQuery.of(context).size.width;
-    String _name, _password, _email, _phone, _birth;
-    String valueChoose;
     List _genders = ['Male', 'Female', 'Non-binary'];
     return Scaffold(
       body: Container(
@@ -47,7 +52,7 @@ class _EditProfileState extends State<EditProfile> {
                     text: 'Name',
                     labelsize: 16.0,
                     inputtextsize: 16.0,
-                    obscureText: true,
+                    obscureText: false,
                   ),
                 ),
                 Padding(
@@ -60,7 +65,7 @@ class _EditProfileState extends State<EditProfile> {
                     text: 'Email',
                     labelsize: 16.0,
                     inputtextsize: 16.0,
-                    obscureText: true,
+                    obscureText: false,
                   ),
                 ),
                 Padding(
@@ -101,16 +106,18 @@ class _EditProfileState extends State<EditProfile> {
                                       fontSize: 18.0,
                                       fontWeight: FontWeight.bold),
                                 ),
-                                value: valueChoose,
+                                value: _gender,
                                 dropdownColor: darkblue,
                                 style: quicksand(
                                     fontSize: 18.0,
                                     fontWeight: FontWeight.bold,
                                     color: darkblue),
                                 onChanged: (newValue) {
-                                  setState(() {
-                                    valueChoose = newValue;
-                                  });
+                                  setState(
+                                    () {
+                                      _gender = newValue;
+                                    },
+                                  );
                                 },
                                 items: _genders.map((valueItem) {
                                   return DropdownMenuItem(
@@ -140,7 +147,7 @@ class _EditProfileState extends State<EditProfile> {
                             text: 'Birthday',
                             labelsize: 14.0,
                             inputtextsize: 14.0,
-                            obscureText: true,
+                            obscureText: false,
                           ),
                         ),
                       ),
@@ -157,7 +164,7 @@ class _EditProfileState extends State<EditProfile> {
                     text: 'Phone number',
                     labelsize: 16.0,
                     inputtextsize: 16.0,
-                    obscureText: true,
+                    obscureText: false,
                   ),
                 ),
                 Align(
@@ -175,7 +182,19 @@ class _EditProfileState extends State<EditProfile> {
                           ),
                         ),
                       ),
-                      onPressed: () {},
+                      onPressed: () {
+                        user.setName = _name;
+                        user.setEmail = _email;
+                        user.setPassword = _password;
+                        user.setGender = _gender;
+                        user.setBirthday = _birth;
+                        user.setPhone = _phone;
+
+                        _userController.updateUser(user);
+                        appController.prefClear();
+                        appController.prefSetUser(_email);
+                        Navigator.of(context).pop();
+                      },
                       child: Text(
                         'Save',
                         style: quicksand(

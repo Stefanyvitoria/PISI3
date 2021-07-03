@@ -17,12 +17,10 @@ class SettingsPage extends StatefulWidget {
 
 class _SettingsPageState extends State<SettingsPage> {
   UserController userController;
-  AppController appController;
   String _password;
 
   @override
   void initState() {
-    appController = AppController();
     userController = new UserController();
     super.initState();
   }
@@ -216,7 +214,8 @@ class _SettingsPageState extends State<SettingsPage> {
                         onTap: () => Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => EditProfile())),
+                                builder: (context) => EditProfile(),
+                                settings: RouteSettings(arguments: user))),
                         leading: Icon(
                           Icons.manage_accounts_rounded,
                           color: darkblue4,
@@ -345,8 +344,8 @@ class _SettingsPageState extends State<SettingsPage> {
                                       ),
                                       TextButton(
                                         onPressed: () {
-                                          //user.setPassword = _password;
-                                          //userController.updateUser(user);
+                                          user.setPassword = _password;
+                                          userController.updateUser(user);
                                           Navigator.of(context).pop();
                                         },
                                         child: Text(

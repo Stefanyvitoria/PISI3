@@ -1,6 +1,6 @@
 import 'package:animecom/controllers/anime_controller.dart';
-import 'package:animecom/controllers/favorites_controller.dart';
 import 'package:animecom/models/anime_model.dart';
+import 'package:animecom/models/evaluation_model.dart';
 import 'package:animecom/models/favorite_model.dart';
 import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/pre-sets.dart';
@@ -25,27 +25,49 @@ class _FavoritesState extends State<Favorites> {
     return Scaffold(
       body: Container(
         decoration: BoxDecoration(color: darkpurple),
-        child: ListView.builder(
-          itemCount: favorites.length,
-          itemBuilder: (context, c) {
-            Favorite favorite = favorites[c];
-            return FutureBuilder(
-              future: _animeController.getAnime(favorite.getAnimeUid),
-              builder: (context, future) {
-                while (!future.hasData) {
-                  return Container();
-                }
-                Anime anime = future.data;
-                return AnimeContainer(
-                  name: anime.getName,
-                  synopsis: anime.getSynopsi,
-                  score: 10,
-                  imgurl: anime.getImgUrl,
-                );
-              },
-            );
-          },
-        ),
+        child: favorites == null
+            ? Container(
+                child: Center(
+                  child: Text(
+                    'Nothing around here yet.',
+                    style: quicksand(
+                        color: linen,
+                        fontSize: 16.0,
+                        fontWeight: FontWeight.normal),
+                  ),
+                ),
+              )
+            : ListView.builder(
+                itemCount: favorites.length,
+                itemBuilder: (context, c) {
+                  Favorite favorite = favorites[c];
+                  return FutureBuilder(
+                    future: _animeController.getAnime(favorite.getAnimeUid),
+                    builder: (context, future) {
+                      while (!future.hasData) {
+                        return Container();
+                      }
+                      Anime anime = future.data;
+                      return FutureBuilder(
+                        future: _animeController
+                            .getAnimeEvaluation(favorite.getAnimeUid),
+                        builder: (context, future1) {
+                          while (!future1.hasData) {
+                            return Container();
+                          }
+                          Evaluation evaluation = future1.data;
+                          return AnimeContainer(
+                            name: anime.getName,
+                            synopsis: anime.getSynopsi,
+                            score: evaluation.getScore.toDouble(),
+                            imgurl: anime.getImgUrl,
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
+              ),
       ),
     );
   }

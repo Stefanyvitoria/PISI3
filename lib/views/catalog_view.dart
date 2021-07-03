@@ -1,12 +1,7 @@
-import 'dart:convert';
-
 import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/favorites_controller.dart';
 import 'package:animecom/controllers/profile_controller.dart';
-import 'package:animecom/models/api_model.dart';
 import 'package:animecom/models/profile_model.dart';
-import 'package:animecom/views/about_view.dart';
-import 'package:animecom/views/edit_view.dart';
 import 'package:animecom/views/login_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
@@ -41,9 +36,7 @@ class _CatalogState extends State<Catalog> {
   PageController _pageController;
   UserController userController;
   FavoriteController favoriteController;
-  int _selectedIndex = 0;
-  static List _titleOptions = ['Home', 'Profile', 'Search'];
-  String _server, _text;
+  String _text;
   Profile user;
 
   @override
@@ -414,7 +407,6 @@ class _CatalogState extends State<Catalog> {
                       child: TextFormField(
                         onChanged: (_value) {
                           _text = _value;
-                          print(_text);
                         },
                         decoration: InputDecoration(
                             prefixIcon: Icon(Icons.search),
@@ -454,85 +446,7 @@ class _CatalogState extends State<Catalog> {
                         ),
                         onPressed: () {
                           if (_text == null || _text.length < 1) return;
-                          showModalBottomSheet(
-                            elevation: 5,
-                            isScrollControlled: true,
-                            context: context,
-                            builder: (context) {
-                              return SingleChildScrollView(
-                                child: Container(
-                                  padding: EdgeInsets.only(
-                                      bottom: MediaQuery.of(context)
-                                          .viewInsets
-                                          .bottom),
-                                  child: Column(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                          left: 20,
-                                          right: 20,
-                                          top: 20,
-                                          bottom: 10,
-                                        ),
-                                        child: TextFormField(
-                                          onChanged: (value) => _server = value,
-                                          decoration: InputDecoration(
-                                              prefixIcon: Icon(
-                                                  Icons.data_usage_rounded),
-                                              fillColor: darkblue3,
-                                              filled: true,
-                                              border: OutlineInputBorder(
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(20)),
-                                                  borderSide: BorderSide(
-                                                      color: Colors.green,
-                                                      width: 20)),
-                                              labelText: 'Server',
-                                              labelStyle: quicksand(
-                                                  color: linen,
-                                                  fontSize: 16.0,
-                                                  fontWeight:
-                                                      FontWeight.normal)),
-                                          style: quicksand(
-                                              color: linen,
-                                              fontSize: 16.0,
-                                              fontWeight: FontWeight.normal),
-                                        ),
-                                      ),
-                                      TextButton(
-                                        onPressed: () async {
-                                          if (_server == null ||
-                                              _server.length <= 0) return;
-                                          Map<String, dynamic> envio =
-                                              new Map<String, dynamic>();
-                                          envio['text'] = _text;
-
-                                          var result = await apiRest.call(
-                                            path: "/clusterization",
-                                            server: _server,
-                                            params: {
-                                              "params": jsonEncode(envio)
-                                            },
-                                          );
-                                          print('');
-                                          print('******************');
-                                          print(result);
-
-                                          print('');
-                                          Navigator.of(context).pop();
-                                        },
-                                        child: Text(
-                                          'Ok',
-                                          style: TextStyle(color: darkpurple),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            },
-                          );
+                          print('ok');
                         },
                         child: Text(
                           'Search',

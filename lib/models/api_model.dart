@@ -1,8 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
-
-const defaultServer = ''; // insert server
 
 const defaultHeaders = {
   HttpHeaders.contentTypeHeader: 'application/json; charset=UTF-8',
@@ -22,12 +21,11 @@ class APIRest {
   }
 
   Future call(
-      {String server = defaultServer,
-      String path,
-      Map<String, dynamic> params,
+      {@required String server,
+      @required String path,
+      @required Map<String, dynamic> params,
       Map<String, String> headers = defaultHeaders,
-      Future process(json)
-      }) async {
+      Future process(json)}) async {
     var uri = Uri.https(server, path, params);
     var response = http.get(uri, headers: headers);
 

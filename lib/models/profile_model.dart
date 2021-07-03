@@ -106,7 +106,7 @@ class Profile {
     Map send = new Map<String, dynamic>();
     send['table'] = 'profiles';
     send['values'] =
-        'uid = ${user.getUid}, user_name = "${user.getName}", pass = "${user.getPassword}", gender = "${user.getGender}", birthday = "${user.getbirthday}", phone = "${user.getPhone}"';
+        'user_name = "${user.getName}", pass = "${user.getPassword}", gender = "${user.getGender}", birthday = "${user.getbirthday}", phone = "${user.getPhone}"';
     send['condition'] = 'uid = ${user.getUid}';
     await apiRest.call(
       path: "/update",
