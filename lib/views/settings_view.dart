@@ -3,7 +3,7 @@ import 'package:animecom/controllers/profile_controller.dart';
 import 'package:animecom/models/profile_model.dart';
 import 'package:animecom/views/about_view.dart';
 import 'package:animecom/views/catalog_view.dart';
-import 'package:animecom/views/edit_view.dart';
+import 'package:animecom/views/edit_profile_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';

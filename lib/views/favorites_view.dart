@@ -3,6 +3,7 @@ import 'package:animecom/models/anime_model.dart';
 import 'package:animecom/models/evaluation_model.dart';
 import 'package:animecom/models/favorite_model.dart';
 import 'package:animecom/models/profile_model.dart';
+import 'package:animecom/views/add_animefavorites_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/anime_container.dart';
 import 'package:flutter/material.dart';
@@ -23,6 +24,15 @@ class _FavoritesState extends State<Favorites> {
     user = args[0];
     favorites = args[1];
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.grey,
+        onPressed: () => Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddAnime(),
+                settings: RouteSettings(arguments: user))),
+        child: Icon(Icons.add),
+      ),
       body: Container(
         decoration: BoxDecoration(color: darkpurple),
         child: favorites == null

@@ -85,9 +85,37 @@ class Anime {
     return data['result'];
   }
 
-  call(String path, Map send) async {
+  add(String values) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'animes';
+    send['fields'] = 'title, synopsis, genre, episodes';
+    send['values'] = values;
     await apiRest.call(
-      path: path,
+      path: "/insert",
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+  }
+
+  update(dynamic anime) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'animes';
+    send['values'] =
+        'title = "${anime.getName}", gender = "${anime.getGender}", synopsis = "${anime.getSynopsis}", episodes = ${anime.getEpisodes}';
+    send['condition'] = 'uid = ${anime.getUid}';
+    await apiRest.call(
+      path: "/update",
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+  }
+
+  delete(int uid) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'animes';
+    send['condition'] = 'uid = $uid';
+    await apiRest.call(
+      path: "/delete",
       server: appController.getServer,
       params: {"params": jsonEncode(send)},
     );

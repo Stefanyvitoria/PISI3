@@ -15,15 +15,16 @@ class AnimeController {
     return data.length == 0 ? null : Evaluation.fromJson(data[0]);
   }
 
-  // setUser(String email, String password) async {
-  //   await _evaluation.add('"$email", "$password"');
-  // }
+  setAnime(Anime anime) async {
+    await _animeModel.add(
+        '"${anime.getName}", "${anime.getSynopsi}", "${anime.getGenre}", ${anime.getEpisodes}');
+  }
 
-  // updateUser(Evaluation user) async {
-  //   await _evaluation.update("/update", user);
-  // }
+  updateAnime(Anime anime) async {
+    await _animeModel.update(anime);
+  }
 
-  // deleteUser(int uid) async {
-  //   await _evaluation.delete(uid, '/delete');
-  // }
+  deleteAnime(int uid) async {
+    await _animeModel.delete(uid);
+  }
 }
