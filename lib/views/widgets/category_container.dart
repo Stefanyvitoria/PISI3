@@ -100,7 +100,6 @@ class FutureAnimes extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (context, i) {
-                    print('Construindo listview...');
                     return Padding(
                       padding: const EdgeInsets.all(5),
                       child: Hero(

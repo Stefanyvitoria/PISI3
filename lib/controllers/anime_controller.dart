@@ -12,7 +12,6 @@ class AnimeController {
 
   Future getAnimebyGenre(String genre) async {
     List data = await _animeModel.selectbyGenre(genre, "/readAll");
-    print('Busca por genero...');
     return data.length == 0 ? null : data;
   }
 

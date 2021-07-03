@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:animecom/controllers/anime_controller.dart';
 import 'package:animecom/controllers/app_controller.dart';
 import 'package:animecom/controllers/favorites_controller.dart';
@@ -13,7 +15,7 @@ import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:page_transition/page_transition.dart';
-
+import 'package:async/async.dart';
 import 'anime_info_view.dart';
 
 class Catalog extends StatefulWidget {
@@ -53,9 +55,7 @@ class _CatalogState extends State<Catalog> {
   }
 
   animeList(genre) async {
-    print('Iniciando comunicação com o servidor...');
     List animeList = await animeController.getAnimebyGenre(genre);
-    print('Comunicação com o servidor finalizada...');
     return animeList;
   }
 
@@ -160,7 +160,6 @@ class _CatalogState extends State<Catalog> {
               child: ListView.builder(
                   itemCount: genders.length,
                   itemBuilder: (context, i) {
-                    print('Construindo lista de generos...');
                     return Padding(
                         padding: EdgeInsets.only(
                             top: 10, left: 5, right: 5, bottom: 10),
