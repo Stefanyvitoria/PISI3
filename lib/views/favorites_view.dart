@@ -69,7 +69,7 @@ class _FavoritesState extends State<Favorites> {
                           return AnimeContainer(
                             name: anime.getName,
                             synopsis: anime.getSynopsi,
-                            score: evaluation.getScore.toDouble(),
+                            score: evaluation.getScore.toInt(),
                             imgurl: anime.getImgUrl,
                           );
                         },

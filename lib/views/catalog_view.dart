@@ -10,6 +10,7 @@ import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/favorites_view.dart';
 import 'package:animecom/views/settings_view.dart';
 import 'package:animecom/views/sign_up_view.dart';
+import 'package:animecom/views/widgets/anime_container.dart';
 import 'package:animecom/views/widgets/category_container.dart';
 import 'package:animecom/views/widgets/widgets_constantes.dart';
 import 'package:flutter/material.dart';
@@ -58,6 +59,7 @@ class _CatalogState extends State<Catalog> {
   animeList(genre) async {
     await Future.delayed(Duration(seconds: 1));
     List animeList = await animeController.getAnimebyGenre(genre);
+    print('generinho');
     return animeList;
   }
 
@@ -467,7 +469,7 @@ class _CatalogState extends State<Catalog> {
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter),
               ),
-              child: ListView(
+              child: Column(
                 children: <Widget>[
                   Center(
                     child: Padding(
@@ -525,6 +527,15 @@ class _CatalogState extends State<Catalog> {
                               fontWeight: FontWeight.bold),
                         ),
                       ),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 30,
+                  ),
+                  Container(
+                    height: 400,
+                    child: SearchAnimes(
+                      future: animeList('Drama'),
                     ),
                   )
                 ],

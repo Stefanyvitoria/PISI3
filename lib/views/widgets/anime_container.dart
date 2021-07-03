@@ -1,3 +1,4 @@
+import 'package:animecom/controllers/anime_controller.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 
@@ -5,7 +6,7 @@ class AnimeContainer extends StatelessWidget {
   final Key key;
   final String name;
   final String synopsis;
-  final double score;
+  final int score;
   final String imgurl;
 
   const AnimeContainer(
@@ -107,5 +108,39 @@ class AnimeContainer extends StatelessWidget {
               color: darkblue,
               borderRadius: BorderRadius.all(Radius.circular(25)))),
     );
+  }
+}
+
+class SearchAnimes extends StatelessWidget {
+  final Key key;
+  final future;
+  final itemCount;
+  const SearchAnimes({this.key, this.future, this.itemCount});
+
+  a(uid) async {
+    return await AnimeController().getAnimeEvaluation(uid);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder(
+        future: future,
+        builder: (context, snapshot) {
+          if (!snapshot.hasData) {
+            return Center(child: CircularProgressIndicator());
+          } else {
+            return ListView.builder(
+                itemCount: 15,
+                itemBuilder: (context, i) {
+                  print(snapshot.data[i][1]);
+                  return AnimeContainer(
+                    name: snapshot.data[i][1],
+                    score: snapshot.data[i][13],
+                    synopsis: snapshot.data[i][2],
+                    imgurl: snapshot.data[i][7],
+                  );
+                });
+          }
+        });
   }
 }
