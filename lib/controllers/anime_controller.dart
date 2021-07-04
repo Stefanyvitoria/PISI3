@@ -15,9 +15,20 @@ class AnimeController {
     return data.length == 0 ? null : data;
   }
 
+  Future getAnimebyScore(int score) async {
+    List data = await _animeModel.selectbyScore(score, "/readAll");
+    print(data);
+    return data.length == 0 ? null : data;
+  }
+
   Future getAnimeEvaluation(int uid) async {
     List data = await _evaluation.select(uid);
     return data.length == 0 ? null : Evaluation.fromJson(data[0]);
+  }
+
+  Future getClusterization(String text) async {
+    List data = await _animeModel.clusterization(text);
+    return data.length == 0 ? null : data;
   }
 
   setAnime(Anime anime) async {

@@ -23,6 +23,17 @@ class _Anime_infoState extends State<Anime_info> {
   @override
   Widget build(BuildContext context) {
     AnimeController _animeController = AnimeController();
+    String imgGetter(img) {
+      try {
+        if (img == null) {
+          return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+        } else {
+          return img;
+        }
+      } catch (e) {
+        return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+      }
+    }
 
     return Container(
       decoration: BoxDecoration(
@@ -56,7 +67,8 @@ class _Anime_infoState extends State<Anime_info> {
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             image: DecorationImage(
                                 fit: BoxFit.cover,
-                                image: NetworkImage(widget.anime.getImgUrl))),
+                                image: NetworkImage(
+                                    imgGetter(widget.anime.getImgUrl)))),
                       ),
                     ),
                   )),

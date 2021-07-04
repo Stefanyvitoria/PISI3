@@ -1,18 +1,72 @@
 import 'package:animecom/controllers/anime_controller.dart';
+import 'package:animecom/models/anime_model.dart';
 import 'package:animecom/views/pre-sets.dart';
+import 'package:animecom/views/widgets/category_container.dart';
 import 'package:flutter/material.dart';
+
+import '../anime_info_view.dart';
 
 class AnimeContainer extends StatelessWidget {
   final Key key;
   final String name;
   final String synopsis;
   final int score;
+  final String tag;
+  final String genre;
+  final int ranked;
+  final int uid;
+  final anime;
   final String imgurl;
 
   const AnimeContainer(
-      {this.key, this.name, this.synopsis, this.score, this.imgurl});
+      {this.key,
+      this.name,
+      this.uid,
+      this.synopsis,
+      this.score,
+      this.genre,
+      this.ranked,
+      this.imgurl,
+      this.tag,
+      this.anime});
   @override
   Widget build(BuildContext context) {
+    String imgGetter(img) {
+      try {
+        if (img == null) {
+          return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+        } else {
+          return img;
+        }
+      } catch (e) {
+        return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+      }
+    }
+
+    String genreGetter(genre) {
+      try {
+        if (genre == null) {
+          return 'Not Found';
+        } else {
+          return genre;
+        }
+      } catch (e) {
+        return 'Not Found';
+      }
+    }
+
+    int numbGetter(numb) {
+      try {
+        if (numb == null) {
+          return 0;
+        } else {
+          return numb;
+        }
+      } catch (e) {
+        return 0;
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.only(
           top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
@@ -23,14 +77,29 @@ class AnimeContainer extends StatelessWidget {
               Padding(
                 padding:
                     const EdgeInsets.only(left: 5.0, top: 5.0, bottom: 5.0),
-                child: Container(
-                  height: 170,
-                  width: 120,
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black, width: 2),
-                      borderRadius: BorderRadius.all(Radius.circular(25)),
-                      image: DecorationImage(
-                          image: NetworkImage(imgurl), fit: BoxFit.fill)),
+                child: Hero(
+                  tag: tag,
+                  child: GestureDetector(
+                    onTap: () async {
+                      Navigator.of(context).push(TransparentRoute(
+                          builder: (BuildContext context) => Anime_info(
+                              info: uid,
+                              genre: genre,
+                              ranked: numbGetter(ranked),
+                              score: numbGetter(score),
+                              anime: Anime.fromJson(anime))));
+                    },
+                    child: Container(
+                      height: 170,
+                      width: 120,
+                      decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black, width: 2),
+                          borderRadius: BorderRadius.all(Radius.circular(25)),
+                          image: DecorationImage(
+                              image: NetworkImage(imgGetter(imgurl)),
+                              fit: BoxFit.fill)),
+                    ),
+                  ),
                 ),
               ),
               Padding(
@@ -129,15 +198,56 @@ class SearchAnimes extends StatelessWidget {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           } else {
+            String imgGetter(img) {
+              try {
+                if (img == null) {
+                  return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+                } else {
+                  return img;
+                }
+              } catch (e) {
+                return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+              }
+            }
+
+            String genreGetter(genre) {
+              try {
+                if (genre == null) {
+                  return 'Not Found';
+                } else {
+                  return genre;
+                }
+              } catch (e) {
+                return 'Not Found';
+              }
+            }
+
+            int numbGetter(numb) {
+              try {
+                if (numb == null) {
+                  return 0;
+                } else {
+                  return numb;
+                }
+              } catch (e) {
+                return 0;
+              }
+            }
+
             return ListView.builder(
                 itemCount: 15,
                 itemBuilder: (context, i) {
                   print(snapshot.data[i][1]);
                   return AnimeContainer(
+                    tag: "${snapshot.data[i][0]}",
+                    ranked: numbGetter(snapshot.data[i][12]),
+                    anime: snapshot.data[i],
+                    genre: genreGetter(snapshot.data[i][3]),
+                    uid: snapshot.data[i][0],
                     name: snapshot.data[i][1],
-                    score: snapshot.data[i][13],
+                    score: numbGetter(snapshot.data[i][13]),
                     synopsis: snapshot.data[i][2],
-                    imgurl: snapshot.data[i][7],
+                    imgurl: imgGetter(snapshot.data[i][7]),
                   );
                 });
           }

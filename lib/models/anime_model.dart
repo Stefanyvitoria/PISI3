@@ -97,6 +97,18 @@ class Anime {
     return data['result'];
   }
 
+  Future<List> selectbyScore(int score, String path) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'animes';
+    send['condition'] = "score > $score";
+    var data = await apiRest.call(
+      path: path,
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+    return data['result'];
+  }
+
   add(String values) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'animes';
@@ -131,5 +143,14 @@ class Anime {
       server: appController.getServer,
       params: {"params": jsonEncode(send)},
     );
+  }
+
+  clusterization(String text) async {
+    Map send = new Map<String, dynamic>();
+    send['text'] = text;
+    await apiRest.call(
+        server: appController.getServer,
+        path: "/clusterization",
+        params: {"params": jsonEncode(send)});
   }
 }
