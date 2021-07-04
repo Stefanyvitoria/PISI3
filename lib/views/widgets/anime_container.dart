@@ -157,6 +157,7 @@ class SearchAnimes extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AnimeController _animeController = AnimeController();
+
     return FutureBuilder(
         future: future,
         builder: (context, snapshot) {

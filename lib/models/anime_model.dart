@@ -72,7 +72,7 @@ class Anime {
     this._imgUrl = data[7];
     this._link = data[8];
   }
-
+  Future animesListe() async {}
   Future<List> select(int uid, String path) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'animes';
@@ -109,6 +109,17 @@ class Anime {
     return data['result'];
   }
 
+  Future<List> clusterization(String text) async {
+    Map send = new Map<String, dynamic>();
+    send['text'] = text;
+    var data = await apiRest.call(
+        path: "/clusterization",
+        server: appController.getServer,
+        params: {"params": jsonEncode(send)});
+
+    return data['animes_uid'];
+  }
+
   add(String values) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'animes';
@@ -143,14 +154,5 @@ class Anime {
       server: appController.getServer,
       params: {"params": jsonEncode(send)},
     );
-  }
-
-  clusterization(String text) async {
-    Map send = new Map<String, dynamic>();
-    send['text'] = text;
-    await apiRest.call(
-        server: appController.getServer,
-        path: "/clusterization",
-        params: {"params": jsonEncode(send)});
   }
 }
