@@ -111,13 +111,20 @@ class Anime {
 
   Future<List> clusterization(String text) async {
     Map send = new Map<String, dynamic>();
+    Map send1 = new Map<String, dynamic>();
     send['text'] = text;
     var data = await apiRest.call(
         path: "/clusterization",
         server: appController.getServer,
         params: {"params": jsonEncode(send)});
-
-    return data['animes_uid'];
+    send1['table'] = 'animes';
+    send1['condition'] =
+        "A.uid IN ${data['animes_uid'].toString().replaceAll('[', '(').replaceAll(']', ')')}";
+    var data1 = await apiRest.call(
+        path: "/readCluster",
+        server: appController.getServer,
+        params: {"params": jsonEncode(send1)});
+    return data1['result'];
   }
 
   add(String values) async {

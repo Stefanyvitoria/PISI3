@@ -70,9 +70,6 @@ class _CatalogState extends State<Catalog> {
       _thrillerFuture,
       _dementiaFuture,
       _haremFuture,
-      _hentaiFuture,
-      _yaoiFuture,
-      _yuriFuture,
       _topRatedFuture,
       _searchFuture;
   @override
@@ -90,8 +87,6 @@ class _CatalogState extends State<Catalog> {
     _fantasyFuture = animeList('Fantasy');
     _adventureFuture = animeList('Adventure');
     _psychoFuture = animeList('Psychological');
-    _yaoiFuture = animeList('Yaoi');
-    _hentaiFuture = animeList('Hentai');
     _dementiaFuture = animeList('Dementia');
     _thrillerFuture = animeList('Thriller');
     _gameFuture = animeList('Game');
@@ -121,11 +116,10 @@ class _CatalogState extends State<Catalog> {
     _musicFuture = animeList('Music');
     _shounenFuture = animeList('Shounen');
     _actionFuture = animeList('Action');
-    _yuriFuture = animeList('Yuri');
     _scifiFuture = animeList('Sci-Fi');
     _mysteryFuture = animeList('Mystery');
     _haremFuture = animeList('Harem');
-    _searchFuture = animeListScore(7);
+    _searchFuture = animeListCluster('pokemon');
   }
 
   @override
@@ -157,6 +151,20 @@ class _CatalogState extends State<Catalog> {
 
       return animeList;
     } catch (e) {}
+  }
+
+  animeListCluster(text) async {
+    try {
+      await Future.delayed(Duration(seconds: 1));
+      List animeList = await animeController.getClusterization(text);
+      return animeList;
+    } catch (e) {}
+  }
+
+  _fetchData(text) {
+    setState(() {
+      _searchFuture = animeListCluster(text);
+    });
   }
 
   @override
@@ -624,36 +632,6 @@ class _CatalogState extends State<Catalog> {
                         future: _ecchiFuture,
                       ),
                     )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Yaoi',
-                      child: FutureAnimes(
-                        genre: 'Yaoi',
-                        future: _yaoiFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Yuri',
-                      child: FutureAnimes(
-                        genre: 'Yuri',
-                        future: _yuriFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Hentai',
-                      child: FutureAnimes(
-                        genre: 'Hentai',
-                        future: _hentaiFuture,
-                      ),
-                    )),
               ]),
             ),
 
@@ -991,9 +969,7 @@ class _CatalogState extends State<Catalog> {
                         ),
                         onPressed: () async {
                           if (_text == null || _text.length < 1) return;
-                          var cluster =
-                              await animeController.getClusterization(_text);
-                          print(cluster);
+                          _fetchData(_text);
                         },
                         child: Text(
                           'Search',
@@ -1012,6 +988,7 @@ class _CatalogState extends State<Catalog> {
                     height: 465,
                     child: SearchAnimes(
                       future: _searchFuture,
+                      user_uid: user.getUid,
                     ),
                   )
                 ],

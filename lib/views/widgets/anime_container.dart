@@ -1,7 +1,10 @@
 import 'package:animecom/controllers/anime_controller.dart';
+import 'package:animecom/controllers/favorites_controller.dart';
+import 'package:animecom/controllers/profile_controller.dart';
 import 'package:animecom/models/anime_model.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/category_container.dart';
+import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
 
 import '../anime_info_view.dart';
@@ -11,17 +14,19 @@ class AnimeContainer extends StatelessWidget {
   final String name;
   final String synopsis;
   final int score;
+  final int user_uid;
   final String tag;
   final String genre;
   final int ranked;
-  final int uid;
+  final int anime_uid;
   final anime;
   final String imgurl;
 
   const AnimeContainer(
       {this.key,
       this.name,
-      this.uid,
+      this.user_uid,
+      this.anime_uid,
       this.synopsis,
       this.score,
       this.genre,
@@ -32,6 +37,7 @@ class AnimeContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     AnimeController _animeController = AnimeController();
+    FavoriteController _favoriteController = FavoriteController();
 
     return Padding(
       padding: const EdgeInsets.only(
@@ -49,7 +55,7 @@ class AnimeContainer extends StatelessWidget {
                     onTap: () async {
                       Navigator.of(context).push(TransparentRoute(
                           builder: (BuildContext context) => Anime_info(
-                              info: uid,
+                              info: anime_uid,
                               genre: genre,
                               ranked: _animeController.numbGetter(ranked),
                               score: _animeController.numbGetter(score),
@@ -124,12 +130,25 @@ class AnimeContainer extends StatelessWidget {
                   ),
                 ),
               ),
-              IconButton(
-                onPressed: () {},
-                icon: Icon(
-                  Icons.star,
-                  color: favyellow,
-                  size: 20,
+              Padding(
+                padding: const EdgeInsets.only(top: 10, left: 10.0),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: FavoriteButton(
+                    isFavorite: false,
+                    iconColor: Colors.red[400],
+                    valueChanged: (value) {
+                      if (value == true) {
+                        _favoriteController.setFavorite(anime_uid, user_uid);
+                        setState() {}
+                        ;
+                      } else {
+                        print('artnjmasdilkrthfnadsktasd');
+                        _favoriteController.deleteFavorite(anime_uid, user_uid);
+                      }
+                    },
+                    iconSize: 35,
+                  ),
                 ),
               )
             ],
@@ -151,8 +170,9 @@ class AnimeContainer extends StatelessWidget {
 class SearchAnimes extends StatelessWidget {
   final Key key;
   final future;
+  final int user_uid;
   final itemCount;
-  const SearchAnimes({this.key, this.future, this.itemCount});
+  const SearchAnimes({this.key, this.future, this.itemCount, this.user_uid});
 
   @override
   Widget build(BuildContext context) {
@@ -172,7 +192,8 @@ class SearchAnimes extends StatelessWidget {
                     ranked: _animeController.numbGetter(snapshot.data[i][12]),
                     anime: snapshot.data[i],
                     genre: _animeController.stringGetter(snapshot.data[i][3]),
-                    uid: snapshot.data[i][0],
+                    anime_uid: snapshot.data[i][0],
+                    user_uid: user_uid,
                     name: _animeController.stringGetter(snapshot.data[i][1]),
                     score: _animeController.numbGetter(snapshot.data[i][13]),
                     synopsis:

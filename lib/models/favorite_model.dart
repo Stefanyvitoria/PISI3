@@ -34,9 +34,24 @@ class Favorite {
     return data['result'];
   }
 
-  call(String path, Map send) async {
+  setFav(int user_uid, int anime_uid) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'favorites';
+    send['fields'] = 'user_uid, anime_uid';
+    send['values'] = '$user_uid, $anime_uid';
     await apiRest.call(
-      path: path,
+      path: '/insert',
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+  }
+
+  delete(int user_uid, int anime_uid) async {
+    Map send = new Map<String, dynamic>();
+    send['table'] = 'favorites';
+    send['condition'] = 'user_uid = $user_uid AND anime_uid = $anime_uid';
+    await apiRest.call(
+      path: '/delete',
       server: appController.getServer,
       params: {"params": jsonEncode(send)},
     );
