@@ -31,41 +31,7 @@ class AnimeContainer extends StatelessWidget {
       this.anime});
   @override
   Widget build(BuildContext context) {
-    String imgGetter(img) {
-      try {
-        if (img == null) {
-          return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-        } else {
-          return img;
-        }
-      } catch (e) {
-        return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-      }
-    }
-
-    String genreGetter(genre) {
-      try {
-        if (genre == null) {
-          return 'Not Found';
-        } else {
-          return genre;
-        }
-      } catch (e) {
-        return 'Not Found';
-      }
-    }
-
-    int numbGetter(numb) {
-      try {
-        if (numb == null) {
-          return 0;
-        } else {
-          return numb;
-        }
-      } catch (e) {
-        return 0;
-      }
-    }
+    AnimeController _animeController = AnimeController();
 
     return Padding(
       padding: const EdgeInsets.only(
@@ -85,8 +51,8 @@ class AnimeContainer extends StatelessWidget {
                           builder: (BuildContext context) => Anime_info(
                               info: uid,
                               genre: genre,
-                              ranked: numbGetter(ranked),
-                              score: numbGetter(score),
+                              ranked: _animeController.numbGetter(ranked),
+                              score: _animeController.numbGetter(score),
                               anime: Anime.fromJson(anime))));
                     },
                     child: Container(
@@ -96,7 +62,8 @@ class AnimeContainer extends StatelessWidget {
                           border: Border.all(color: Colors.black, width: 2),
                           borderRadius: BorderRadius.all(Radius.circular(25)),
                           image: DecorationImage(
-                              image: NetworkImage(imgGetter(imgurl)),
+                              image: NetworkImage(
+                                  _animeController.imgGetter(imgurl)),
                               fit: BoxFit.fill)),
                     ),
                   ),
@@ -123,7 +90,7 @@ class AnimeContainer extends StatelessWidget {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Score: ${score}",
+                          "Score: ${_animeController.numbGetter(score)}",
                           style: quicksand(
                               color: favyellow,
                               fontSize: 12.0,
@@ -143,7 +110,8 @@ class AnimeContainer extends StatelessWidget {
                           child: SingleChildScrollView(
                             scrollDirection: Axis.vertical,
                             child: Text(
-                              '[Synopsis]\n\n' + synopsis,
+                              '[Synopsis]\n\n' +
+                                  _animeController.stringGetter(synopsis),
                               style: quicksand(
                                   color: gainsboro,
                                   fontSize: 12.0,
@@ -186,68 +154,29 @@ class SearchAnimes extends StatelessWidget {
   final itemCount;
   const SearchAnimes({this.key, this.future, this.itemCount});
 
-  a(uid) async {
-    return await AnimeController().getAnimeEvaluation(uid);
-  }
-
   @override
   Widget build(BuildContext context) {
+    AnimeController _animeController = AnimeController();
     return FutureBuilder(
         future: future,
         builder: (context, snapshot) {
           if (!snapshot.hasData) {
             return Center(child: CircularProgressIndicator());
           } else {
-            String imgGetter(img) {
-              try {
-                if (img == null) {
-                  return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-                } else {
-                  return img;
-                }
-              } catch (e) {
-                return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-              }
-            }
-
-            String genreGetter(genre) {
-              try {
-                if (genre == null) {
-                  return 'Not Found';
-                } else {
-                  return genre;
-                }
-              } catch (e) {
-                return 'Not Found';
-              }
-            }
-
-            int numbGetter(numb) {
-              try {
-                if (numb == null) {
-                  return 0;
-                } else {
-                  return numb;
-                }
-              } catch (e) {
-                return 0;
-              }
-            }
-
             return ListView.builder(
                 itemCount: 15,
                 itemBuilder: (context, i) {
-                  print(snapshot.data[i][1]);
                   return AnimeContainer(
                     tag: "${snapshot.data[i][0]}",
-                    ranked: numbGetter(snapshot.data[i][12]),
+                    ranked: _animeController.numbGetter(snapshot.data[i][12]),
                     anime: snapshot.data[i],
-                    genre: genreGetter(snapshot.data[i][3]),
+                    genre: _animeController.stringGetter(snapshot.data[i][3]),
                     uid: snapshot.data[i][0],
-                    name: snapshot.data[i][1],
-                    score: numbGetter(snapshot.data[i][13]),
-                    synopsis: snapshot.data[i][2],
-                    imgurl: imgGetter(snapshot.data[i][7]),
+                    name: _animeController.stringGetter(snapshot.data[i][1]),
+                    score: _animeController.numbGetter(snapshot.data[i][13]),
+                    synopsis:
+                        _animeController.stringGetter(snapshot.data[i][2]),
+                    imgurl: _animeController.imgGetter(snapshot.data[i][7]),
                   );
                 });
           }

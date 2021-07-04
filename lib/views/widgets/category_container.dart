@@ -55,7 +55,6 @@ class CategoryContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    AnimeController animeController = AnimeController();
     return Container(
       child: Center(
         child: Column(
@@ -92,6 +91,7 @@ class FutureAnimes extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    AnimeController _animeController = AnimeController();
     var _color = favyellow;
 
     return Container(
@@ -106,42 +106,8 @@ class FutureAnimes extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 10,
                   itemBuilder: (context, i) {
-                    String imgGetter(img) {
-                      try {
-                        if (img == null) {
-                          return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-                        } else {
-                          return img;
-                        }
-                      } catch (e) {
-                        return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-                      }
-                    }
-
-                    String genreGetter(genre) {
-                      try {
-                        if (genre == null) {
-                          return 'Not Found';
-                        } else {
-                          return genre;
-                        }
-                      } catch (e) {
-                        return 'Not Found';
-                      }
-                    }
-
-                    int numbGetter(numb) {
-                      try {
-                        if (numb == null) {
-                          return 0;
-                        } else {
-                          return numb;
-                        }
-                      } catch (e) {
-                        return 0;
-                      }
-                    }
-
+                    var image = NetworkImage(
+                        _animeController.imgGetter(snapshot.data[i][7]));
                     return Padding(
                       padding: const EdgeInsets.all(5),
                       child: Hero(
@@ -152,8 +118,10 @@ class FutureAnimes extends StatelessWidget {
                                 builder: (BuildContext context) => Anime_info(
                                     info: snapshot.data[i][0],
                                     genre: genre,
-                                    ranked: numbGetter(snapshot.data[i][12]),
-                                    score: numbGetter(snapshot.data[i][13]),
+                                    ranked: _animeController
+                                        .numbGetter(snapshot.data[i][12]),
+                                    score: _animeController
+                                        .numbGetter(snapshot.data[i][13]),
                                     anime: Anime.fromJson(snapshot.data[i]))));
                           },
                           child: Container(
@@ -168,9 +136,16 @@ class FutureAnimes extends StatelessWidget {
                                 borderRadius:
                                     BorderRadius.all(Radius.circular(10)),
                                 image: DecorationImage(
+                                    onError: (exception, stackTrace) {
+                                      setState() {
+                                        image = NetworkImage(
+                                            'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif');
+                                      }
+
+                                      ;
+                                    },
                                     fit: BoxFit.cover,
-                                    image: NetworkImage(
-                                        imgGetter(snapshot.data[i][7])))),
+                                    image: image)),
                           ),
                         ),
                       ),

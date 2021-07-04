@@ -17,7 +17,6 @@ class AnimeController {
 
   Future getAnimebyScore(int score) async {
     List data = await _animeModel.selectbyScore(score, "/readAll");
-    print(data);
     return data.length == 0 ? null : data;
   }
 
@@ -42,5 +41,41 @@ class AnimeController {
 
   deleteAnime(int uid) async {
     await _animeModel.delete(uid);
+  }
+
+  String imgGetter(img) {
+    try {
+      if (img == null) {
+        return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+      } else {
+        return img;
+      }
+    } catch (e) {
+      return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
+    }
+  }
+
+  String stringGetter(string) {
+    try {
+      if (string == null) {
+        return 'Not Found';
+      } else {
+        return string;
+      }
+    } catch (e) {
+      return 'Not Found';
+    }
+  }
+
+  int numbGetter(numb) {
+    try {
+      if (numb == null) {
+        return 0;
+      } else {
+        return numb;
+      }
+    } catch (e) {
+      return 0;
+    }
   }
 }

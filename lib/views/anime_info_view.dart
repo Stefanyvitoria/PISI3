@@ -1,7 +1,5 @@
 import 'package:animecom/controllers/anime_controller.dart';
 import 'package:animecom/models/anime_model.dart';
-import 'package:animecom/models/evaluation_model.dart';
-
 import 'package:animecom/views/pre-sets.dart';
 import 'package:flutter/material.dart';
 
@@ -23,18 +21,8 @@ class _Anime_infoState extends State<Anime_info> {
   @override
   Widget build(BuildContext context) {
     AnimeController _animeController = AnimeController();
-    String imgGetter(img) {
-      try {
-        if (img == null) {
-          return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-        } else {
-          return img;
-        }
-      } catch (e) {
-        return 'https://media.tenor.com/images/c9eea6032bb3da2900131f59e2f03f3c/tenor.gif';
-      }
-    }
-
+    var image =
+        NetworkImage(_animeController.imgGetter(widget.anime.getImgUrl));
     return Container(
       decoration: BoxDecoration(
           color: darkblue,
@@ -53,7 +41,8 @@ class _Anime_infoState extends State<Anime_info> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Hero(
-                  tag: '${widget.info}' + widget.genre,
+                  tag: '${widget.info}' +
+                      _animeController.stringGetter(widget.genre),
                   child: Padding(
                     padding:
                         const EdgeInsets.only(top: 50, left: 5, bottom: 10.0),
@@ -66,9 +55,14 @@ class _Anime_infoState extends State<Anime_info> {
                             border: Border.all(color: darkblue2),
                             borderRadius: BorderRadius.all(Radius.circular(5)),
                             image: DecorationImage(
+                                onError: (exception, stackTrace) {
+                                  setState(() {
+                                    image = NetworkImage(
+                                        'https://miro.medium.com/max/1430/1*55fcPU4PTJ6WPsInuIIRKA.png');
+                                  });
+                                },
                                 fit: BoxFit.cover,
-                                image: NetworkImage(
-                                    imgGetter(widget.anime.getImgUrl)))),
+                                image: image)),
                       ),
                     ),
                   )),
@@ -98,7 +92,8 @@ class _Anime_infoState extends State<Anime_info> {
                             Container(
                               width: 180,
                               child: Text(
-                                widget.anime.getName,
+                                _animeController
+                                    .stringGetter(widget.anime.getName),
                                 style: quicksand(
                                     color: gainsboro,
                                     fontWeight: FontWeight.normal,
@@ -118,7 +113,10 @@ class _Anime_infoState extends State<Anime_info> {
                         child: Container(
                           width: 230,
                           child: Text(
-                            'Episodes: ' + widget.anime.getEpisodes.toString(),
+                            'Episodes: ' +
+                                _animeController
+                                    .numbGetter(widget.anime.getEpisodes)
+                                    .toString(),
                             style: quicksand(
                                 color: gainsboro,
                                 fontSize: 14.0,
@@ -132,7 +130,9 @@ class _Anime_infoState extends State<Anime_info> {
                           bottom: 10,
                         ),
                         child: Text(
-                          'Aired: ' + widget.anime.getStart,
+                          'Aired: ' +
+                              _animeController
+                                  .stringGetter(widget.anime.getStart),
                           style: quicksand(
                               color: gainsboro,
                               fontSize: 14.0,
@@ -145,7 +145,7 @@ class _Anime_infoState extends State<Anime_info> {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Rank: ${widget.ranked}",
+                          "Rank: ${_animeController.numbGetter(widget.ranked)}",
                           style: quicksand(
                               color: gainsboro,
                               fontSize: 14.0,
@@ -159,7 +159,8 @@ class _Anime_infoState extends State<Anime_info> {
                         ),
                         child: Text(
                           'Genders: ' +
-                              widget.anime.getGenre
+                              _animeController
+                                  .stringGetter(widget.anime.getGenre)
                                   .replaceAll('[', '( ')
                                   .replaceAll(']', ' )')
                                   .replaceAll("'", ''),
@@ -175,7 +176,7 @@ class _Anime_infoState extends State<Anime_info> {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Score: ${widget.score}",
+                          "Score: ${_animeController.numbGetter(widget.score)}",
                           style: quicksand(
                               color: favyellow,
                               fontSize: 14.0,
@@ -203,7 +204,7 @@ class _Anime_infoState extends State<Anime_info> {
                 child: SingleChildScrollView(
                   scrollDirection: Axis.vertical,
                   child: Text(
-                    '[Synopsis]\n\n ${widget.anime.getSynopsi}',
+                    '[Synopsis]\n\n ${_animeController.stringGetter(widget.anime.getSynopsi)}',
                     style: quicksand(
                         color: gainsboro,
                         fontSize: 12.0,
@@ -218,16 +219,3 @@ class _Anime_infoState extends State<Anime_info> {
     );
   }
 }
-// Container(
-//         height: 20,
-//         width: 20,
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadius.all(Radius.circular(5)),
-//           color: darkblue2,
-//         ),
-//         child: Container(
-//           height: 300,
-//           width: 170,
-
-//         ),
-//       ),
