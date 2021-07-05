@@ -1,14 +1,17 @@
 import 'package:animecom/controllers/anime_controller.dart';
+import 'package:animecom/controllers/favorites_controller.dart';
 import 'package:animecom/models/anime_model.dart';
 import 'package:animecom/models/profile_model.dart';
+import 'package:animecom/views/login_view.dart';
 import 'package:animecom/views/pre-sets.dart';
 import 'package:animecom/views/widgets/category_container.dart';
 import 'package:favorite_button/favorite_button.dart';
 import 'package:flutter/material.dart';
+import 'package:page_transition/page_transition.dart';
 
 import '../anime_info_view.dart';
 
-class AnimeContainer extends StatelessWidget {
+class AnimeContainer extends StatefulWidget {
   final Key key;
   final String name;
   final String synopsis;
@@ -33,10 +36,17 @@ class AnimeContainer extends StatelessWidget {
       this.imgurl,
       this.tag,
       this.anime});
+
+  @override
+  _AnimeContainerState createState() => _AnimeContainerState();
+}
+
+class _AnimeContainerState extends State<AnimeContainer> {
+  AnimeController _animeController = AnimeController();
+  FavoriteController _favoriteController = FavoriteController();
+
   @override
   Widget build(BuildContext context) {
-    AnimeController _animeController = AnimeController();
-
     return Padding(
       padding: const EdgeInsets.only(
           top: 10.0, left: 10.0, right: 10.0, bottom: 10.0),
@@ -48,16 +58,17 @@ class AnimeContainer extends StatelessWidget {
                 padding:
                     const EdgeInsets.only(left: 5.0, top: 5.0, bottom: 5.0),
                 child: Hero(
-                  tag: tag,
+                  tag: widget.tag,
                   child: GestureDetector(
                     onTap: () async {
                       Navigator.of(context).push(TransparentRoute(
                           builder: (BuildContext context) => Anime_info(
-                              info: anime_uid,
-                              genre: genre,
-                              ranked: _animeController.numbGetter(ranked),
-                              score: _animeController.numbGetter(score),
-                              anime: anime)));
+                              info: widget.anime_uid,
+                              genre: widget.genre,
+                              ranked:
+                                  _animeController.numbGetter(widget.ranked),
+                              score: _animeController.numbGetter(widget.score),
+                              anime: widget.anime)));
                     },
                     child: Container(
                       height: 170,
@@ -67,7 +78,7 @@ class AnimeContainer extends StatelessWidget {
                           borderRadius: BorderRadius.all(Radius.circular(25)),
                           image: DecorationImage(
                               image: NetworkImage(
-                                  _animeController.imgGetter(imgurl)),
+                                  _animeController.imgGetter(widget.imgurl)),
                               fit: BoxFit.fill)),
                     ),
                   ),
@@ -81,7 +92,7 @@ class AnimeContainer extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        name,
+                        widget.name,
                         maxLines: 2,
                         style: quicksand(
                             color: gainsboro,
@@ -94,7 +105,7 @@ class AnimeContainer extends StatelessWidget {
                           bottom: 10,
                         ),
                         child: Text(
-                          "Score: ${_animeController.numbGetter(score)}",
+                          "Score: ${_animeController.numbGetter(widget.score)}",
                           style: quicksand(
                               color: favyellow,
                               fontSize: 12.0,
@@ -115,7 +126,8 @@ class AnimeContainer extends StatelessWidget {
                             scrollDirection: Axis.vertical,
                             child: Text(
                               '[Synopsis]\n\n' +
-                                  _animeController.stringGetter(synopsis),
+                                  _animeController
+                                      .stringGetter(widget.synopsis),
                               style: quicksand(
                                   color: gainsboro,
                                   fontSize: 12.0,
@@ -133,12 +145,30 @@ class AnimeContainer extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topRight,
                   child: FavoriteButton(
-                    isFavorite: true,
+                    isFavorite: false,
                     iconColor: Colors.red[400],
                     valueChanged: (value) {
-                      // if (value == true) {
-                      //   _favoriteController.setFavorite(anime_uid, user.getUid);
-                      // } else {
+                      if (value == true) {
+                        if (widget.user == null) {
+                          setState(
+                            () {
+                              Navigator.push(
+                                context,
+                                PageTransition(
+                                  child: LoginPage(),
+                                  type: PageTransitionType.leftToRightWithFade,
+                                  duration: Duration(milliseconds: 800),
+                                  settings: RouteSettings(name: 'signin'),
+                                ),
+                              );
+                            },
+                          );
+                        } else {
+                          _favoriteController.setFavorite(
+                              widget.anime_uid, widget.user.getUid);
+                        }
+                      }
+                      //else {
                       //   _favoriteController.deleteFavorite(
                       //       anime_uid, user.getUid);
                       // }
@@ -175,29 +205,30 @@ class SearchAnimes extends StatelessWidget {
     AnimeController _animeController = AnimeController();
 
     return FutureBuilder(
-        future: future,
-        builder: (context, snapshot) {
-          if (!snapshot.hasData) {
-            return Center(child: CircularProgressIndicator());
-          } else {
-            return ListView.builder(
-                itemCount: 6,
-                itemBuilder: (context, i) {
-                  return AnimeContainer(
-                    tag: "${snapshot.data[i][0]}",
-                    ranked: _animeController.numbGetter(snapshot.data[i][12]),
-                    anime: snapshot.data[i],
-                    genre: _animeController.stringGetter(snapshot.data[i][3]),
-                    anime_uid: snapshot.data[i][0],
-                    user: user,
-                    name: _animeController.stringGetter(snapshot.data[i][1]),
-                    score: _animeController.numbGetter(snapshot.data[i][13]),
-                    synopsis:
-                        _animeController.stringGetter(snapshot.data[i][2]),
-                    imgurl: _animeController.imgGetter(snapshot.data[i][7]),
-                  );
-                });
-          }
-        });
+      future: future,
+      builder: (context, snapshot) {
+        if (!snapshot.hasData) {
+          return Center(child: CircularProgressIndicator());
+        } else {
+          return ListView.builder(
+            itemCount: 6,
+            itemBuilder: (context, i) {
+              return AnimeContainer(
+                tag: "${snapshot.data[i][0]}",
+                ranked: _animeController.numbGetter(snapshot.data[i][12]),
+                anime: snapshot.data[i],
+                genre: _animeController.stringGetter(snapshot.data[i][3]),
+                anime_uid: snapshot.data[i][0],
+                user: user,
+                name: _animeController.stringGetter(snapshot.data[i][1]),
+                score: _animeController.numbGetter(snapshot.data[i][13]),
+                synopsis: _animeController.stringGetter(snapshot.data[i][2]),
+                imgurl: _animeController.imgGetter(snapshot.data[i][7]),
+              );
+            },
+          );
+        }
+      },
+    );
   }
 }

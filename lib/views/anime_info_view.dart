@@ -20,7 +20,9 @@ class Anime_info extends StatefulWidget {
 class _Anime_infoState extends State<Anime_info> {
   @override
   Widget build(BuildContext context) {
+    double height = MediaQuery.of(context).size.height;
     AnimeController _animeController = AnimeController();
+
     var image =
         NetworkImage(_animeController.imgGetter(widget.anime.getImgUrl));
     return Container(
@@ -29,14 +31,11 @@ class _Anime_infoState extends State<Anime_info> {
           border: Border.all(color: darkblue2),
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10))),
-      height: 200,
+      height: height,
       width: MediaQuery.of(context).size.width,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          SizedBox(
-            width: MediaQuery.of(context).size.width,
-          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -49,7 +48,7 @@ class _Anime_infoState extends State<Anime_info> {
                     child: Align(
                       alignment: Alignment.topLeft,
                       child: Container(
-                        height: 250,
+                        height: height * 0.4,
                         width: 150,
                         decoration: BoxDecoration(
                             border: Border.all(color: darkblue2),
@@ -70,140 +69,143 @@ class _Anime_infoState extends State<Anime_info> {
                 padding: const EdgeInsets.only(top: 55, left: 0, bottom: 10.0),
                 child: Container(
                   color: darkblue,
-                  width: MediaQuery.of(context).size.width - 157,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: GestureDetector(
-                          onTap: () => Navigator.pop(context),
-                          child: Icon(
-                            Icons.close,
-                            size: 20,
-                            color: gainsboro,
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.only(left: 10, top: 0),
-                        child: Row(
-                          children: [
-                            Container(
-                              width: 180,
-                              child: Text(
-                                _animeController
-                                    .stringGetter(widget.anime.getName),
-                                style: quicksand(
-                                    color: gainsboro,
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 21.0),
-                                maxLines: 2,
-                              ),
+                  height: height * 0.4,
+                  width: MediaQuery.of(context).size.width * 0.6,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: GestureDetector(
+                            onTap: () => Navigator.pop(context),
+                            child: Icon(
+                              Icons.close,
+                              size: 20,
+                              color: gainsboro,
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          top: 5.0,
-                          bottom: 10,
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10, top: 0),
+                          child: Row(
+                            children: [
+                              Container(
+                                width: 180,
+                                child: Text(
+                                  _animeController
+                                      .stringGetter(widget.anime.getName),
+                                  style: quicksand(
+                                      color: gainsboro,
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 21.0),
+                                  maxLines: 2,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                        child: Container(
-                          width: 230,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            top: 5.0,
+                            bottom: 10,
+                          ),
+                          child: Container(
+                            width: 230,
+                            child: Text(
+                              'Uid: ' +
+                                  _animeController
+                                      .numbGetter(widget.info)
+                                      .toString(),
+                              style: quicksand(
+                                  color: gainsboro,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            top: 5.0,
+                            bottom: 10,
+                          ),
+                          child: Container(
+                            width: 230,
+                            child: Text(
+                              'Episodes: ' +
+                                  _animeController
+                                      .numbGetter(widget.anime.getEpisodes)
+                                      .toString(),
+                              style: quicksand(
+                                  color: gainsboro,
+                                  fontSize: 14.0,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            bottom: 10,
+                          ),
                           child: Text(
-                            'Uid: ' +
+                            'Aired: ' +
                                 _animeController
-                                    .numbGetter(widget.info)
-                                    .toString(),
+                                    .stringGetter(widget.anime.getStart),
                             style: quicksand(
                                 color: gainsboro,
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          top: 5.0,
-                          bottom: 10,
-                        ),
-                        child: Container(
-                          width: 230,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            bottom: 10,
+                          ),
                           child: Text(
-                            'Episodes: ' +
-                                _animeController
-                                    .numbGetter(widget.anime.getEpisodes)
-                                    .toString(),
+                            "Rank: ${_animeController.numbGetter(widget.ranked)}",
                             style: quicksand(
                                 color: gainsboro,
                                 fontSize: 14.0,
                                 fontWeight: FontWeight.bold),
                           ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          bottom: 10,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            bottom: 10,
+                          ),
+                          child: Text(
+                            'Genders: ' +
+                                _animeController
+                                    .stringGetter(widget.anime.getGenre)
+                                    .replaceAll('[', '( ')
+                                    .replaceAll(']', ' )')
+                                    .replaceAll("'", ''),
+                            style: quicksand(
+                                color: gainsboro,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                        child: Text(
-                          'Aired: ' +
-                              _animeController
-                                  .stringGetter(widget.anime.getStart),
-                          style: quicksand(
-                              color: gainsboro,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold),
+                        Padding(
+                          padding: EdgeInsets.only(
+                            left: 10,
+                            bottom: 10,
+                          ),
+                          child: Text(
+                            "Score: ${_animeController.numbGetter(widget.score)}",
+                            style: quicksand(
+                                color: favyellow,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          bottom: 10,
-                        ),
-                        child: Text(
-                          "Rank: ${_animeController.numbGetter(widget.ranked)}",
-                          style: quicksand(
-                              color: gainsboro,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          bottom: 10,
-                        ),
-                        child: Text(
-                          'Genders: ' +
-                              _animeController
-                                  .stringGetter(widget.anime.getGenre)
-                                  .replaceAll('[', '( ')
-                                  .replaceAll(']', ' )')
-                                  .replaceAll("'", ''),
-                          style: quicksand(
-                              color: gainsboro,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 10,
-                          bottom: 10,
-                        ),
-                        child: Text(
-                          "Score: ${_animeController.numbGetter(widget.score)}",
-                          style: quicksand(
-                              color: favyellow,
-                              fontSize: 14.0,
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -218,7 +220,7 @@ class _Anime_infoState extends State<Anime_info> {
                 borderRadius: BorderRadius.all(Radius.circular(10)),
               ),
               width: 500,
-              height: 450,
+              height: height * 0.5 - 10,
               child: Padding(
                 padding: const EdgeInsets.all(4.0),
                 child: SingleChildScrollView(

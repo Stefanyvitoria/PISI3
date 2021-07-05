@@ -549,7 +549,7 @@ class _CatalogState extends State<Catalog> {
                       future: _searchFuture,
                       user: user,
                     ),
-                  )
+                  ),
                 ],
               ),
             )
