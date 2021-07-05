@@ -3,8 +3,9 @@ import 'package:animecom/models/favorite_model.dart';
 class FavoriteController {
   Favorite _favorite = Favorite();
 
-  Future getFavorites(int uid) async {
-    List data = await _favorite.select(uid, "/read");
+  Future getFavorites(int user_uid, int anime_uid) async {
+    List data = await _favorite.select(anime_uid, "/read");
+
     if (data.length == 0) return null;
     return data.map((e) => Favorite.fromJson(e)).toList();
   }

@@ -113,6 +113,26 @@ class _Anime_infoState extends State<Anime_info> {
                         child: Container(
                           width: 230,
                           child: Text(
+                            'Uid: ' +
+                                _animeController
+                                    .numbGetter(widget.info)
+                                    .toString(),
+                            style: quicksand(
+                                color: gainsboro,
+                                fontSize: 14.0,
+                                fontWeight: FontWeight.bold),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(
+                          left: 10,
+                          top: 5.0,
+                          bottom: 10,
+                        ),
+                        child: Container(
+                          width: 230,
+                          child: Text(
                             'Episodes: ' +
                                 _animeController
                                     .numbGetter(widget.anime.getEpisodes)

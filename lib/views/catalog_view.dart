@@ -30,46 +30,9 @@ class _CatalogState extends State<Catalog> {
   Profile user;
   List titles = ['Catalog', 'Profile', 'Search'];
   String title = 'Catalog';
-  var _comedyFuture,
-      _sportsFuture,
-      _dramaFuture,
-      _schoolFuture,
+  var _sportsFuture,
       _shounenFuture,
-      _musicFuture,
-      _romanceFuture,
-      _scifiFuture,
-      _adventureFuture,
-      _mysteryFuture,
-      _fantasyFuture,
       _actionFuture,
-      _militaryFuture,
-      _magicFuture,
-      _supernaturalFuture,
-      _vampireFuture,
-      _sliceFuture,
-      _demonsFuture,
-      _historicalFuture,
-      _superFuture,
-      _mechaFuture,
-      _parodyFuture,
-      _samuraiFuture,
-      _seinenFuture,
-      _policeFuture,
-      _psychoFuture,
-      _joseiFuture,
-      _spaceFuture,
-      _kidsFuture,
-      _shoujoaiFuture,
-      _ecchiFuture,
-      _shoujoFuture,
-      _horrorFuture,
-      _shounenaiFuture,
-      _carsFuture,
-      _martialFuture,
-      _gameFuture,
-      _thrillerFuture,
-      _dementiaFuture,
-      _haremFuture,
       _topRatedFuture,
       _searchFuture;
   @override
@@ -79,46 +42,12 @@ class _CatalogState extends State<Catalog> {
     super.initState();
     _pageController = PageController();
     _topRatedFuture = animeListScore(8);
-    _dramaFuture = animeList('Drama');
-    _comedyFuture = animeList('Comedy');
+
     _sportsFuture = animeList('Sports');
-    _samuraiFuture = animeList('Samurai');
-    _schoolFuture = animeList('School');
-    _fantasyFuture = animeList('Fantasy');
-    _adventureFuture = animeList('Adventure');
-    _psychoFuture = animeList('Psychological');
-    _dementiaFuture = animeList('Dementia');
-    _thrillerFuture = animeList('Thriller');
-    _gameFuture = animeList('Game');
-    _martialFuture = animeList('Martial Arts');
-    _carsFuture = animeList('Cars');
-    _shounenaiFuture = animeList('Shounen Ai');
-    _horrorFuture = animeList('Horror');
-    _shoujoFuture = animeList('Shoujo');
-    _ecchiFuture = animeList('Ecchi');
-    _shoujoaiFuture = animeList('Shoujo Ai');
-    _kidsFuture = animeList('Kids');
-    _spaceFuture = animeList('Space');
-    _joseiFuture = animeList('Josei');
-    _policeFuture = animeList('Police');
-    _seinenFuture = animeList('Seinen');
-    _parodyFuture = animeList('Parody');
-    _mechaFuture = animeList('Mecha');
-    _superFuture = animeList('Super Power');
-    _historicalFuture = animeList('Historical');
-    _demonsFuture = animeList('Demons');
-    _sliceFuture = animeList('Slice of Life');
-    _vampireFuture = animeList('Vampire');
-    _supernaturalFuture = animeList('Supernatural');
-    _magicFuture = animeList('Magic');
-    _militaryFuture = animeList('Military');
-    _romanceFuture = animeList('Romance');
-    _musicFuture = animeList('Music');
+
     _shounenFuture = animeList('Shounen');
     _actionFuture = animeList('Action');
-    _scifiFuture = animeList('Sci-Fi');
-    _mysteryFuture = animeList('Mystery');
-    _haremFuture = animeList('Harem');
+
     _searchFuture = animeListCluster('pokemon');
   }
 
@@ -262,376 +191,6 @@ class _CatalogState extends State<Catalog> {
                         future: _sportsFuture,
                       ),
                     )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Comedy',
-                      child: FutureAnimes(
-                        genre: 'Comedy',
-                        future: _comedyFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Drama',
-                      child: FutureAnimes(
-                        genre: 'Drama',
-                        future: _dramaFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'School',
-                      child: FutureAnimes(
-                        genre: 'School',
-                        future: _schoolFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Music',
-                      child: FutureAnimes(
-                        genre: 'Music',
-                        future: _musicFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Romance',
-                      child: FutureAnimes(
-                        genre: 'Romance',
-                        future: _romanceFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Sci-fi',
-                      child: FutureAnimes(
-                        genre: 'Sci-fi',
-                        future: _scifiFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Adventure',
-                      child: FutureAnimes(
-                        genre: 'Adventure',
-                        future: _adventureFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Mystery',
-                      child: FutureAnimes(
-                        genre: 'Mystery',
-                        future: _mysteryFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Fantasy',
-                      child: FutureAnimes(
-                        genre: 'Fantasy',
-                        future: _fantasyFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Military',
-                      child: FutureAnimes(
-                        genre: 'Military',
-                        future: _militaryFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Magic',
-                      child: FutureAnimes(
-                        genre: 'Magic',
-                        future: _magicFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Supernatural',
-                      child: FutureAnimes(
-                        genre: 'Supernatural',
-                        future: _supernaturalFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Vampire',
-                      child: FutureAnimes(
-                        genre: 'Vampire',
-                        future: _vampireFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Slice of Life',
-                      child: FutureAnimes(
-                        genre: 'Slice of Life',
-                        future: _sliceFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Demons',
-                      child: FutureAnimes(
-                        genre: 'Demons',
-                        future: _demonsFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Historical',
-                      child: FutureAnimes(
-                        genre: 'Historical',
-                        future: _historicalFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Super Power',
-                      child: FutureAnimes(
-                        genre: 'Super Power',
-                        future: _superFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Mecha',
-                      child: FutureAnimes(
-                        genre: 'Mecha',
-                        future: _mechaFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Parody',
-                      child: FutureAnimes(
-                        genre: 'Parody',
-                        future: _parodyFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Samurai',
-                      child: FutureAnimes(
-                        genre: 'Samurai',
-                        future: _samuraiFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Seinen',
-                      child: FutureAnimes(
-                        genre: 'Seinen',
-                        future: _seinenFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Police',
-                      child: FutureAnimes(
-                        genre: 'Police',
-                        future: _policeFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Psychological',
-                      child: FutureAnimes(
-                        genre: 'Psychological',
-                        future: _psychoFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Josei',
-                      child: FutureAnimes(
-                        genre: 'Josei',
-                        future: _joseiFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Space',
-                      child: FutureAnimes(
-                        genre: 'Space',
-                        future: _spaceFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Kids',
-                      child: FutureAnimes(
-                        genre: 'Kids',
-                        future: _kidsFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Shoujo Ai',
-                      child: FutureAnimes(
-                        genre: 'Shoujo Ai',
-                        future: _shoujoaiFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Shoujo',
-                      child: FutureAnimes(
-                        genre: 'Shoujo',
-                        future: _shoujoFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Horror',
-                      child: FutureAnimes(
-                        genre: 'Horror',
-                        future: _horrorFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Shounen Ai',
-                      child: FutureAnimes(
-                        genre: 'Shounen Ai',
-                        future: _shounenaiFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Cars',
-                      child: FutureAnimes(
-                        genre: 'Cars',
-                        future: _carsFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Martial Arts',
-                      child: FutureAnimes(
-                        genre: 'Martial Arts',
-                        future: _martialFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Game',
-                      child: FutureAnimes(
-                        genre: 'Game',
-                        future: _gameFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Thriller',
-                      child: FutureAnimes(
-                        genre: 'Thriller',
-                        future: _thrillerFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Dementia',
-                      child: FutureAnimes(
-                        genre: 'Dementia',
-                        future: _dementiaFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Harem',
-                      child: FutureAnimes(
-                        genre: 'Harem',
-                        future: _haremFuture,
-                      ),
-                    )),
-                Padding(
-                    padding:
-                        EdgeInsets.only(top: 10, left: 5, right: 5, bottom: 10),
-                    child: CategoryContainer(
-                      text: 'Ecchi',
-                      child: FutureAnimes(
-                        genre: 'Ecchi',
-                        future: _ecchiFuture,
-                      ),
-                    )),
               ]),
             ),
 
@@ -684,18 +243,12 @@ class _CatalogState extends State<Catalog> {
                               child: Column(
                                 children: <Widget>[
                                   ListTile(
-                                    onTap: () async {
-                                      var favorites = await favoriteController
-                                          .getFavorites(user.getUid);
+                                    onTap: () {
                                       Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => Favorites(),
-                                          settings: RouteSettings(
-                                            arguments: [user, favorites],
-                                          ),
-                                        ),
-                                      );
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  Favorites()));
                                     },
                                     leading: Icon(
                                       Icons.star,
@@ -988,7 +541,7 @@ class _CatalogState extends State<Catalog> {
                     height: 465,
                     child: SearchAnimes(
                       future: _searchFuture,
-                      user_uid: user.getUid,
+                      user: user,
                     ),
                   )
                 ],

@@ -104,7 +104,7 @@ class FutureAnimes extends StatelessWidget {
             } else {
               return ListView.builder(
                   scrollDirection: Axis.horizontal,
-                  itemCount: 10,
+                  itemCount: 5,
                   itemBuilder: (context, i) {
                     var image = NetworkImage(
                         _animeController.imgGetter(snapshot.data[i][7]));

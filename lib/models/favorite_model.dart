@@ -21,10 +21,10 @@ class Favorite {
     this._animeUid = data[1];
   }
 
-  Future<List> select(int uid, String path) async {
+  Future<List> select(int anime_uid, String path) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'favorites';
-    send['condition'] = 'user_uid = $uid';
+    send['condition'] = 'anime_uid= $anime_uid';
     var data = await apiRest.call(
       path: path,
       server: appController.getServer,

@@ -17,6 +17,6 @@ class UserController {
   }
 
   deleteUser(int uid) async {
-    await _profile.delete(uid, '/delete');
+    await _profile.delete(uid);
   }
 }

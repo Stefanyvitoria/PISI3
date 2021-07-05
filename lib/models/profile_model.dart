@@ -115,7 +115,7 @@ class Profile {
     );
   }
 
-  delete(int uid, String path) async {
+  delete(int uid) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'profiles';
     send['condition'] = 'uid = $uid';
