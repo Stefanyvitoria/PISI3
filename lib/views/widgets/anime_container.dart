@@ -57,7 +57,7 @@ class AnimeContainer extends StatelessWidget {
                               genre: genre,
                               ranked: _animeController.numbGetter(ranked),
                               score: _animeController.numbGetter(score),
-                              anime: Anime.fromJson(anime))));
+                              anime: anime)));
                     },
                     child: Container(
                       height: 170,
@@ -133,7 +133,7 @@ class AnimeContainer extends StatelessWidget {
                 child: Align(
                   alignment: Alignment.topRight,
                   child: FavoriteButton(
-                    isFavorite: false,
+                    isFavorite: true,
                     iconColor: Colors.red[400],
                     valueChanged: (value) {
                       // if (value == true) {
@@ -181,7 +181,7 @@ class SearchAnimes extends StatelessWidget {
             return Center(child: CircularProgressIndicator());
           } else {
             return ListView.builder(
-                itemCount: 5,
+                itemCount: 6,
                 itemBuilder: (context, i) {
                   return AnimeContainer(
                     tag: "${snapshot.data[i][0]}",

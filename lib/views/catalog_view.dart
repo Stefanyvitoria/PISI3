@@ -243,12 +243,18 @@ class _CatalogState extends State<Catalog> {
                               child: Column(
                                 children: <Widget>[
                                   ListTile(
-                                    onTap: () {
+                                    onTap: () async {
+                                      var favorites = await favoriteController
+                                          .getFavorites(user.getUid);
                                       Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  Favorites()));
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Favorites(),
+                                          settings: RouteSettings(
+                                            arguments: [user, favorites],
+                                          ),
+                                        ),
+                                      );
                                     },
                                     leading: Icon(
                                       Icons.star,

@@ -21,10 +21,10 @@ class Favorite {
     this._animeUid = data[1];
   }
 
-  Future<List> select(int anime_uid, String path) async {
+  Future<List> select(int user_uid, String path) async {
     Map send = new Map<String, dynamic>();
     send['table'] = 'favorites';
-    send['condition'] = 'anime_uid= $anime_uid';
+    send['condition'] = 'user_uid= $user_uid';
     var data = await apiRest.call(
       path: path,
       server: appController.getServer,
@@ -44,6 +44,17 @@ class Favorite {
       server: appController.getServer,
       params: {"params": jsonEncode(send)},
     );
+  }
+
+  countFav(int user_uid) async {
+    Map send = new Map<String, dynamic>();
+    send['condition'] = '$user_uid';
+    var data = await apiRest.call(
+      path: '/countFavorites',
+      server: appController.getServer,
+      params: {"params": jsonEncode(send)},
+    );
+    return data['result'];
   }
 
   delete(int user_uid, int anime_uid) async {

@@ -92,11 +92,11 @@ class Profile {
 
   add(String values) async {
     Map send = new Map<String, dynamic>();
-    send['table'] = 'profiles';
+
     send['fields'] = 'email, pass';
     send['values'] = values;
     await apiRest.call(
-      path: "/insert",
+      path: "/procedure",
       server: appController.getServer,
       params: {"params": jsonEncode(send)},
     );

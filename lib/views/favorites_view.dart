@@ -1,4 +1,5 @@
 import 'package:animecom/controllers/anime_controller.dart';
+import 'package:animecom/controllers/favorites_controller.dart';
 import 'package:animecom/models/anime_model.dart';
 import 'package:animecom/models/evaluation_model.dart';
 import 'package:animecom/models/favorite_model.dart';
@@ -15,6 +16,7 @@ class Favorites extends StatefulWidget {
 
 class _FavoritesState extends State<Favorites> {
   AnimeController _animeController = AnimeController();
+  FavoriteController _favoriteController = FavoriteController();
   Profile user;
   List favorites;
 
@@ -47,36 +49,66 @@ class _FavoritesState extends State<Favorites> {
                   ),
                 ),
               )
-            : ListView.builder(
-                itemCount: favorites.length,
-                itemBuilder: (context, c) {
-                  Favorite favorite = favorites[c];
-                  return FutureBuilder(
-                    future: _animeController.getAnime(favorite.getAnimeUid),
-                    builder: (context, future) {
-                      while (!future.hasData) {
-                        return Container();
-                      }
-                      Anime anime = future.data;
-                      return FutureBuilder(
-                        future: _animeController
-                            .getAnimeEvaluation(favorite.getAnimeUid),
-                        builder: (context, future1) {
-                          while (!future1.hasData) {
-                            return Container();
+            : Container(
+                height: MediaQuery.of(context).size.height,
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 50,
+                    ),
+                    FutureBuilder(
+                        future: _favoriteController.countFavorites(user.getUid),
+                        builder: (context, snapshot) {
+                          while (!snapshot.hasData) {
+                            return CircularProgressIndicator();
                           }
-                          Evaluation evaluation = future1.data;
-                          return AnimeContainer(
-                            name: anime.getName,
-                            synopsis: anime.getSynopsi,
-                            score: evaluation.getScore.toInt(),
-                            imgurl: anime.getImgUrl,
+                          return Text(
+                            'Favoritos: ${snapshot.data[0][0]}',
+                            style: quicksand(
+                                fontSize: 20.0,
+                                fontWeight: FontWeight.bold,
+                                color: gainsboro),
+                          );
+                        }),
+                    Container(
+                      height: MediaQuery.of(context).size.height - 100,
+                      child: ListView.builder(
+                        itemCount: favorites.length,
+                        itemBuilder: (context, c) {
+                          Favorite favorite = favorites[c];
+                          return FutureBuilder(
+                            future:
+                                _animeController.getAnime(favorite.getAnimeUid),
+                            builder: (context, future) {
+                              while (!future.hasData) {
+                                return Container();
+                              }
+                              Anime anime = future.data;
+                              return FutureBuilder(
+                                future: _animeController
+                                    .getAnimeEvaluation(favorite.getAnimeUid),
+                                builder: (context, future1) {
+                                  while (!future1.hasData) {
+                                    return Container();
+                                  }
+                                  Evaluation evaluation = future1.data;
+                                  return AnimeContainer(
+                                    name: anime.getName,
+                                    tag: anime.getAnimeUid.toString(),
+                                    anime: anime,
+                                    synopsis: anime.getSynopsi,
+                                    score: evaluation.getScore.toInt(),
+                                    imgurl: anime.getImgUrl,
+                                  );
+                                },
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                  );
-                },
+                      ),
+                    ),
+                  ],
+                ),
               ),
       ),
     );
